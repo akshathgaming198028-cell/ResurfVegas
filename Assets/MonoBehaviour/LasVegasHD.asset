@@ -1,0 +1,256 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c18d6bfabdd5ca03025b22e21e4a00c, type: 3}
+  m_Name: LasVegasHD
+  m_EditorClassIdentifier:
+  _monumentPrefabs:
+  - {fileID: 11461526, guid: d6470c6ea87cf6b469a4a5bad6fec85c, type: 2}
+  - {fileID: 11461526, guid: 737b64d45c2570a4fae427ee4bcea384, type: 2}
+  _backgroundPrefabs:
+  - {fileID: 11461526, guid: 1561e76932096b1469af5376f105986b, type: 2}
+  - {fileID: 11461526, guid: ab934e1b27dff6440845dc8979dae685, type: 2}
+  - {fileID: 11461526, guid: 1561e76932096b1469af5376f105986b, type: 2}
+  - {fileID: 11461526, guid: ab934e1b27dff6440845dc8979dae685, type: 2}
+  - {fileID: 11461526, guid: 3e86c5a28050bfb46b865be5ea271a7a, type: 2}
+  _fogColor: {r: 0.4530335, g: 0.22707611, b: 0.5514706, a: 0}
+  _fogGradientTop: {r: 0.22299857, g: 0.02870891, b: 0.43382353, a: 0}
+  _fogGradientBottom: {r: 0.9450981, g: 0.53333336, b: 0.37647063, a: 0}
+  _fogSilhouetteColor: {r: 0.38755777, g: 0.17603809, b: 0.5441177, a: 0}
+  _fogGradientOffset: 0.05
+  _glowGoldColor: {r: 0.43137255, g: 0.2811732, b: 0, a: 0}
+  _glowGold: {fileID: 2100000, guid: 00097afd807f8e646a411c043ebf854c, type: 2}
+  _glowGoldFalloff: 200
+  _environmentModels:
+  - {fileID: 147589, guid: 1513c02a6e2d5f349a7031df7d35ee1c, type: 2}
+  - {fileID: 147589, guid: 99970a58467537844996e553e66de0a1, type: 2}
+  _characterModels:
+  - {fileID: 147589, guid: 9b3caf48bfdb6f44bb09796e4ed23050, type: 2}
+  - {fileID: 147589, guid: 37e95ddc1bde2a14aa0ea6db98576e96, type: 2}
+  _dynamicChangingMaterials:
+  - {fileID: 2100000, guid: f8625a10ab126b845a90192bed5666e0, type: 2}
+  - {fileID: 2100000, guid: c2008dcb542d8a54a8da45db71b3459a, type: 2}
+  _materialReplacementTextures:
+  - material: {fileID: 2100000, guid: a9c9d2c920a74814ebfd930e8f5f7c51, type: 2}
+    texture: {fileID: 2800000, guid: 81fd644baab851445a2f0eaf7641ad44, type: 3}
+  - material: {fileID: 2100000, guid: 0dd77dd0ddb052845abdc057b6d5c595, type: 2}
+    texture: {fileID: 2800000, guid: 981eec20deb04b040b5114027bed0189, type: 3}
+  - material: {fileID: 2100000, guid: c1959544638340c478c37b82ffd61c5c, type: 2}
+    texture: {fileID: 2800000, guid: ede3d72b2aac6074c9e1f7b3baa0c2dd, type: 3}
+  - material: {fileID: 2100000, guid: f8625a10ab126b845a90192bed5666e0, type: 2}
+    texture: {fileID: 2800000, guid: 632126acf3db7da43abf6c99bb0e3ee4, type: 3}
+  - material: {fileID: 2100000, guid: 85952db6504e3f049b6baed371c5e729, type: 2}
+    texture: {fileID: 2800000, guid: da562b6de89d1784a85256f91f7a0021, type: 3}
+  - material: {fileID: 2100000, guid: 926e3d3a0ba1bee45a5c701ebba031ac, type: 2}
+    texture: {fileID: 2800000, guid: 632126acf3db7da43abf6c99bb0e3ee4, type: 3}
+  - material: {fileID: 2100000, guid: f61fba77f76fec14b83bdf9eb9860703, type: 2}
+    texture: {fileID: 2800000, guid: 632126acf3db7da43abf6c99bb0e3ee4, type: 3}
+  - material: {fileID: 2100000, guid: 83a2dfba07b6e5b478c0ff40ab5906f5, type: 2}
+    texture: {fileID: 2800000, guid: 632126acf3db7da43abf6c99bb0e3ee4, type: 3}
+  - material: {fileID: 2100000, guid: c2008dcb542d8a54a8da45db71b3459a, type: 2}
+    texture: {fileID: 2800000, guid: da562b6de89d1784a85256f91f7a0021, type: 3}
+  _devicePerformanceRelativeMaterials:
+  - highPerformance: {fileID: 2100000, guid: 31d1c0f2bef859645a4cba69c21566e7, type: 2}
+    mediumPerformance: {fileID: 2100000, guid: 0dd77dd0ddb052845abdc057b6d5c595, type: 2}
+    lowPerformance: {fileID: 2100000, guid: 0dd77dd0ddb052845abdc057b6d5c595, type: 2}
+  - highPerformance: {fileID: 2100000, guid: f7189ba574095d14bb1c8884db230dfd, type: 2}
+    mediumPerformance: {fileID: 2100000, guid: 0dd77dd0ddb052845abdc057b6d5c595, type: 2}
+    lowPerformance: {fileID: 2100000, guid: 0dd77dd0ddb052845abdc057b6d5c595, type: 2}
+  - highPerformance: {fileID: 2100000, guid: ed1601ad4735f084f97e02a987cde954, type: 2}
+    mediumPerformance: {fileID: 2100000, guid: 0dd77dd0ddb052845abdc057b6d5c595, type: 2}
+    lowPerformance: {fileID: 2100000, guid: 0dd77dd0ddb052845abdc057b6d5c595, type: 2}
+  - highPerformance: {fileID: 2100000, guid: 63155545068d1024a89949e53a851d81, type: 2}
+    mediumPerformance: {fileID: 2100000, guid: ab83b3da4b6def847aeb80b6626219bb, type: 2}
+    lowPerformance: {fileID: 2100000, guid: ab83b3da4b6def847aeb80b6626219bb, type: 2}
+  - highPerformance: {fileID: 2100000, guid: bc48a2f57b0246c41b6602ce1b95245d, type: 2}
+    mediumPerformance: {fileID: 2100000, guid: ab83b3da4b6def847aeb80b6626219bb, type: 2}
+    lowPerformance: {fileID: 2100000, guid: ab83b3da4b6def847aeb80b6626219bb, type: 2}
+  - highPerformance: {fileID: 2100000, guid: 8ac8e7bed1ca4bc4195f8e1a6d86c2b8, type: 2}
+    mediumPerformance: {fileID: 2100000, guid: ab83b3da4b6def847aeb80b6626219bb, type: 2}
+    lowPerformance: {fileID: 2100000, guid: ab83b3da4b6def847aeb80b6626219bb, type: 2}
+  _prefabMappingsGeneric:
+  - name: Fillers
+    prefabMappings:
+    - genericPrefab: {fileID: 147589, guid: a9612a48268490f429b03e7cbbe52dda, type: 2}
+      themePrefab: {fileID: 147589, guid: 2756e2b11889eaa4fba7e897cb0e5f9e, type: 2}
+    - genericPrefab: {fileID: 147589, guid: 6c5517ecf3a00b8448ff56e843ef12fd, type: 2}
+      themePrefab: {fileID: 147589, guid: 5c577730664749142874ff7d4a7ded7c, type: 2}
+    - genericPrefab: {fileID: 147589, guid: d1403ac61061bd54f80906d19880ff7e, type: 2}
+      themePrefab: {fileID: 147589, guid: 0c6b691859dc9e9478d3fecbe5b15a39, type: 2}
+    - genericPrefab: {fileID: 147589, guid: c69c578da69e6cc44ae6d0d6ba06197d, type: 2}
+      themePrefab: {fileID: 147589, guid: 04100e34cd397164081a0e926ae5a3bd, type: 2}
+    - genericPrefab: {fileID: 147589, guid: 7ab677e697290de458644dac0f626b9a, type: 2}
+      themePrefab: {fileID: 147589, guid: 92d9c5aaff33c4044af92e49e020369d, type: 2}
+    - genericPrefab: {fileID: 147589, guid: 9ffda335ae7ed534fb47116e07e8e65d, type: 2}
+      themePrefab: {fileID: 147589, guid: 8dc27f0e6da677c498ea2a6ec1feb4e6, type: 2}
+    - genericPrefab: {fileID: 147589, guid: 5b517cb0e2f4cde4c996e9fe2ef6f94a, type: 2}
+      themePrefab: {fileID: 147589, guid: 43644091de4fb434baf62791abd7fe3d, type: 2}
+    - genericPrefab: {fileID: 147589, guid: 3262d0985e5649b49b34f28ec1dc98fb, type: 2}
+      themePrefab: {fileID: 147589, guid: b52728306fadff34e93b43f37d98a8bf, type: 2}
+    - genericPrefab: {fileID: 147589, guid: c9cc73272f00aef4c9d035414b35d89b, type: 2}
+      themePrefab: {fileID: 147589, guid: d73232d59dd4bdc4389251b7a16c0f17, type: 2}
+    - genericPrefab: {fileID: 147589, guid: d2ea59ae5dce09348b0abb0f9df1b3e2, type: 2}
+      themePrefab: {fileID: 147589, guid: 9f88adfaafd63c24f8dba00d987b3708, type: 2}
+    - genericPrefab: {fileID: 147589, guid: 5f41abbcbac13e146acd4bf8a13e9e38, type: 2}
+      themePrefab: {fileID: 147589, guid: 0110440c5194d894fadd5fa9d20cbac5, type: 2}
+    - genericPrefab: {fileID: 147589, guid: c1c697d65288d8c47ade5641ec4b6864, type: 2}
+      themePrefab: {fileID: 147589, guid: d60d9ce031592ca419bc30c055c69106, type: 2}
+    - genericPrefab: {fileID: 147589, guid: a370e1629efc11f4c9a8f2eab380f056, type: 2}
+      themePrefab: {fileID: 147589, guid: 581d7209d0b8dd44a9351b7ce045c834, type: 2}
+    - genericPrefab: {fileID: 147589, guid: 863342c6d83f36c43b1fcfa7759c9515, type: 2}
+      themePrefab: {fileID: 147589, guid: 440a1dc022943334baade02b7a7482e5, type: 2}
+    - genericPrefab: {fileID: 147589, guid: f5185a2ad35b54e46b8d2e3f0293374e, type: 2}
+      themePrefab: {fileID: 147589, guid: 87a3046b60c3db74da2255f1a5fcc25b, type: 2}
+    - genericPrefab: {fileID: 147589, guid: 15f1267c5a299ce49903a8ee4be97aa1, type: 2}
+      themePrefab: {fileID: 147589, guid: e956992565f7c8441837cbf73fde8f14, type: 2}
+  - name: Props
+    prefabMappings:
+    - genericPrefab: {fileID: 147589, guid: 29baf0869dde5e1469246debbee672ab, type: 2}
+      themePrefab: {fileID: 147589, guid: 9baa707d55f95c7469623d160509111e, type: 2}
+    - genericPrefab: {fileID: 147589, guid: 98212491fda67f04fadf0952b940a6ef, type: 2}
+      themePrefab: {fileID: 147589, guid: be5aca8420114d7448521b3a43c759a9, type: 2}
+    - genericPrefab: {fileID: 147589, guid: 9d82c05dd0899c243b343cb37be9fda7, type: 2}
+      themePrefab: {fileID: 147589, guid: ad1f93fc2bb859745ab6d81a895fe563, type: 2}
+    - genericPrefab: {fileID: 147589, guid: de754ef85bfeefc41960fd613e1b793c, type: 2}
+      themePrefab: {fileID: 147589, guid: 1c18154da4124394d9066ef47e59c06c, type: 2}
+    - genericPrefab: {fileID: 147589, guid: b5f606b04613679478c61449400b5290, type: 2}
+      themePrefab: {fileID: 147589, guid: 894d7abfa38c5ca48ad6709c2cfd3216, type: 2}
+    - genericPrefab: {fileID: 147589, guid: c7610dfa34cd485479371141cce7f3a4, type: 2}
+      themePrefab: {fileID: 147589, guid: 9660ad1bd88a08d4586d51c44331a5ab, type: 2}
+    - genericPrefab: {fileID: 147589, guid: 8df6e493d91a9784ea34e605214841e8, type: 2}
+      themePrefab: {fileID: 147589, guid: c773d997fcf398441970c44b0921f8ab, type: 2}
+    - genericPrefab: {fileID: 147589, guid: 65caf474d5a58eb46864b469807c3c85, type: 2}
+      themePrefab: {fileID: 147589, guid: 444dcd47353aa7c43ad9d28e29702314, type: 2}
+    - genericPrefab: {fileID: 147589, guid: 36a004fa93caba844ae9b96469db9531, type: 2}
+      themePrefab: {fileID: 147589, guid: f92475317e0931f40b87e95e00d015bb, type: 2}
+    - genericPrefab: {fileID: 147589, guid: 3df36c08a9d45b342b9a4dafe0bc4f59, type: 2}
+      themePrefab: {fileID: 147589, guid: 140a077acc74b0745a41f27e7abf5e98, type: 2}
+    - genericPrefab: {fileID: 147589, guid: cb286ee48bb89564dace1e6547ff1178, type: 2}
+      themePrefab: {fileID: 147589, guid: c4a3be96085803a44a9b06541b21d66b, type: 2}
+    - genericPrefab: {fileID: 147589, guid: 9974e4d270adb194984733869fbcdcd8, type: 2}
+      themePrefab: {fileID: 147589, guid: 2cc0ff90df1026743b573f1476dfe896, type: 2}
+    - genericPrefab: {fileID: 147589, guid: a15e5bff2aa35834c9e27ba3fd644e86, type: 2}
+      themePrefab: {fileID: 147589, guid: 988140b2948f48b4b872866116ff21b5, type: 2}
+    - genericPrefab: {fileID: 147589, guid: 577a520e2a1d855498681fd47fd5887c, type: 2}
+      themePrefab: {fileID: 147589, guid: b20c1ee5f3bca6d4aa51f175d1258563, type: 2}
+    - genericPrefab: {fileID: 147589, guid: 8693bac25093f114da4f57cee265d75b, type: 2}
+      themePrefab: {fileID: 147589, guid: 0d3c0cd2412a5264e84726a4f8ac01ec, type: 2}
+    - genericPrefab: {fileID: 147589, guid: cef70d6920d61e2409c4e47e758a30a7, type: 2}
+      themePrefab: {fileID: 147589, guid: 4cd7837a4b63cbe4ea2e01c6a2a54599, type: 2}
+    - genericPrefab: {fileID: 147589, guid: 63ce457251a49b64c8c1a019686ffacc, type: 2}
+      themePrefab: {fileID: 147589, guid: 1393be8f3ade9384c826c80db0191abd, type: 2}
+    - genericPrefab: {fileID: 147589, guid: 689c1bd4b5756eb4cbd4641e18c18378, type: 2}
+      themePrefab: {fileID: 147589, guid: 4638f41d3aea9794294fa967c3d2ea34, type: 2}
+    - genericPrefab: {fileID: 147589, guid: d74725480e6de434480739648dec5574, type: 2}
+      themePrefab: {fileID: 147589, guid: f1be426ed2ae2b040a7d0fd537fdf28c, type: 2}
+    - genericPrefab: {fileID: 147589, guid: cf32c35c4a5bb0446a61e08f443e299b, type: 2}
+      themePrefab: {fileID: 147589, guid: 4e91e94fc8503d3458a691bc97a7994a, type: 2}
+    - genericPrefab: {fileID: 147589, guid: 6e2fe3415e83aad4e838196683cfc62e, type: 2}
+      themePrefab: {fileID: 147589, guid: f5bf442d4e64eed488af676fb9a46a95, type: 2}
+    - genericPrefab: {fileID: 147589, guid: 6ed19ff0f0732ce4f99a2e141cf55f7e, type: 2}
+      themePrefab: {fileID: 147589, guid: fe50c939394f5e44a873779fde38bdbf, type: 2}
+    - genericPrefab: {fileID: 147589, guid: 7892a0cf82315de42b30bf94c4290235, type: 2}
+      themePrefab: {fileID: 147589, guid: b98f41500589b6e4b9ccded10e699ee1, type: 2}
+    - genericPrefab: {fileID: 147589, guid: 1949324e3d6f2aa4880afdc8786ce48f, type: 2}
+      themePrefab: {fileID: 147589, guid: 9ffe0e4be1e656c43b7e8761e0997cf3, type: 2}
+    - genericPrefab: {fileID: 147589, guid: 726471c826616904f8764bd202782ce5, type: 2}
+      themePrefab: {fileID: 147589, guid: 36c22f1253fc0da46b5bc9cee7df58cc, type: 2}
+    - genericPrefab: {fileID: 147589, guid: e46cded69a3ee7c4e9a7f2f19a429de9, type: 2}
+      themePrefab: {fileID: 147589, guid: dfa2ca3f11f94dc4ba768196cbd8eada, type: 2}
+    - genericPrefab: {fileID: 147589, guid: a85427945b40de743b7d9d744324e8c4, type: 2}
+      themePrefab: {fileID: 147589, guid: 26d8b19688aca8847977a2472602058d, type: 2}
+    - genericPrefab: {fileID: 147589, guid: 52933903129e7ae4788b24561a90fd1e, type: 2}
+      themePrefab: {fileID: 147589, guid: 9519fd0d1059db44a9ee0d14dff30e3c, type: 2}
+    - genericPrefab: {fileID: 147589, guid: 98064d83b478924458ccafeaaf313504, type: 2}
+      themePrefab: {fileID: 147589, guid: c4de149d91f4c704cbeb6e1594790e3b, type: 2}
+    - genericPrefab: {fileID: 147589, guid: eaaa89d6b402b404f8241141b068e23c, type: 2}
+      themePrefab: {fileID: 147589, guid: e15c22cc6fb83054492fa40ecceae379, type: 2}
+    - genericPrefab: {fileID: 147589, guid: 6f11fc40f46d80b409d6ba8418a13fbc, type: 2}
+      themePrefab: {fileID: 147589, guid: 415626cace7e3e640a8d9eb72a8d4cee, type: 2}
+    - genericPrefab: {fileID: 147589, guid: d64f0aed12b3c094885c90f21fd97fee, type: 2}
+      themePrefab: {fileID: 147589, guid: 2305d99f7149ea541b187827c957a9e1, type: 2}
+    - genericPrefab: {fileID: 147589, guid: e52ece5485b65a94e8d657a734e83685, type: 2}
+      themePrefab: {fileID: 147589, guid: 3a1a8aaa09f8fc94bb82e5d86efd139c, type: 2}
+  - name: Specials
+    prefabMappings:
+    - genericPrefab: {fileID: 147589, guid: 01b07beed4b3a644c998ce42428d62c6, type: 2}
+      themePrefab: {fileID: 147589, guid: feaa6fa758b052c4f921fabbc29496bf, type: 2}
+    - genericPrefab: {fileID: 147589, guid: 59c235b2ab54aee49a2875ed393c2813, type: 2}
+      themePrefab: {fileID: 147589, guid: 09fdb84cf71c90745962f1042cff3ce9, type: 2}
+    - genericPrefab: {fileID: 147589, guid: afc3ebcd81a597546a1fb3e9b5b459d8, type: 2}
+      themePrefab: {fileID: 147589, guid: 30194499c8dd7874e92e4377cecc30a4, type: 2}
+    - genericPrefab: {fileID: 147589, guid: 504b09ac48ee4b6418d26885ecdd481b, type: 2}
+      themePrefab: {fileID: 147589, guid: dee166ff1bcf8f240ac39fbd587b3f2c, type: 2}
+    - genericPrefab: {fileID: 147589, guid: eab3b9df35291d4449ba052c155010fb, type: 2}
+      themePrefab: {fileID: 147589, guid: 6b8a863ad98e8ee4d90fe5eed9d5d5c6, type: 2}
+    - genericPrefab: {fileID: 147589, guid: 7b6852d062c24bf4aa6b2f2f2e2d3d97, type: 2}
+      themePrefab: {fileID: 147589, guid: 4e99743082c742d4baf2eea6c7c4ebd4, type: 2}
+    - genericPrefab: {fileID: 147589, guid: f15653bea8cd9cb41a9011fcc470fff6, type: 2}
+      themePrefab: {fileID: 147589, guid: 2b37e1df713a8cd4c9991add7da56915, type: 2}
+    - genericPrefab: {fileID: 147589, guid: 70efcadf6e379f141a4cd6f15b34d084, type: 2}
+      themePrefab: {fileID: 147589, guid: b5217e9f1eb38094787da95a427659e0, type: 2}
+    - genericPrefab: {fileID: 147589, guid: bfc5ebf08394c6248bcd8b567156a8d5, type: 2}
+      themePrefab: {fileID: 147589, guid: feaa6fa758b052c4f921fabbc29496bf, type: 2}
+    - genericPrefab: {fileID: 147589, guid: 5ca243b545f5b404d87e525429097591, type: 2}
+      themePrefab: {fileID: 147589, guid: 09fdb84cf71c90745962f1042cff3ce9, type: 2}
+    - genericPrefab: {fileID: 147589, guid: 9dd3f307603979b44ad8be9ac9c88144, type: 2}
+      themePrefab: {fileID: 147589, guid: 30194499c8dd7874e92e4377cecc30a4, type: 2}
+  - name: Tracks
+    prefabMappings:
+    - genericPrefab: {fileID: 147589, guid: dc3067b1dd4356345a750746a13ef25e, type: 2}
+      themePrefab: {fileID: 147589, guid: 200cfb2f2999b8e4e98b84b5aecad62e, type: 2}
+    - genericPrefab: {fileID: 147589, guid: 02d3ef4f65fce1347a8a5033cae28114, type: 2}
+      themePrefab: {fileID: 147589, guid: 0866547a32bdaf144927085abeaf74a5, type: 2}
+    - genericPrefab: {fileID: 147589, guid: e2b949e71ac91a0449a48f62744b121a, type: 2}
+      themePrefab: {fileID: 147589, guid: 9d62141981f4a7a4889f5bd0935d6010, type: 2}
+    - genericPrefab: {fileID: 147589, guid: 6982447c6f063364882c0fafb32f7eda, type: 2}
+      themePrefab: {fileID: 147589, guid: 27db0cf053c3581409e5f60999425f84, type: 2}
+    - genericPrefab: {fileID: 147589, guid: 6427fef18324890409a0d35e1929870f, type: 2}
+      themePrefab: {fileID: 147589, guid: 258907f31926fd4428d152436838c60f, type: 2}
+    - genericPrefab: {fileID: 147589, guid: 1c934a8f71ce8ba4883a5eb8a8a81b5b, type: 2}
+      themePrefab: {fileID: 147589, guid: c1efa762335ed8545a098291c16d80cc, type: 2}
+    - genericPrefab: {fileID: 147589, guid: 040f967911a31bf4fa5137b1749c8577, type: 2}
+      themePrefab: {fileID: 147589, guid: 1cae20b6f9e32b746985648dcf68d3ad, type: 2}
+    - genericPrefab: {fileID: 147589, guid: 5572f3c342173cd40a617c7086fc89ea, type: 2}
+      themePrefab: {fileID: 147589, guid: fa4580e709ef7aa41a31fa1794ca38b1, type: 2}
+    - genericPrefab: {fileID: 147589, guid: e2979ee8c672a4745b438834492bcff1, type: 2}
+      themePrefab: {fileID: 147589, guid: 185af6d4f48717e45836b9615f5aeb42, type: 2}
+    - genericPrefab: {fileID: 147589, guid: 52e9c3b9d1bfe6c41b2f288fef89e225, type: 2}
+      themePrefab: {fileID: 147589, guid: 729a18b271355dd4d881d205c8ffdefa, type: 2}
+    - genericPrefab: {fileID: 147589, guid: 2d34ca2699a039c4d8bc8e37c46cded5, type: 2}
+      themePrefab: {fileID: 147589, guid: bd0fff6338341d848b39121251048e21, type: 2}
+    - genericPrefab: {fileID: 147589, guid: a96145a43202c6549942534f09867276, type: 2}
+      themePrefab: {fileID: 147589, guid: 7864f97553d05324e98504fef650ec06, type: 2}
+    - genericPrefab: {fileID: 147589, guid: 672cd490f06188f4cb08bedd1e834ff5, type: 2}
+      themePrefab: {fileID: 147589, guid: 75a725fa147639d4ea64f124d4306f15, type: 2}
+    - genericPrefab: {fileID: 147589, guid: c036210dc97aafe478d13d5cb3e82de4, type: 2}
+      themePrefab: {fileID: 147589, guid: f912c97f6eabbfd4aa19711649c1d5dc, type: 2}
+    - genericPrefab: {fileID: 147589, guid: a6baa806c169a6349ab38ae460238042, type: 2}
+      themePrefab: {fileID: 147589, guid: 8e7f6b553c256a644baa52f0f6371bc9, type: 2}
+  - name: Tunnels
+    prefabMappings:
+    - genericPrefab: {fileID: 147589, guid: defe4531b7326c34085835cf5b0b3d53, type: 2}
+      themePrefab: {fileID: 147589, guid: 19d5aac2976cecd4eb41117be1a3924c, type: 2}
+    - genericPrefab: {fileID: 147589, guid: a3fdb40cbf5a4ff4e88cccbc1e9b2902, type: 2}
+      themePrefab: {fileID: 147589, guid: 8023bf6c499b29545913bfbb387c537b, type: 2}
+    - genericPrefab: {fileID: 147589, guid: 5cf2529df1e383446bf02fc40ce10dcf, type: 2}
+      themePrefab: {fileID: 147589, guid: 01ecac33a59e61a428bd380cf4c51f7d, type: 2}
+    - genericPrefab: {fileID: 147589, guid: 55310a1164f9977438aafedd519899ec, type: 2}
+      themePrefab: {fileID: 147589, guid: 772f3d27c0324ae4cbbdc330a617709b, type: 2}
+    - genericPrefab: {fileID: 147589, guid: 1877425c092a22243a40e19c15414d49, type: 2}
+      themePrefab: {fileID: 147589, guid: 605d02e4054b05048a95abe298aa6c57, type: 2}
+    - genericPrefab: {fileID: 147589, guid: 27ad47d13bb7554489584d7c669a1507, type: 2}
+      themePrefab: {fileID: 147589, guid: 7531e30702de1154a9b75baf3c8c54db, type: 2}
+    - genericPrefab: {fileID: 147589, guid: b91a91edef1bd5d4cb5955474ec7f942, type: 2}
+      themePrefab: {fileID: 147589, guid: 8d7d559134cd1ff4f8a3e7c53611f1ef, type: 2}
+    - genericPrefab: {fileID: 147589, guid: 21a80129b076a3a46b343d678dfcc174, type: 2}
+      themePrefab: {fileID: 147589, guid: 0d2f6e1f02e62fd4abc38909a55aeef0, type: 2}
+    - genericPrefab: {fileID: 147589, guid: 9c25e9e3d0132814d800d8764b5d0337, type: 2}
+      themePrefab: {fileID: 147589, guid: 410f3ca400718f84697f2a16b01224d5, type: 2}

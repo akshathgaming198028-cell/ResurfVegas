@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 02dd7e956f14ee145b7208fa762321d0
+timeCreated: 1795216805
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 3
+  name:
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 1
+  characterPadding: 0
+  includeFontData: 1
+  fontNames:
+  - Stencilia-A
+  fallbackFontReferences: []
+  customCharacters:
+  fontRenderingMode: 0
+  output:
+    hasEmptyFontData: 0
+  ascentCalculationMode: 1
+  userData:
+  assetBundleName:
+  assetBundleVariant:

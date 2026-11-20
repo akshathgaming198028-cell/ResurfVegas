@@ -1,0 +1,473 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &147589
+GameObject:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_Component:
+  - 4: {fileID: 479954}
+  - 114: {fileID: 11409266}
+  - 95: {fileID: 9505782}
+  m_Layer: 29
+  m_Name: Hoverboard Model Preview Factory
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &479954
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 147589}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -9.873657, y: 3.651001, z: 9.166016}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!114 &11409266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 147589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6ffcc8c71b804df270e25d60c9776a9, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  hoverboards:
+  - name: Hoverboard
+    eulerAngles: {x: 14, y: 110.5, z: 0}
+    menuYPosition: 0.7
+    clipHangtime: {fileID: 7400000, guid: 74c664ac9a4e9984cb7491051900944b, type: 2}
+    clipRun: {fileID: 7400000, guid: 5df5b65719248e741932c3f875a7d019, type: 2}
+    hoverboardPrefab: {fileID: 147589, guid: 3de996f84f841214eb0f82ec09981af7, type: 2}
+    hoverboardPrefabScrollMenu: {fileID: 0}
+  - name: Lowrider
+    eulerAngles: {x: 14, y: 110.5, z: 0}
+    menuYPosition: 3
+    clipHangtime: {fileID: 7400000, guid: 9953d2095dfde424291fcd6e0bccc85c, type: 2}
+    clipRun: {fileID: 7400000, guid: c70b4f2e7c25b324883385d136f1bb88, type: 2}
+    hoverboardPrefab: {fileID: 147589, guid: 9da8647456e05cf4c9adcaeefbfcc350, type: 2}
+    hoverboardPrefabScrollMenu: {fileID: 0}
+  - name: Snowboard
+    eulerAngles: {x: 14, y: 110.5, z: 0}
+    menuYPosition: 2.6
+    clipHangtime: {fileID: 7400000, guid: fa67b10ce80eb464eab914a675d141fc, type: 2}
+    clipRun: {fileID: 7400000, guid: 05c81926d8b3bcb4b8df460f707b35e0, type: 2}
+    hoverboardPrefab: {fileID: 147589, guid: af109a001f4406241a2bbf19096508d0, type: 2}
+    hoverboardPrefabScrollMenu: {fileID: 0}
+  - name: Surfboard
+    eulerAngles: {x: 14, y: 110.5, z: 0}
+    menuYPosition: 4
+    clipHangtime: {fileID: 7400000, guid: 9d809ae6ed193264eac07d95e9caeb46, type: 2}
+    clipRun: {fileID: 7400000, guid: fc2a0af01f99d9a40886fd07169b455c, type: 2}
+    hoverboardPrefab: {fileID: 147589, guid: fbface7fbe01da8419a45ccc0910d1f2, type: 2}
+    hoverboardPrefabScrollMenu: {fileID: 0}
+  - name: GreatWhiteWakeboard
+    eulerAngles: {x: 14, y: 110.5, z: 0}
+    menuYPosition: 1
+    clipHangtime: {fileID: 7400000, guid: 9d809ae6ed193264eac07d95e9caeb46, type: 2}
+    clipRun: {fileID: 7400000, guid: fc2a0af01f99d9a40886fd07169b455c, type: 2}
+    hoverboardPrefab: {fileID: 147589, guid: a5803a61f549830449f8a568b962892c, type: 2}
+    hoverboardPrefabScrollMenu: {fileID: 0}
+  - name: Jumpboard
+    eulerAngles: {x: 14, y: 110.5, z: 0}
+    menuYPosition: 0
+    clipHangtime: {fileID: 7400000, guid: c2e0cdadb80b19540b1ab294c227a8d6, type: 2}
+    clipRun: {fileID: 7400000, guid: 5df5b65719248e741932c3f875a7d019, type: 2}
+    hoverboardPrefab: {fileID: 147589, guid: 676acd88fc6294940a2f4392cc116321, type: 2}
+    hoverboardPrefabScrollMenu: {fileID: 0}
+  - name: Daredevil
+    eulerAngles: {x: 14, y: 110.5, z: 0}
+    menuYPosition: 4.5
+    clipHangtime: {fileID: 7400000, guid: 8ca59fc5b6d6f3844bb955e1d8aaae19, type: 2}
+    clipRun: {fileID: 7400000, guid: a775e125797ec1b48b0ea225b69b2d4e, type: 2}
+    hoverboardPrefab: {fileID: 147589, guid: da8de4e4819833f48936179f880ed4cf, type: 2}
+    hoverboardPrefabScrollMenu: {fileID: 0}
+  - name: Bamboard
+    eulerAngles: {x: 14, y: 110.5, z: 0}
+    menuYPosition: 0.7
+    clipHangtime: {fileID: 7400000, guid: 74c664ac9a4e9984cb7491051900944b, type: 2}
+    clipRun: {fileID: 7400000, guid: 5df5b65719248e741932c3f875a7d019, type: 2}
+    hoverboardPrefab: {fileID: 147589, guid: f3cf4adb26f4a8f4b98010500e81e2f3, type: 2}
+    hoverboardPrefabScrollMenu: {fileID: 0}
+  - name: Starboard
+    eulerAngles: {x: 14, y: 110.5, z: 0}
+    menuYPosition: 0.7
+    clipHangtime: {fileID: 7400000, guid: 9f4ce34368c42b346b13299b416fa31a, type: 2}
+    clipRun: {fileID: 7400000, guid: 5df5b65719248e741932c3f875a7d019, type: 2}
+    hoverboardPrefab: {fileID: 147589, guid: 174d0e07c87598f43b8b8679796613e7, type: 2}
+    hoverboardPrefabScrollMenu: {fileID: 0}
+  - name: Monster
+    eulerAngles: {x: 14, y: 110.5, z: 0}
+    menuYPosition: 0.7
+    clipHangtime: {fileID: 7400000, guid: dec39b63639bd5549ba94f0e41a22381, type: 2}
+    clipRun: {fileID: 7400000, guid: 5df5b65719248e741932c3f875a7d019, type: 2}
+    hoverboardPrefab: {fileID: 147589, guid: 992d406d577d1584d9d6b26c931bffbb, type: 2}
+    hoverboardPrefabScrollMenu: {fileID: 0}
+  - name: SkullFire
+    eulerAngles: {x: 14, y: 110.5, z: 0}
+    menuYPosition: 0.7
+    clipHangtime: {fileID: 7400000, guid: 903ce848bfca08d4895efaa4b73694be, type: 2}
+    clipRun: {fileID: 7400000, guid: 5df5b65719248e741932c3f875a7d019, type: 2}
+    hoverboardPrefab: {fileID: 147589, guid: 2982e5e0014d109479ec9117bd41b952, type: 2}
+    hoverboardPrefabScrollMenu: {fileID: 0}
+  - name: Miami
+    eulerAngles: {x: 14, y: 110.5, z: 0}
+    menuYPosition: 0.7
+    clipHangtime: {fileID: 7400000, guid: 6321d7869506a364f9c38746d1afd508, type: 2}
+    clipRun: {fileID: 7400000, guid: 5df5b65719248e741932c3f875a7d019, type: 2}
+    hoverboardPrefab: {fileID: 147589, guid: 53f91384fb7a1a242bec99a19747c810, type: 2}
+    hoverboardPrefabScrollMenu: {fileID: 0}
+  - name: Liberty
+    eulerAngles: {x: 14, y: 110.5, z: 0}
+    menuYPosition: 0.7
+    clipHangtime: {fileID: 7400000, guid: dcf0ed4d17881b84e8de3f85767b8b2d, type: 2}
+    clipRun: {fileID: 7400000, guid: 5df5b65719248e741932c3f875a7d019, type: 2}
+    hoverboardPrefab: {fileID: 147589, guid: 66e2a66248cf1c844a593eba0dafa1d8, type: 2}
+    hoverboardPrefabScrollMenu: {fileID: 0}
+  - name: RioBoard
+    eulerAngles: {x: 14, y: 110.5, z: 0}
+    menuYPosition: 0.7
+    clipHangtime: {fileID: 7400000, guid: bcea346d1fffa6a498e4562ca6eddd52, type: 2}
+    clipRun: {fileID: 7400000, guid: 5df5b65719248e741932c3f875a7d019, type: 2}
+    hoverboardPrefab: {fileID: 147589, guid: 3ca44ab5be3df2346954d817034b6239, type: 2}
+    hoverboardPrefabScrollMenu: {fileID: 0}
+  - name: Treehugger
+    eulerAngles: {x: 14, y: 110.5, z: 0}
+    menuYPosition: 0.7
+    clipHangtime: {fileID: 7400000, guid: dec39b63639bd5549ba94f0e41a22381, type: 2}
+    clipRun: {fileID: 7400000, guid: 5df5b65719248e741932c3f875a7d019, type: 2}
+    hoverboardPrefab: {fileID: 147589, guid: 9a129baa4b24cd746ab4b5806ae1eafd, type: 2}
+    hoverboardPrefabScrollMenu: {fileID: 0}
+  - name: Chick
+    eulerAngles: {x: 14, y: 110.5, z: 0}
+    menuYPosition: 0.7
+    clipHangtime: {fileID: 7400000, guid: bcea346d1fffa6a498e4562ca6eddd52, type: 2}
+    clipRun: {fileID: 7400000, guid: 5df5b65719248e741932c3f875a7d019, type: 2}
+    hoverboardPrefab: {fileID: 147589, guid: 25715a4df57712041956f91e7cc83121, type: 2}
+    hoverboardPrefabScrollMenu: {fileID: 0}
+  - name: Rome
+    eulerAngles: {x: 14, y: 110.5, z: 0}
+    menuYPosition: 0.7
+    clipHangtime: {fileID: 7400000, guid: 371d5f2fb718c8444b6737a00ddad9e6, type: 2}
+    clipRun: {fileID: 7400000, guid: 5df5b65719248e741932c3f875a7d019, type: 2}
+    hoverboardPrefab: {fileID: 147589, guid: ced48fc78b5e6564b9f8aa37d77bb833, type: 2}
+    hoverboardPrefabScrollMenu: {fileID: 0}
+  - name: Soccer
+    eulerAngles: {x: 14, y: 110.5, z: 0}
+    menuYPosition: 0.7
+    clipHangtime: {fileID: 7400000, guid: dcf0ed4d17881b84e8de3f85767b8b2d, type: 2}
+    clipRun: {fileID: 7400000, guid: 5df5b65719248e741932c3f875a7d019, type: 2}
+    hoverboardPrefab: {fileID: 147589, guid: 54099c12a2c6cd64cafbb8228db99392, type: 2}
+    hoverboardPrefabScrollMenu: {fileID: 0}
+  - name: TheOutback
+    eulerAngles: {x: 14, y: 110.5, z: 0}
+    menuYPosition: 0.7
+    clipHangtime: {fileID: 7400000, guid: dcf0ed4d17881b84e8de3f85767b8b2d, type: 2}
+    clipRun: {fileID: 7400000, guid: 5df5b65719248e741932c3f875a7d019, type: 2}
+    hoverboardPrefab: {fileID: 147589, guid: ffe82f9a09207d84a9bbc06341a4d36a, type: 2}
+    hoverboardPrefabScrollMenu: {fileID: 0}
+  - name: Cherry
+    eulerAngles: {x: 14, y: 110.5, z: 0}
+    menuYPosition: 0.7
+    clipHangtime: {fileID: 7400000, guid: dcf0ed4d17881b84e8de3f85767b8b2d, type: 2}
+    clipRun: {fileID: 7400000, guid: 5df5b65719248e741932c3f875a7d019, type: 2}
+    hoverboardPrefab: {fileID: 147589, guid: 57e7ba0561e2d9d42b53348a7f77c23c, type: 2}
+    hoverboardPrefabScrollMenu: {fileID: 0}
+  - name: Fortune
+    eulerAngles: {x: 14, y: 110.5, z: 0}
+    menuYPosition: 0.7
+    clipHangtime: {fileID: 7400000, guid: dcf0ed4d17881b84e8de3f85767b8b2d, type: 2}
+    clipRun: {fileID: 7400000, guid: 5df5b65719248e741932c3f875a7d019, type: 2}
+    hoverboardPrefab: {fileID: 147589, guid: 8a25cdbc024b6674ba94e31401bf95de, type: 2}
+    hoverboardPrefabScrollMenu: {fileID: 0}
+  - name: HotRod
+    eulerAngles: {x: 14, y: 110.5, z: 0}
+    menuYPosition: 0.7
+    clipHangtime: {fileID: 7400000, guid: b3b23eabe3506ab418beb4f2052b6d71, type: 2}
+    clipRun: {fileID: 7400000, guid: 5ad9f08982f111c48b22c51692927f3e, type: 2}
+    hoverboardPrefab: {fileID: 147589, guid: f85891507a420ce44b5b43195e6ee57b, type: 2}
+    hoverboardPrefabScrollMenu: {fileID: 0}
+  - name: Flamingo
+    eulerAngles: {x: 14, y: 110.5, z: 0}
+    menuYPosition: 0.7
+    clipHangtime: {fileID: 7400000, guid: bcea346d1fffa6a498e4562ca6eddd52, type: 2}
+    clipRun: {fileID: 7400000, guid: 5df5b65719248e741932c3f875a7d019, type: 2}
+    hoverboardPrefab: {fileID: 147589, guid: 937295853d7a6334e90844dc01ca105b, type: 2}
+    hoverboardPrefabScrollMenu: {fileID: 0}
+  - name: Rose
+    eulerAngles: {x: 14, y: 110.5, z: 0}
+    menuYPosition: 0.7
+    clipHangtime: {fileID: 7400000, guid: bcea346d1fffa6a498e4562ca6eddd52, type: 2}
+    clipRun: {fileID: 7400000, guid: 5df5b65719248e741932c3f875a7d019, type: 2}
+    hoverboardPrefab: {fileID: 147589, guid: 9a1e81553236652498ead16c1d04be12, type: 2}
+    hoverboardPrefabScrollMenu: {fileID: 0}
+  - name: Panda
+    eulerAngles: {x: 14, y: 110.5, z: 0}
+    menuYPosition: 0.7
+    clipHangtime: {fileID: 7400000, guid: c2e0cdadb80b19540b1ab294c227a8d6, type: 2}
+    clipRun: {fileID: 7400000, guid: 5df5b65719248e741932c3f875a7d019, type: 2}
+    hoverboardPrefab: {fileID: 147589, guid: 0fb1e4770dd7a4d43a6d60aba10c9db8, type: 2}
+    hoverboardPrefabScrollMenu: {fileID: 0}
+  - name: Dragon
+    eulerAngles: {x: 14, y: 110.5, z: 0}
+    menuYPosition: 0.7
+    clipHangtime: {fileID: 7400000, guid: 74c664ac9a4e9984cb7491051900944b, type: 2}
+    clipRun: {fileID: 7400000, guid: 5df5b65719248e741932c3f875a7d019, type: 2}
+    hoverboardPrefab: {fileID: 147589, guid: 554de4852e387a9419ca7df4c90de48a, type: 2}
+    hoverboardPrefabScrollMenu: {fileID: 0}
+  - name: Teddy
+    eulerAngles: {x: 14, y: 110.5, z: 0}
+    menuYPosition: 0.7
+    clipHangtime: {fileID: 7400000, guid: 74c664ac9a4e9984cb7491051900944b, type: 2}
+    clipRun: {fileID: 7400000, guid: 5df5b65719248e741932c3f875a7d019, type: 2}
+    hoverboardPrefab: {fileID: 147589, guid: 7ddf46c3010142f48a47dd75be353697, type: 2}
+    hoverboardPrefabScrollMenu: {fileID: 0}
+  - name: Pumpkin
+    eulerAngles: {x: 14, y: 110.5, z: 0}
+    menuYPosition: 0.7
+    clipHangtime: {fileID: 7400000, guid: 74c664ac9a4e9984cb7491051900944b, type: 2}
+    clipRun: {fileID: 7400000, guid: 5df5b65719248e741932c3f875a7d019, type: 2}
+    hoverboardPrefab: {fileID: 147589, guid: e6a21a89d58921645b1134844bb5a049, type: 2}
+    hoverboardPrefabScrollMenu: {fileID: 0}
+  - name: londonBoard01
+    eulerAngles: {x: 14, y: 110.5, z: 0}
+    menuYPosition: 0.7
+    clipHangtime: {fileID: 7400000, guid: 9d809ae6ed193264eac07d95e9caeb46, type: 2}
+    clipRun: {fileID: 7400000, guid: 5df5b65719248e741932c3f875a7d019, type: 2}
+    hoverboardPrefab: {fileID: 147589, guid: 212df251639585243bee42f3422baef2, type: 2}
+    hoverboardPrefabScrollMenu: {fileID: 0}
+  - name: londonBoard02
+    eulerAngles: {x: 14, y: 110.5, z: 0}
+    menuYPosition: 0.7
+    clipHangtime: {fileID: 7400000, guid: bcea346d1fffa6a498e4562ca6eddd52, type: 2}
+    clipRun: {fileID: 7400000, guid: 5df5b65719248e741932c3f875a7d019, type: 2}
+    hoverboardPrefab: {fileID: 147589, guid: 9d6aa9313578e2e41bba440eadada755, type: 2}
+    hoverboardPrefabScrollMenu: {fileID: 0}
+  - name: mumbaiBoard01
+    eulerAngles: {x: 14, y: 110.5, z: 0}
+    menuYPosition: 0.7
+    clipHangtime: {fileID: 7400000, guid: c2e0cdadb80b19540b1ab294c227a8d6, type: 2}
+    clipRun: {fileID: 7400000, guid: 5df5b65719248e741932c3f875a7d019, type: 2}
+    hoverboardPrefab: {fileID: 147589, guid: b2ef3955c5d6cee49a6a4defd609107d, type: 2}
+    hoverboardPrefabScrollMenu: {fileID: 0}
+  - name: teleboard
+    eulerAngles: {x: 14, y: 110.5, z: 0}
+    menuYPosition: 0.7
+    clipHangtime: {fileID: 7400000, guid: 371d5f2fb718c8444b6737a00ddad9e6, type: 2}
+    clipRun: {fileID: 7400000, guid: 5df5b65719248e741932c3f875a7d019, type: 2}
+    hoverboardPrefab: {fileID: 147589, guid: 6af6483bc1ec5fc409aa2f808cf7adae, type: 2}
+    hoverboardPrefabScrollMenu: {fileID: 0}
+  - name: gliderboard
+    eulerAngles: {x: 14, y: 110.5, z: 0}
+    menuYPosition: 0.7
+    clipHangtime: {fileID: 7400000, guid: 927b4687f6d73364daa55224bf016421, type: 2}
+    clipRun: {fileID: 7400000, guid: 5df5b65719248e741932c3f875a7d019, type: 2}
+    hoverboardPrefab: {fileID: 147589, guid: 4fbfd372e46df714f87cec23a3ba2121, type: 2}
+    hoverboardPrefabScrollMenu: {fileID: 0}
+  - name: seoulBoard01
+    eulerAngles: {x: 14, y: 110.5, z: 0}
+    menuYPosition: 0.7
+    clipHangtime: {fileID: 7400000, guid: 74c664ac9a4e9984cb7491051900944b, type: 2}
+    clipRun: {fileID: 7400000, guid: 5df5b65719248e741932c3f875a7d019, type: 2}
+    hoverboardPrefab: {fileID: 147589, guid: 9a57580835112bf4491bf1aa5b5bde2d, type: 2}
+    hoverboardPrefabScrollMenu: {fileID: 0}
+  - name: mexicoBoard01
+    eulerAngles: {x: 14, y: 110.5, z: 0}
+    menuYPosition: 0.7
+    clipHangtime: {fileID: 7400000, guid: bcea346d1fffa6a498e4562ca6eddd52, type: 2}
+    clipRun: {fileID: 7400000, guid: 5df5b65719248e741932c3f875a7d019, type: 2}
+    hoverboardPrefab: {fileID: 147589, guid: 818dbbfe902fa164b8332fc83a88eaa0, type: 2}
+    hoverboardPrefabScrollMenu: {fileID: 0}
+  - name: vancouverBoard01
+    eulerAngles: {x: 14, y: 110.5, z: 0}
+    menuYPosition: 0.7
+    clipHangtime: {fileID: 7400000, guid: 9d809ae6ed193264eac07d95e9caeb46, type: 2}
+    clipRun: {fileID: 7400000, guid: 5df5b65719248e741932c3f875a7d019, type: 2}
+    hoverboardPrefab: {fileID: 147589, guid: 30702bd5ed0ad2c41a4c51a95be67434, type: 2}
+    hoverboardPrefabScrollMenu: {fileID: 0}
+  - name: saopauloBoard01
+    eulerAngles: {x: 14, y: 110.5, z: 0}
+    menuYPosition: 0.7
+    clipHangtime: {fileID: 7400000, guid: 6f32c0650b2ae924ebe13bef3bd89e43, type: 2}
+    clipRun: {fileID: 7400000, guid: 5df5b65719248e741932c3f875a7d019, type: 2}
+    hoverboardPrefab: {fileID: 147589, guid: 9e2201ee2debbba4b8a4868ff04a8f2e, type: 2}
+    hoverboardPrefabScrollMenu: {fileID: 0}
+  - name: losangelesBoard01
+    eulerAngles: {x: 14, y: 110.5, z: 0}
+    menuYPosition: 0.7
+    clipHangtime: {fileID: 7400000, guid: b3b23eabe3506ab418beb4f2052b6d71, type: 2}
+    clipRun: {fileID: 7400000, guid: 5df5b65719248e741932c3f875a7d019, type: 2}
+    hoverboardPrefab: {fileID: 147589, guid: 85c85c11848c9db4db93f055342b41d7, type: 2}
+    hoverboardPrefabScrollMenu: {fileID: 0}
+  - name: cairoBoard01
+    eulerAngles: {x: 14, y: 110.5, z: 0}
+    menuYPosition: 0.7
+    clipHangtime: {fileID: 7400000, guid: b3b23eabe3506ab418beb4f2052b6d71, type: 2}
+    clipRun: {fileID: 7400000, guid: 5df5b65719248e741932c3f875a7d019, type: 2}
+    hoverboardPrefab: {fileID: 147589, guid: cbeed46d1ec1e22469633cea34bb60a3, type: 2}
+    hoverboardPrefabScrollMenu: {fileID: 0}
+  - name: bangkokBoard01
+    eulerAngles: {x: 14, y: 110.5, z: 0}
+    menuYPosition: 0.7
+    clipHangtime: {fileID: 7400000, guid: b3b23eabe3506ab418beb4f2052b6d71, type: 2}
+    clipRun: {fileID: 7400000, guid: 5df5b65719248e741932c3f875a7d019, type: 2}
+    hoverboardPrefab: {fileID: 147589, guid: 3d872ed9b9299ec47a628a7ba48ef3f9, type: 2}
+    hoverboardPrefabScrollMenu: {fileID: 0}
+  - name: londonBoard03
+    eulerAngles: {x: 14, y: 110.5, z: 0}
+    menuYPosition: 0.7
+    clipHangtime: {fileID: 7400000, guid: b3b23eabe3506ab418beb4f2052b6d71, type: 2}
+    clipRun: {fileID: 7400000, guid: 5df5b65719248e741932c3f875a7d019, type: 2}
+    hoverboardPrefab: {fileID: 147589, guid: 0e26b4364da1fef4ca61b543afdfe313, type: 2}
+    hoverboardPrefabScrollMenu: {fileID: 0}
+  - name: lasVegasBoard01
+    eulerAngles: {x: 14, y: 110.5, z: 0}
+    menuYPosition: 0.7
+    clipHangtime: {fileID: 7400000, guid: b3b23eabe3506ab418beb4f2052b6d71, type: 2}
+    clipRun: {fileID: 7400000, guid: 5df5b65719248e741932c3f875a7d019, type: 2}
+    hoverboardPrefab: {fileID: 147589, guid: d7efd4eec5c58f84f8ef9e47aadc662a, type: 2}
+    hoverboardPrefabScrollMenu: {fileID: 0}
+  - name: hawaiiBoard01
+    eulerAngles: {x: 14, y: 110.5, z: 0}
+    menuYPosition: 0.7
+    clipHangtime: {fileID: 7400000, guid: b3b23eabe3506ab418beb4f2052b6d71, type: 2}
+    clipRun: {fileID: 7400000, guid: 5df5b65719248e741932c3f875a7d019, type: 2}
+    hoverboardPrefab: {fileID: 147589, guid: a9a46946c829e3c43912045acb3205c6, type: 2}
+    hoverboardPrefabScrollMenu: {fileID: 0}
+  - name: arabiaBoard01
+    eulerAngles: {x: 14, y: 110.5, z: 0}
+    menuYPosition: 0.7
+    clipHangtime: {fileID: 7400000, guid: 371d5f2fb718c8444b6737a00ddad9e6, type: 2}
+    clipRun: {fileID: 7400000, guid: 9180fbd9020ed6a42b4087ec73aa8aaa, type: 2}
+    hoverboardPrefab: {fileID: 147589, guid: 5d8e8ff5d79db4e439ba6797d14e31d2, type: 2}
+    hoverboardPrefabScrollMenu: {fileID: 147589, guid: 2fc9d6acb0acbde44adf4af3e6c2b0b9, type: 2}
+  - name: veniceBoard01
+    eulerAngles: {x: 14, y: 110.5, z: 0}
+    menuYPosition: 0.7
+    clipHangtime: {fileID: 7400000, guid: 371d5f2fb718c8444b6737a00ddad9e6, type: 2}
+    clipRun: {fileID: 7400000, guid: 9180fbd9020ed6a42b4087ec73aa8aaa, type: 2}
+    hoverboardPrefab: {fileID: 147589, guid: f0c46fe6d681c554d876067bb5f7b039, type: 2}
+    hoverboardPrefabScrollMenu: {fileID: 0}
+  - name: rioBoard01
+    eulerAngles: {x: 14, y: 110.5, z: 0}
+    menuYPosition: 0.7
+    clipHangtime: {fileID: 7400000, guid: 371d5f2fb718c8444b6737a00ddad9e6, type: 2}
+    clipRun: {fileID: 7400000, guid: 5df5b65719248e741932c3f875a7d019, type: 2}
+    hoverboardPrefab: {fileID: 147589, guid: 484e571e2fb650d4cb93cb679986ae70, type: 2}
+    hoverboardPrefabScrollMenu: {fileID: 0}
+  - name: sydneyBoard01
+    eulerAngles: {x: 14, y: 110.5, z: 0}
+    menuYPosition: 0.7
+    clipHangtime: {fileID: 7400000, guid: 371d5f2fb718c8444b6737a00ddad9e6, type: 2}
+    clipRun: {fileID: 7400000, guid: 9180fbd9020ed6a42b4087ec73aa8aaa, type: 2}
+    hoverboardPrefab: {fileID: 147589, guid: 04f88bb412baa8743b22657b3d2b7d33, type: 2}
+    hoverboardPrefabScrollMenu: {fileID: 0}
+  - name: greeceBoard01
+    eulerAngles: {x: 14, y: 110.5, z: 0}
+    menuYPosition: 0.7
+    clipHangtime: {fileID: 7400000, guid: 371d5f2fb718c8444b6737a00ddad9e6, type: 2}
+    clipRun: {fileID: 7400000, guid: 5df5b65719248e741932c3f875a7d019, type: 2}
+    hoverboardPrefab: {fileID: 147589, guid: 208913309e95f4d43afd7cb42d7c49db, type: 2}
+    hoverboardPrefabScrollMenu: {fileID: 0}
+  - name: kenyaBoard01
+    eulerAngles: {x: 14, y: 110.5, z: 0}
+    menuYPosition: 0.7
+    clipHangtime: {fileID: 7400000, guid: 371d5f2fb718c8444b6737a00ddad9e6, type: 2}
+    clipRun: {fileID: 7400000, guid: 5df5b65719248e741932c3f875a7d019, type: 2}
+    hoverboardPrefab: {fileID: 147589, guid: 70774255509999948993399210c253f4, type: 2}
+    hoverboardPrefabScrollMenu: {fileID: 0}
+  - name: transylvaniaBoard01
+    eulerAngles: {x: 14, y: 110.5, z: 0}
+    menuYPosition: 0.7
+    clipHangtime: {fileID: 7400000, guid: 9515eb7fdb66afe4b86da739d3614912, type: 2}
+    clipRun: {fileID: 7400000, guid: 9180fbd9020ed6a42b4087ec73aa8aaa, type: 2}
+    hoverboardPrefab: {fileID: 147589, guid: 9258c5a967c7a634ab84a7ae6cb275bc, type: 2}
+    hoverboardPrefabScrollMenu: {fileID: 0}
+  - name: northpoleBoard01
+    eulerAngles: {x: 14, y: 110.5, z: 0}
+    menuYPosition: 0.7
+    clipHangtime: {fileID: 7400000, guid: 9515eb7fdb66afe4b86da739d3614912, type: 2}
+    clipRun: {fileID: 7400000, guid: 5df5b65719248e741932c3f875a7d019, type: 2}
+    hoverboardPrefab: {fileID: 147589, guid: 4e9c58731cca2054398d06fa77303f54, type: 2}
+    hoverboardPrefabScrollMenu: {fileID: 147589, guid: 770ed168e215f2c4faaff99d32c8d815, type: 2}
+  - name: sanfranciscoBoard01
+    eulerAngles: {x: 14, y: 110.5, z: 0}
+    menuYPosition: 0.7
+    clipHangtime: {fileID: 7400000, guid: 9515eb7fdb66afe4b86da739d3614912, type: 2}
+    clipRun: {fileID: 7400000, guid: 5df5b65719248e741932c3f875a7d019, type: 2}
+    hoverboardPrefab: {fileID: 147589, guid: 3f616a4b2ee503c49bbe8e6aba1737ff, type: 2}
+    hoverboardPrefabScrollMenu: {fileID: 0}
+  - name: pragueBoard01
+    eulerAngles: {x: 14, y: 110.5, z: 0}
+    menuYPosition: 0.7
+    clipHangtime: {fileID: 7400000, guid: 9d809ae6ed193264eac07d95e9caeb46, type: 2}
+    clipRun: {fileID: 7400000, guid: 5df5b65719248e741932c3f875a7d019, type: 2}
+    hoverboardPrefab: {fileID: 147589, guid: b2e3649092929ed4098b0e22f50d10f2, type: 2}
+    hoverboardPrefabScrollMenu: {fileID: 0}
+  - name: sydneyBoard02
+    eulerAngles: {x: 14, y: 110.5, z: 0}
+    menuYPosition: 0.7
+    clipHangtime: {fileID: 7400000, guid: 9d809ae6ed193264eac07d95e9caeb46, type: 2}
+    clipRun: {fileID: 7400000, guid: 5df5b65719248e741932c3f875a7d019, type: 2}
+    hoverboardPrefab: {fileID: 147589, guid: b718fc20c20f10045984eea7764abb79, type: 2}
+    hoverboardPrefabScrollMenu: {fileID: 0}
+  - name: madagascarBoard01
+    eulerAngles: {x: 14, y: 110.5, z: 0}
+    menuYPosition: 0.7
+    clipHangtime: {fileID: 7400000, guid: 9d809ae6ed193264eac07d95e9caeb46, type: 2}
+    clipRun: {fileID: 7400000, guid: 5df5b65719248e741932c3f875a7d019, type: 2}
+    hoverboardPrefab: {fileID: 147589, guid: e0a43ee60ce2a0e41b20464314d05a7e, type: 2}
+    hoverboardPrefabScrollMenu: {fileID: 0}
+  - name: peruBoard01
+    eulerAngles: {x: 14, y: 110.5, z: 0}
+    menuYPosition: 0.7
+    clipHangtime: {fileID: 7400000, guid: 9d809ae6ed193264eac07d95e9caeb46, type: 2}
+    clipRun: {fileID: 7400000, guid: 5df5b65719248e741932c3f875a7d019, type: 2}
+    hoverboardPrefab: {fileID: 147589, guid: b320b3399d86edc4c94040bd557bea5d, type: 2}
+    hoverboardPrefabScrollMenu: {fileID: 0}
+  jumperSignature: {fileID: 7400000, guid: 2160c7757cac47e4bae5bdeb4fd05dc0, type: 2}
+  speederSignature: {fileID: 7400000, guid: 71a8f1b14482541428d9cba87fbb40c1, type: 2}
+  doublejumperSignature: {fileID: 7400000, guid: 9427c0917ae2c8e47abad264dbf7f5ed, type: 2}
+  lowriderSignature: {fileID: 7400000, guid: 9953d2095dfde424291fcd6e0bccc85c, type: 2}
+  lowriderRunIdle: {fileID: 7400000, guid: c70b4f2e7c25b324883385d136f1bb88, type: 2}
+  teleporterSignature: {fileID: 7400000, guid: f0978a389c627494a82cfaf7e36c7c6d, type: 2}
+  gliderSignature: {fileID: 7400000, guid: 927b4687f6d73364daa55224bf016421, type: 2}
+  vanitySignature: {fileID: 7400000, guid: ed08826e0aa7ab24aa48558eb06b9b64, type: 2}
+  teleboardWarpPrefab: {fileID: 147589, guid: d888a7347ed3bd64aa55d18d0409c40e, type: 2}
+  teleboardFXMaterial: {fileID: 2100000, guid: e435cd6e216b28643951da0519b35267, type: 2}
+--- !u!95 &9505782
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 147589}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8f2f203664e72d842aeefbe72d880768, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage:
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+--- !u!1001 &100100000
+Prefab:
+  serializedVersion: 2
+  m_ObjectHideFlags: 1
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 147589}
+  m_IsPrefabParent: 1
