@@ -42,18 +42,23 @@ jobs:
           sudo apt-get update -qq
           sudo apt-get install -y -qq imagemagick zip unzip
           APK_PATH=$(find build/Android -name "*.apk" | head -n 1)
-          ICON=Assets/Icons/app_icon_rv.png
+          ICON="$GITHUB_WORKSPACE/Assets/Icons/app_icon_rv.png"
           BT=$(ls -d "$ANDROID_HOME"/build-tools/* | sort -V | tail -n 1)
           WORK=$(mktemp -d)
+          unzip -q "$GITHUB_WORKSPACE/$APK_PATH" -d "$WORK/apk"
+          cd "$WORK/apk"
+          rm -rf META-INF
+          COLOR=$(convert "$ICON" -format "%[hex:p{0,0}]" info:)
+          M=res/mipmap-mdpi-v4
+          convert "$ICON" -resize 192x192 $M/app_icon.png
+          convert "$ICON" -resize 127x127 -background none -gravity center -extent 192x192 $M/ic_launcher_foreground.png
+          convert -size 192x192 xc:"#${COLOR:0:6}" $M/ic_launcher_background.png
+          zip -q -r -X "$WORK/unsigned.apk" . -x "resources.arsc"
+          zip -q -X -0 "$WORK/unsigned.apk" resources.arsc
           cd "$WORK"
-          unzip -q "$GITHUB_WORKSPACE/$APK_PATH" -d apk
-          cd apk
-          convert "$GITHUB_WORKSPACE/$ICON" -resize 192x192 res/mipmap-mdpi-v4/app_icon.png
-          convert "$GITHUB_WORKSPACE/$ICON" -resize 192x192 res/mipmap-mdpi-v4/ic_launcher_foreground.png
-          convert -size 192x192 xc:none res/mipmap-mdpi-v4/ic_launcher_background.png
-          zip -q -r -X unsigned.apk .
           "$BT/zipalign" -f -p 4 unsigned.apk aligned.apk
           echo "$ANDROID_KEYSTORE_BASE64" | base64 -d > ks.jks
+          rm -f "$GITHUB_WORKSPACE/ResurfVegas-Android.apk"
           "$BT/apksigner" sign --ks ks.jks --ks-type JKS --ks-key-alias "$ANDROID_KEYALIAS_NAME" \
             --ks-pass "pass:$ANDROID_KEYSTORE_PASS" --key-pass "pass:$ANDROID_KEYALIAS_PASS" \
             --out "$GITHUB_WORKSPACE/ResurfVegas-Android.apk" aligned.apk
