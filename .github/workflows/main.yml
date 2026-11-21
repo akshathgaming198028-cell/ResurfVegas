@@ -31,6 +31,34 @@ jobs:
           androidKeyaliasName: ${{ secrets.ANDROID_KEYALIAS_NAME }}
           androidKeyaliasPass: ${{ secrets.ANDROID_KEYALIAS_PASS }}
 
+      - name: Patch launcher icon into APK
+        env:
+          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          ANDROID_KEYSTORE_PASS: ${{ secrets.ANDROID_KEYSTORE_PASS }}
+          ANDROID_KEYALIAS_NAME: ${{ secrets.ANDROID_KEYALIAS_NAME }}
+          ANDROID_KEYALIAS_PASS: ${{ secrets.ANDROID_KEYALIAS_PASS }}
+        run: |
+          set -e
+          APK_PATH=$(find build/Android -name "*.apk" | head -n 1)
+          ICON=Assets/Icons/app_icon_rv.png
+          BT=$(ls -d "$ANDROID_HOME"/build-tools/* | sort -V | tail -n 1)
+          WORK=$(mktemp -d)
+          cd "$WORK"
+          unzip -q "$GITHUB_WORKSPACE/$APK_PATH" -d apk
+          cd apk
+          COLOR=$(convert "$GITHUB_WORKSPACE/$ICON" -resize 1x1! -format "%[hex:p{0,0}]" info:)
+          convert "$GITHUB_WORKSPACE/$ICON" -resize 192x192 res/mipmap-mdpi-v4/app_icon.png
+          convert "$GITHUB_WORKSPACE/$ICON" -resize 192x192 res/mipmap-mdpi-v4/ic_launcher_foreground.png
+          convert -size 192x192 xc:"#$COLOR" res/mipmap-mdpi-v4/ic_launcher_background.png
+          rm -f "$GITHUB_WORKSPACE/$APK_PATH"
+          zip -q -r -X unsigned.apk .
+          "$BT/zipalign" -f -p 4 unsigned.apk aligned.apk
+          echo "$ANDROID_KEYSTORE_BASE64" | base64 -d > ks.jks
+          "$BT/apksigner" sign --ks ks.jks --ks-type JKS --ks-key-alias "$ANDROID_KEYALIAS_NAME" \
+            --ks-pass "pass:$ANDROID_KEYSTORE_PASS" --key-pass "pass:$ANDROID_KEYALIAS_PASS" \
+            --out "$GITHUB_WORKSPACE/$APK_PATH" aligned.apk
+          "$BT/apksigner" verify "$GITHUB_WORKSPACE/$APK_PATH" && echo "signed ok"
+
       - name: Rename APK
         run: |
           APK_PATH=$(find build/Android -name "*.apk" | head -n 1 || true)
