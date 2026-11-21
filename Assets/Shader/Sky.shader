@@ -15,30 +15,22 @@ Properties {
 			#pragma vertex vert
 			#pragma fragment frag
 			#include "UnityCG.cginc"
-			sampler2D _MainTex;
-			float4 _MainTex_ST;
-			float4 _Color;
-			float4 _MainColor;
-			float4 _Distort;
-			struct appdata { float4 vertex : POSITION; float2 texcoord : TEXCOORD0; fixed4 color : COLOR; };
-			struct v2f { float4 pos : SV_POSITION; float2 uv : TEXCOORD0; fixed4 color : COLOR; };
 			float4 _SkyGradientTopColor;
 			float4 _SkyGradientBottomColor;
 			float _SkyGradientOffset;
-
+			struct appdata { float4 vertex : POSITION; };
+			struct v2f { float4 pos : SV_POSITION; float dirY : TEXCOORD0; };
 			v2f vert(appdata v) {
 				v2f o;
-				float4 wp = mul(unity_ObjectToWorld, v.vertex);
-				float3 rel = wp.xyz - _WorldSpaceCameraPos;
-				float dd = rel.z * rel.z;
-				wp.x += _Distort.x * dd;
-				wp.y += _Distort.y * dd;
-				o.pos = mul(UNITY_MATRIX_VP, wp);
-				o.uv = TRANSFORM_TEX(v.texcoord, _MainTex);
-				o.color = v.color;
+				o.pos = UnityObjectToClipPos(v.vertex);
+				float3 wp = mul(unity_ObjectToWorld, v.vertex).xyz;
+				o.dirY = normalize(wp - _WorldSpaceCameraPos).y;
 				return o;
 			}
-			fixed4 frag(v2f i) : SV_Target { float g = saturate(i.uv.y + _SkyGradientOffset); fixed4 grad = lerp(_SkyGradientBottomColor, _SkyGradientTopColor, g); fixed4 t = tex2D(_MainTex, i.uv); return fixed4(lerp(grad.rgb, t.rgb * grad.rgb, t.a), 1); }
+			fixed4 frag(v2f i) : SV_Target {
+				float g = saturate(i.dirY * 1.5 + _SkyGradientOffset);
+				return fixed4(lerp(_SkyGradientBottomColor.rgb, _SkyGradientTopColor.rgb, g), 1);
+			}
 			ENDCG
 		}
 	}
