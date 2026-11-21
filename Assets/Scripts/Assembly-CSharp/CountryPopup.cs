@@ -93,6 +93,11 @@ public class CountryPopup : UIScreen
 	public override void Init()
 	{
 		base.Init();
+		if (countryCell == null)
+		{
+			// Serialized reference did not resolve on device (CountryPopup.prefab -> CountryCell.prefab). Load it by path.
+			countryCell = Resources.Load<GameObject>("Prefabs/DynamicLoad/CountryCell");
+		}
 		adapter = new CountryListAdapter(CountryManager.instance.getListOfCountries(), countryCell, this);
 		countryListView.SetAdapter(adapter);
 		popupTitle.color = GlobalColors.COUNTRY_POPUP_TITLE_COLOUR;
