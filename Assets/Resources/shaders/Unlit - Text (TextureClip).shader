@@ -1,36 +1,58 @@
 Shader "Hidden/Unlit/Text (TextureClip)" {
 Properties {
- _Color ("Color Tint", Color) = (1,1,1,1)
  _MainTex ("Alpha (A)", 2D) = "white" { }
+ _ClipRange0 ("ClipRange0", Vector) = (0,0,100000,100000)
+ _ClipTex ("ClipTex", 2D) = "white" { }
 }
-		SubShader {
-		Tags { "Queue"="Transparent" "IgnoreProjector"="True" "RenderType"="Transparent" }
-		LOD 100
-		ZWrite Off
-		Blend SrcAlpha OneMinusSrcAlpha
-		Cull Off
-		Pass {
-			CGPROGRAM
-			#pragma vertex vert
-			#pragma fragment frag
-			#include "UnityCG.cginc"
-			sampler2D _MainTex;
-			float4 _MainTex_ST;
-			fixed4 _Color;
-			struct appdata { float4 vertex : POSITION; float2 texcoord : TEXCOORD0; fixed4 color : COLOR; };
-			struct v2f { float4 pos : SV_POSITION; float2 uv : TEXCOORD0; fixed4 color : COLOR; };
-			v2f vert(appdata v) {
-				v2f o;
-				o.pos = UnityObjectToClipPos(v.vertex);
-				o.uv = TRANSFORM_TEX(v.texcoord, _MainTex);
-				o.color = v.color;
-				return o;
-			}
-			fixed4 frag(v2f i) : SV_Target {
-				fixed a = tex2D(_MainTex, i.uv).a;
-				return fixed4(i.color.rgb * _Color.rgb, a * i.color.a * _Color.a);
-			}
-			ENDCG
-		}
-	}
+SubShader { 
+ LOD 200
+ Tags { "QUEUE"="Transparent" "IGNOREPROJECTOR"="true" "RenderType"="Transparent" }
+ Pass {
+  Tags { "QUEUE"="Transparent" "IGNOREPROJECTOR"="true" "RenderType"="Transparent" }
+  ZWrite Off
+  Cull Off
+  Blend SrcAlpha OneMinusSrcAlpha
+  Offset -1, -1
+  GLSLPROGRAM
+					#ifdef VERTEX
+					attribute vec4 _glesVertex;
+					attribute vec4 _glesColor;
+					attribute vec4 _glesMultiTexCoord0;
+					uniform highp mat4 glstate_matrix_mvp;
+					uniform highp vec4 _ClipRange0;
+					varying highp vec2 xlv_TEXCOORD0;
+					varying highp vec2 xlv_TEXCOORD1;
+					varying mediump vec4 xlv_COLOR;
+					void main ()
+					{
+					  gl_Position = (glstate_matrix_mvp * _glesVertex);
+					  xlv_TEXCOORD0 = _glesMultiTexCoord0.xy;
+					  xlv_TEXCOORD1 = (((
+					    (_glesVertex.xy * _ClipRange0.zw)
+					   + _ClipRange0.xy) * 0.5) + vec2(0.5, 0.5));
+					  xlv_COLOR = _glesColor;
+					}
+					#endif
+					#ifdef FRAGMENT
+					uniform sampler2D _MainTex;
+					uniform sampler2D _ClipTex;
+					varying highp vec2 xlv_TEXCOORD0;
+					varying highp vec2 xlv_TEXCOORD1;
+					varying mediump vec4 xlv_COLOR;
+					void main ()
+					{
+					  mediump vec4 col_1;
+					  col_1.xyz = xlv_COLOR.xyz;
+					  lowp vec4 tmpvar_2;
+					  tmpvar_2 = texture2D (_MainTex, xlv_TEXCOORD0);
+					  lowp vec4 tmpvar_3;
+					  tmpvar_3 = texture2D (_ClipTex, xlv_TEXCOORD1);
+					  col_1.w = (xlv_COLOR.w * (tmpvar_2.w * tmpvar_3.w));
+					  gl_FragData[0] = col_1;
+					}
+					#endif
+ENDGLSL
+ }
+}
+Fallback "Unlit/Text"
 }
