@@ -46,7 +46,7 @@ jobs:
 
   release:
     name: Create prerelease
-    if: always()
+    if: success()
     needs: build
     runs-on: ubuntu-latest
     steps:

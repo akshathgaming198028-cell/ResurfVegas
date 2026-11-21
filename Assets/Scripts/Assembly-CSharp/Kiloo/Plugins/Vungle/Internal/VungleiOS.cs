@@ -32,20 +32,15 @@ namespace Kiloo.Plugins.Vungle.Internal
 
 		public event VungleWillCloseProductSheet onWillCloseProductSheet;
 
-		[DllImport("__Internal")]
-		private static extern void _vungleplugin_initialize(string appId);
+		private static void _vungleplugin_initialize(string appId) { }
 
-		[DllImport("__Internal")]
-		private static extern void _vungleplugin_playAd();
+		private static void _vungleplugin_playAd() { }
 
-		[DllImport("__Internal")]
-		private static extern void _vungleplugin_playAdWithOptions(string options);
+		private static void _vungleplugin_playAdWithOptions(string options) { }
 
-		[DllImport("__Internal")]
-		private static extern bool _vungleplugin_isCachedAdAvailable();
+		private static bool _vungleplugin_isCachedAdAvailable() { return false; }
 
-		[DllImport("__Internal")]
-		private static extern void _vungleplugin_EnableDebugLogs(bool val);
+		private static void _vungleplugin_EnableDebugLogs(bool val) { }
 
 		public bool InitVungle(string appId)
 		{

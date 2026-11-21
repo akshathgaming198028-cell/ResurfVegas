@@ -37,17 +37,13 @@ namespace Kiloo.Monetization.Tapjoy.Internal
 
 		public event TapjoyGetPointsErrorEvent onGetPointsError;
 
-		[DllImport("__Internal")]
-		private static extern void _tapjoyplugin_Initialize(string appID, string key, string eventName);
+		private static void _tapjoyplugin_Initialize(string appID, string key, string eventName) { }
 
-		[DllImport("__Internal")]
-		private static extern void _tapjoyplugin_GetFullScreenAd();
+		private static void _tapjoyplugin_GetFullScreenAd() { }
 
-		[DllImport("__Internal")]
-		private static extern void _tapjoyplugin_ShowFullScreenAd();
+		private static void _tapjoyplugin_ShowFullScreenAd() { }
 
-		[DllImport("__Internal")]
-		private static extern void _tapjoyplugin_EnableDebugLogs(bool enabled);
+		private static void _tapjoyplugin_EnableDebugLogs(bool enabled) { }
 
 		public void Initialize(string appID, string appKey, string eventName)
 		{

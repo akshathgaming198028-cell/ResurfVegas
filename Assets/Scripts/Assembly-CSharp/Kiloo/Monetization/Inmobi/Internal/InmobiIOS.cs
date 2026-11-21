@@ -35,20 +35,15 @@ namespace Kiloo.Monetization.Inmobi.Internal
 			Debug.Log("[InmobiIOS] " + msg, context);
 		}
 
-		[DllImport("__Internal")]
-		private static extern void _inmobiplugin_init(string appId);
+		private static void _inmobiplugin_init(string appId) { }
 
-		[DllImport("__Internal")]
-		private static extern void _inmobiplugin_cacheAd(string key, string appId);
+		private static void _inmobiplugin_cacheAd(string key, string appId) { }
 
-		[DllImport("__Internal")]
-		private static extern void _inmobiplugin_showAd(string key, string appId);
+		private static void _inmobiplugin_showAd(string key, string appId) { }
 
-		[DllImport("__Internal")]
-		private static extern bool _inmobiplugin_hasCachedAd(string key, string appId);
+		private static bool _inmobiplugin_hasCachedAd(string key, string appId) { return false; }
 
-		[DllImport("__Internal")]
-		private static extern void _inmobiplugin_setDebugLogEnabled(bool val);
+		private static void _inmobiplugin_setDebugLogEnabled(bool val) { }
 
 		public void Init(string appId)
 		{

@@ -55,38 +55,27 @@ namespace Kiloo.Plugins.Chartboost.Internal
 			Debug.Log("ChartboostIOS: " + msg, context);
 		}
 
-		[DllImport("__Internal")]
-		private static extern void _chartboostplugin_startSession(string appId, string appSignature, string unityVersion);
+		private static void _chartboostplugin_startSession(string appId, string appSignature, string unityVersion) { }
 
-		[DllImport("__Internal")]
-		private static extern void _chartboostplugin_cacheInterstitial(string location);
+		private static void _chartboostplugin_cacheInterstitial(string location) { }
 
-		[DllImport("__Internal")]
-		private static extern void _chartboostplugin_showInterstitial(string location);
+		private static void _chartboostplugin_showInterstitial(string location) { }
 
-		[DllImport("__Internal")]
-		private static extern bool _chartboostplugin_hasCachedInterstitial(string location);
+		private static bool _chartboostplugin_hasCachedInterstitial(string location) { return false; }
 
-		[DllImport("__Internal")]
-		private static extern void _chartboostplugin_setShouldRequestInterstitial(bool val);
+		private static void _chartboostplugin_setShouldRequestInterstitial(bool val) { }
 
-		[DllImport("__Internal")]
-		private static extern void _chartboostplugin_setShouldDisplayInterstitial(bool val);
+		private static void _chartboostplugin_setShouldDisplayInterstitial(bool val) { }
 
-		[DllImport("__Internal")]
-		private static extern void _chartboostplugin_setShouldRequestInterstitialsInFirstSession(bool val);
+		private static void _chartboostplugin_setShouldRequestInterstitialsInFirstSession(bool val) { }
 
-		[DllImport("__Internal")]
-		private static extern void _chartboostplugin_setDebugLogEnabled(bool val);
+		private static void _chartboostplugin_setDebugLogEnabled(bool val) { }
 
-		[DllImport("__Internal")]
-		private static extern void _chartboostplugin_cacheRewardedVideo(string location);
+		private static void _chartboostplugin_cacheRewardedVideo(string location) { }
 
-		[DllImport("__Internal")]
-		private static extern void _chartboostplugin_showRewardedVideo(string location);
+		private static void _chartboostplugin_showRewardedVideo(string location) { }
 
-		[DllImport("__Internal")]
-		private static extern bool _chartboostplugin_hasCachedRewardedVideo(string location);
+		private static bool _chartboostplugin_hasCachedRewardedVideo(string location) { return false; }
 
 		public void StartSession(string appId, string appSignature)
 		{

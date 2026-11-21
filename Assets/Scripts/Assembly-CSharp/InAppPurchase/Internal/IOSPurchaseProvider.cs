@@ -343,25 +343,18 @@ namespace InAppPurchase.Internal
 			Debug.Log("IOSPurchaseProvider: " + msg, context);
 		}
 
-		[DllImport("__Internal")]
-		private static extern void IOSPurchaseBridge_Init();
+		private static void IOSPurchaseBridge_Init() { }
 
-		[DllImport("__Internal")]
-		private static extern bool IOSPurchaseBridge_CanMakePayments();
+		private static bool IOSPurchaseBridge_CanMakePayments() { return false; }
 
-		[DllImport("__Internal")]
-		private static extern void IOSPurchaseBridge_RunProductsRequest(string productIdsList);
+		private static void IOSPurchaseBridge_RunProductsRequest(string productIdsList) { }
 
-		[DllImport("__Internal")]
-		private static extern bool IOSPurchaseBridge_StartPurchase(string productId);
+		private static bool IOSPurchaseBridge_StartPurchase(string productId) { return false; }
 
-		[DllImport("__Internal")]
-		private static extern void IOSPurchaseBridge_FinishTransaction(string productId, string transactionId);
+		private static void IOSPurchaseBridge_FinishTransaction(string productId, string transactionId) { }
 
-		[DllImport("__Internal")]
-		private static extern bool IOSPurchaseBridge_RestoreNonConsumablePurchases();
+		private static bool IOSPurchaseBridge_RestoreNonConsumablePurchases() { return false; }
 
-		[DllImport("__Internal")]
-		private static extern bool IOSPurchaseBridge_EnableDebugLogs(string enabledBoolString);
+		private static bool IOSPurchaseBridge_EnableDebugLogs(string enabledBoolString) { return false; }
 	}
 }
