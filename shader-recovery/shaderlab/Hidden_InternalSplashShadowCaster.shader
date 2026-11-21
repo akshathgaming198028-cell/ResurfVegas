@@ -1,5 +1,5 @@
 Shader "Hidden/InternalSplashShadowCaster" {
-SubShader { 
+SubShader {
  Pass {
   ZTest Always
   Cull Off
@@ -8,4 +8,20 @@ SubShader {
 Program "vp" {
 SubProgram "gles " {
 GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+Fallback Off
 }

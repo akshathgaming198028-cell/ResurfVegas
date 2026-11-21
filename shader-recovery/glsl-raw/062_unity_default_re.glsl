@@ -1,4 +1,527 @@
 #version 100
-
 #ifdef VERTEX
-attribute vec4 _glesVertex;
+attribute vec4 _glesVertex;
+3
+!Normal;
+uniform highp mat4 unity_World2Shadow[4]*
+glstate_matrix_mvp;
+varying'
+q
+xlv_TEXCOORD0"
+4"
+1"
+2"
+2;
+void main ()
+{
+ M
+tmpvar_1;
+.w = 1.0
+Xxyz =+
+;M
+29
+_2 = (%
+E0] *]
+)1
+gl_Posit
+>= (/
+( *
+4
+	-
+* =
+91 =
+	$
+q
+$((
+U.xy /
+.w) * 0.5) +
+;
+}
+#endifY
+FRAGMENT
+cmedium
+LightColor0;(
+1s
+!
+sampler2D)
+SplashScreen/
+OTex00
+0
+f?low
+qfloat s
+edIntens
+2
+Rplane
+Is_3;U
+>
+S-
+?1_4
+00_5
+~
+exture2D (
+,
+)M
+?1_4M
+1M
+! =
+i(0.0,
+-
+x
+0m_6
+_m_6 =
++1]O
+0v_7
+pv_7.x =9
+T[0].x
+y
+1
+z
+2
+w
+3
+b
+8r
+8 = dot (v_7
+h
+5if
+18 >
+ ) B
+ we
+7edSz
+ _9@
+1-
+/
+clamp ((1.0 - s
+M
+C25))j
+1j
+1W
+1
+[
+I
+0
+(.
+#*
+'
+)s
+, =
+]
+2
+R2.yzwL
+.3(G
+)
+x
+	u
+}
+"13
+/13
+"14_
+#14
+ 13
+y
+y
+1
+z
+2
+w
+3
+"
+5O
+5
+/14
+/15
+/16
+7
+7
+/15
+8X
+8
+7
+7
+1
+9
+19.x
+f
+(
+y
+O16.y
+9
+"20
+/20
+"21i
+#21
+ 20
+z
+y
+1
+z
+2
+w
+3
+2
+2
+/21
+/22
+/23
+)24
+/24
+/22
+*25X
+5
+/24
+/24
+2
+/25
+6
+O6.xy
+,yw(
+z
+O23.z
+/26
+7
+7
+8i
+8
+7
+w
+y
+1
+z
+2
+w
+3
+9
+9
+8
+9
+/30
+3
+/31
+9
+3e
+/32
+/31
+/31
+3
+3
+3"
+z(
+w
+O30.w
+u
+}
+'34
+30
+c(pow (
+Z
+1, n1
+_ize((
+* -J
+g)))
+f, 3.0)l
+3maxr
+,(
+yP
+2
+z2
+w2
+* =
+i
+/35
+#35
+]mix (
+,
+,
+())
+	* =
+gl_FragData
+o
+3
+.
+JW"
+e300 es
+\Time;
+?Sin
+?Cos
+^Delta
+"3 L
+SpaceCameraPos[
+`Projec
+^Param!
+ZBuffer
+_Ortho!
+PClipP
+7s[6p
+	/
+x0
+(
+?Inv+
+"
+0$
+ORang
+4)
+/X0!
+Y!
+Z!
+	W
+)
+_Atten*
+7
+?[8]v
+&
+Q
+z
+Q
+SpotDirecQ
+OSHAr"
+g"
+b"
+Bf
+Bf
+Bf
+C!
+)
+1)
+2)
+3
+)
+plitSpheres
++
+oqRadii[
+-
+OBias[
+G
+_sNear
+	>Far
+FadeCenterAndType|
+m
+$
+odelview0+
+invtrans4
+0_Ob
+2
+%
+ OD
+?
+T
+Opose
+p
+-
+.
+l
+W
+_ambient
+MX
+V
+Pn
+#
+Aa
+?Sky%
+Equator)
+oGround(
+1Fog
+?FogI
+_mapST)
+oynamic'
+SpecCube0_BoxMax&
+/in&
+TProbef
+F
+5
+?HDRX
+1
+1
+1
+!
+1
+(in
+in_POSITION
+3
+NORMAL0;
+out
+(vs
+4
+1
+2
+0
+0  t
+.yyyy *
+4
+	L
+axxxx +{
+9
+29
+Gzzzz9
+B
+3B
+GwwwwB
+K
+y
+V
+*vs
+)
+9
+U
++yw>
++
+0+
+g
+G
+2G
+t
+G
++P
+3
+3
+Y
+5
+2%
+*
+T(0.5,
+?
+`return
+-
+Qpreci
+;
+i[
+$
+&
+5
+"
+1
+/in
+/in
+layout(loca&
+00)
+SV_Target0
+71;
+#=10_
+G
+93;
+0t16
+&
+5;
+bool tb5\
+0
+1r
+5
+/.x
+%
+'
+y'
+1'
+z'
+2'
+w'
+3'
+x
+ (t
+s
+y
+[.5<t06
+ (-
+)
+* +0
+(
+7t10B
+;
+'
+'
+~
+	]
+*P
+&.x]
+2]
+0]
+K
+B.x *
++
+!
+Bb5 ?
+:
+(
+%
+3
+y'
+'
+'
+'
+5
+3
+$10
+95.x7
+O(-t5
+5
+5
+5B
+*%15
+u
+#t5
+5!
+?
+3max
+z
+z
+z
+z
+/10
+)N(t10
+.b5
+/10
+z
+B_2.z
+0
+/10/
+w
+w
+w
+w
+0
+5
+5
+m
+c
+1R
+5
+h
+w
+w
+5
+!
+/15
+5
+%
+N
+;
+'
+,(-
+(
+1p
+F
+,N
+)
+ in6
+esqrt(t1)u
+*
+!
+N
+Z
+d
+0i
+2
+0/
+-(-
+B
+tU
+*
+/+ =
+<
+\
+A
+8
+	-
+""
+8
+8
+P
+Internal-Flare

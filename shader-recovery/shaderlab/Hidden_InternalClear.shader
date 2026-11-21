@@ -1,5 +1,5 @@
 Shader "Hidden/InternalClear" {
-SubShader { 
+SubShader {
  Pass {
   ZTest Always
   ZWrite Off
@@ -9,4 +9,185 @@ SubShader {
 Program "vp" {
 SubProgram "gles " {
 GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+ Pass {
+  ZTest Always
+  ZWrite Off
+  Cull Off
+  GpuProgramID 71638
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+ Pass {
+  ZTest Always
+  Cull Off
+  ColorMask 0
+  GpuProgramID 134849
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+ Pass {
+  ZTest Always
+  Cull Off
+  GpuProgramID 261605
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+ Pass {
+  ZTest Always
+  ZWrite Off
+  Cull Off
+  Stencil {
+   Pass Zero
+  }
+  ColorMask 0
+  GpuProgramID 314737
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+ Pass {
+  ZTest Always
+  ZWrite Off
+  Cull Off
+  Stencil {
+   Pass Zero
+  }
+  GpuProgramID 339914
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+ Pass {
+  ZTest Always
+  Cull Off
+  Stencil {
+   Pass Zero
+  }
+  ColorMask 0
+  GpuProgramID 402820
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+ Pass {
+  ZTest Always
+  Cull Off
+  Stencil {
+   Pass Zero
+  }
+  GpuProgramID 516991
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+Fallback Off
 }
