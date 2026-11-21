@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using Kiloo.Plugins.AdColony.Internal;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 namespace Kiloo.Plugins.AdColony
 {

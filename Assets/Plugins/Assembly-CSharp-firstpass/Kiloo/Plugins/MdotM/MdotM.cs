@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using Kiloo.Plugins.MdotM.Internal;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 namespace Kiloo.Plugins.MdotM
 {
