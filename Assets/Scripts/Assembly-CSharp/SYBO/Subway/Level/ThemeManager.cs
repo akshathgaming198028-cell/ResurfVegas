@@ -11,7 +11,8 @@ namespace SYBO.Subway.Level
 		private static ThemeManager _instance;
 
 		[SerializeField]
-		private Vector4 _distortion = new Vector4(-0.0005f, -0.0003f, 0f, 0f);
+		// X bend reduced to 0.35 of the earlier value (-0.0005 * 0.35); Y unchanged. Matches the original's milder curve.
+		private Vector4 _distortion = new Vector4(-0.000175f, -0.0003f, 0f, 0f);
 
 		[SerializeField]
 		private Theme _theme;
