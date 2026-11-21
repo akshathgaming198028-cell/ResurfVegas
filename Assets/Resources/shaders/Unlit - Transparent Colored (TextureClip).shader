@@ -27,7 +27,8 @@ Properties {
 				return o;
 			}
 			fixed4 frag(v2f i) : SV_Target {
-				return tex2D(_MainTex, i.uv) * _Color * i.color;
+				fixed a = tex2D(_MainTex, i.uv).a;
+				return fixed4(i.color.rgb * _Color.rgb, a * i.color.a * _Color.a);
 			}
 			ENDCG
 		}

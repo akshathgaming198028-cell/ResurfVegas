@@ -10,7 +10,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 0
   companyName: Kiloo Games
-  productName: Resurf Vegas
+  productName: Subway Surf
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_ShowUnitySplashScreen: 0
@@ -171,7 +171,17 @@ PlayerSettings:
   m_AndroidBanners: []
   androidGamepadSupportLevel: 0
   resolutionDialogBanner: {fileID: 0}
-  m_BuildTargetIcons: []
+  m_BuildTargetIcons:
+  - serializedVersion: 2
+    m_BuildTarget: Android
+    m_Icons:
+    - serializedVersion: 2
+      m_Textures:
+      - {fileID: 2800000, guid: a468d894e5924e38e0e87e8cc5bd1ffb, type: 3}
+      m_Width: 192
+      m_Height: 192
+      m_Kind: 1
+      m_SubKind: 
   m_BuildTargetBatching: []
   m_BuildTargetGraphicsAPIs: []
   webPlayerTemplate:
