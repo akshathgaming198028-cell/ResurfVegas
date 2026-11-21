@@ -1,72 +1,48 @@
 Shader "Hidden/Unlit/Premultiplied Colored 2" {
 Properties {
- _MainTex ("Base (RGB), Alpha (A)", 2D) = "black" { }
+ _MainTex ("Base (RGB)", 2D) = "white" { }
+ _Color ("Color Tint", Color) = (1,1,1,1)
+ _MainColor ("Main Color", Color) = (1,1,1,0)
+ _Distort ("Distort", Color) = (0,0,0,0)
+ _ClipRange0 ("Clip Range", Vector) = (0,0,100000,100000)
+ _ClipArgs0 ("Clip Args", Vector) = (1,1,0,0)
 }
-SubShader { 
- LOD 200
- Tags { "QUEUE"="Transparent" "IGNOREPROJECTOR"="true" "RenderType"="Transparent" }
- Pass {
-  Tags { "QUEUE"="Transparent" "IGNOREPROJECTOR"="true" "RenderType"="Transparent" }
-  ZWrite Off
-  Cull Off
-  Blend One OneMinusSrcAlpha
-  ColorMask RGB
-  Offset -1, -1
-  GLSLPROGRAM
-					#ifdef VERTEX
-					attribute vec4 _glesVertex;
-					attribute vec4 _glesColor;
-					attribute vec4 _glesMultiTexCoord0;
-					uniform highp mat4 glstate_matrix_mvp;
-					uniform highp vec4 _ClipRange0;
-					uniform highp vec4 _ClipRange1;
-					uniform highp vec4 _ClipArgs1;
-					varying mediump vec4 xlv_COLOR;
-					varying highp vec2 xlv_TEXCOORD0;
-					varying highp vec4 xlv_TEXCOORD1;
-					void main ()
-					{
-					  highp vec4 tmpvar_1;
-					  tmpvar_1.xy = ((_glesVertex.xy * _ClipRange0.zw) + _ClipRange0.xy);
-					  highp vec2 ret_2;
-					  ret_2.x = ((_glesVertex.x * _ClipArgs1.w) - (_glesVertex.y * _ClipArgs1.z));
-					  ret_2.y = ((_glesVertex.x * _ClipArgs1.z) + (_glesVertex.y * _ClipArgs1.w));
-					  tmpvar_1.zw = ((ret_2 * _ClipRange1.zw) + _ClipRange1.xy);
-					  gl_Position = (glstate_matrix_mvp * _glesVertex);
-					  xlv_COLOR = _glesColor;
-					  xlv_TEXCOORD0 = _glesMultiTexCoord0.xy;
-					  xlv_TEXCOORD1 = tmpvar_1;
-					}
-					#endif
-					#ifdef FRAGMENT
-					uniform sampler2D _MainTex;
-					uniform highp vec4 _ClipArgs0;
-					uniform highp vec4 _ClipArgs1;
-					varying mediump vec4 xlv_COLOR;
-					varying highp vec2 xlv_TEXCOORD0;
-					varying highp vec4 xlv_TEXCOORD1;
-					void main ()
-					{
-					  mediump vec4 col_1;
-					  highp vec2 factor_2;
-					  highp vec2 tmpvar_3;
-					  tmpvar_3 = ((vec2(1.0, 1.0) - abs(xlv_TEXCOORD1.xy)) * _ClipArgs0.xy);
-					  factor_2 = ((vec2(1.0, 1.0) - abs(xlv_TEXCOORD1.zw)) * _ClipArgs1.xy);
-					  lowp vec4 tmpvar_4;
-					  tmpvar_4 = texture2D (_MainTex, xlv_TEXCOORD0);
-					  mediump vec4 tmpvar_5;
-					  tmpvar_5 = (tmpvar_4 * xlv_COLOR);
-					  highp float tmpvar_6;
-					  tmpvar_6 = clamp (min (min (tmpvar_3.x, tmpvar_3.y), min (factor_2.x, factor_2.y)), 0.0, 1.0);
-					  col_1.w = (tmpvar_5.w * tmpvar_6);
-					  highp vec3 tmpvar_7;
-					  tmpvar_7 = (tmpvar_5.xyz * vec3(tmpvar_6));
-					  col_1.xyz = tmpvar_7;
-					  gl_FragData[0] = col_1;
-					}
-					#endif
-ENDGLSL
- }
-}
-Fallback "Unlit/Premultiplied Colored"
+		SubShader {
+		Tags { "Queue"="Transparent" "RenderType"="Transparent" }
+		LOD 100
+		ZWrite Off
+		Cull Off
+		Blend One OneMinusSrcAlpha
+		Pass {
+			CGPROGRAM
+			#pragma vertex vert
+			#pragma fragment frag
+			#include "UnityCG.cginc"
+			sampler2D _MainTex;
+			float4 _MainTex_ST;
+			float4 _Color;
+			float4 _MainColor;
+			float4 _Distort;
+			struct appdata { float4 vertex : POSITION; float2 texcoord : TEXCOORD0; fixed4 color : COLOR; };
+			struct v2f { float4 pos : SV_POSITION; float2 uv : TEXCOORD0; fixed4 color : COLOR; float2 wxy : TEXCOORD1; };
+			float4 _ClipRange0;
+			float4 _ClipArgs0;
+
+			v2f vert(appdata v) {
+				v2f o;
+				float4 wp = mul(unity_ObjectToWorld, v.vertex);
+				o.wxy = wp.xy;
+				float3 rel = wp.xyz - _WorldSpaceCameraPos;
+				float dd = rel.z * rel.z;
+				wp.x += _Distort.x * dd;
+				wp.y += _Distort.y * dd;
+				o.pos = mul(UNITY_MATRIX_VP, wp);
+				o.uv = TRANSFORM_TEX(v.texcoord, _MainTex);
+				o.color = v.color;
+				return o;
+			}
+			fixed4 frag(v2f i) : SV_Target { fixed4 c = tex2D(_MainTex, i.uv) * _Color * i.color; float2 cp = (i.wxy - _ClipRange0.xy) / _ClipRange0.zw; float2 cf = (float2(1,1) - abs(cp)) * _ClipArgs0.xy; float clipA = saturate(min(cf.x, cf.y)); c *= clipA; return c; }
+			ENDCG
+		}
+	}
 }
