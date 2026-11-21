@@ -26,6 +26,7 @@ jobs:
         with:
           unityVersion: 2019.4.41f2
           versioning: None
+          buildMethod: CIArm64Build.Build
           targetPlatform: Android
           androidKeystoreName: user.keystore
           androidKeystoreBase64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
@@ -33,18 +34,29 @@ jobs:
           androidKeyaliasName: ${{ secrets.ANDROID_KEYALIAS_NAME }}
           androidKeyaliasPass: ${{ secrets.ANDROID_KEYALIAS_PASS }}
 
-      - name: Check APK has ARM64 native code
+      - name: Sign and check ARM64 APK
+        env:
+          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          ANDROID_KEYSTORE_PASS: ${{ secrets.ANDROID_KEYSTORE_PASS }}
+          ANDROID_KEYALIAS_NAME: ${{ secrets.ANDROID_KEYALIAS_NAME }}
+          ANDROID_KEYALIAS_PASS: ${{ secrets.ANDROID_KEYALIAS_PASS }}
         run: |
-          APK=$(find build/Android -name "*.apk" | head -n 1)
-          echo "APK: $APK"
-          unzip -l "$APK" | tee apk-list.txt | grep -q "lib/arm64-v8a/" || { echo "NO arm64-v8a libs in APK"; exit 1; }
-          grep -c "lib/arm64-v8a/" apk-list.txt
+          set -e
+          SRC=build/Android/ResurfVegas-arm64.apk
+          unzip -l "$SRC" | tee apk-list.txt | grep -q "lib/arm64-v8a/" || { echo "NO arm64-v8a libs in APK"; exit 1; }
+          BT=$(ls -d "$ANDROID_HOME"/build-tools/* | sort -V | tail -n 1)
+          echo "$ANDROID_KEYSTORE_BASE64" | base64 -d > ks.jks
+          "$BT/zipalign" -f -p 4 "$SRC" aligned.apk
+          "$BT/apksigner" sign --ks ks.jks --ks-type JKS --ks-key-alias "$ANDROID_KEYALIAS_NAME" \
+            --ks-pass "pass:$ANDROID_KEYSTORE_PASS" --key-pass "pass:$ANDROID_KEYALIAS_PASS" \
+            --out build/Android/ResurfVegas-arm64-signed.apk aligned.apk
+          "$BT/apksigner" verify build/Android/ResurfVegas-arm64-signed.apk && echo "signed ok"
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: arm64-apk
-          path: build/Android/*.apk
+          path: build/Android/ResurfVegas-arm64-signed.apk
 
       - name: Publish prerelease
         uses: softprops/action-gh-release@v2
@@ -52,4 +64,4 @@ jobs:
           tag_name: arm64-${{ github.run_number }}
           name: ARM64 test ${{ github.run_number }}
           prerelease: true
-          files: build/Android/*.apk
+          files: build/Android/ResurfVegas-arm64-signed.apk
