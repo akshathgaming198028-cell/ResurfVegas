@@ -179,16 +179,22 @@ namespace Kiloo.Monetization.Flurry.Internal
 			}
 		}
 
-		private static void fcbridge_initWithSpace(string adSpace) { }
+		[DllImport("__Internal")]
+		private static extern void fcbridge_initWithSpace(string adSpace);
 
-		private static void fcbridge_fetchAd() { }
+		[DllImport("__Internal")]
+		private static extern void fcbridge_fetchAd();
 
-		private static bool fcbridge_ready() { return false; }
+		[DllImport("__Internal")]
+		private static extern bool fcbridge_ready();
 
-		private static void fcbridge_presentWithViewController() { }
+		[DllImport("__Internal")]
+		private static extern void fcbridge_presentWithViewController();
 
-		private static void fcbridge_enableTestAds(bool enable) { }
+		[DllImport("__Internal")]
+		private static extern void fcbridge_enableTestAds(bool enable);
 
-		private static void fcbridge_enableDebugLogs(bool enable) { }
+		[DllImport("__Internal")]
+		private static extern void fcbridge_enableDebugLogs(bool enable);
 	}
 }

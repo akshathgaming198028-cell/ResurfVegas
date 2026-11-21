@@ -186,23 +186,29 @@ namespace Kiloo.Plugins.GameCenter
 
 		public static event AuthenticateHandler authenticationEvent;
 
+		[DllImport("__Internal")]
 		[Conditional("UNITY_IPHONE")]
-		private static void _GameCenterInit(string gameObject) { }
+		private static extern void _GameCenterInit(string gameObject);
 
+		[DllImport("__Internal")]
 		[Conditional("UNITY_IPHONE")]
-		private static void _GameCenterShowLoginView() { }
+		private static extern void _GameCenterShowLoginView();
 
+		[DllImport("__Internal")]
 		[Conditional("UNITY_IPHONE")]
-		private static void _GameCenterGetLocalPlayer(ref LocalPlayer localPlayer) { }
+		private static extern void _GameCenterGetLocalPlayer(ref LocalPlayer localPlayer);
 
+		[DllImport("__Internal")]
 		[Conditional("UNITY_IPHONE")]
-		private static void _GameCenterLoadFriends(int handlerContext) { }
+		private static extern void _GameCenterLoadFriends(int handlerContext);
 
+		[DllImport("__Internal")]
 		[Conditional("UNITY_IPHONE")]
-		private static void _GameCenterLoadPlayers(string playerIDs, int handlerContext) { }
+		private static extern void _GameCenterLoadPlayers(string playerIDs, int handlerContext);
 
+		[DllImport("__Internal")]
 		[Conditional("UNITY_IPHONE")]
-		private static void _GameCenterLoadPhoto(string playerID, int size, int handlerContext) { }
+		private static extern void _GameCenterLoadPhoto(string playerID, int size, int handlerContext);
 
 		private static bool _GameCenterArePhotosSupported()
 		{
@@ -214,32 +220,41 @@ namespace Kiloo.Plugins.GameCenter
 			return false;
 		}
 
+		[DllImport("__Internal")]
 		[Conditional("UNITY_IPHONE")]
-		private static void _GameCenterShowView(int viewState, string leaderboardCategory, int leaderboardTimeScope) { }
+		private static extern void _GameCenterShowView(int viewState, string leaderboardCategory, int leaderboardTimeScope);
 
+		[DllImport("__Internal")]
 		[Conditional("UNITY_IPHONE")]
-		private static void _GameCenterReportScore(string category, long scoreValue, ulong scoreContext, int handlerContext) { }
+		private static extern void _GameCenterReportScore(string category, long scoreValue, ulong scoreContext, int handlerContext);
 
+		[DllImport("__Internal")]
 		[Conditional("UNITY_IPHONE")]
-		private static void _GameCenterLoadLeaderboard(string category, int playerScope, int timeScope, int rangeBegin, int rangeCount, int handlerContext) { }
+		private static extern void _GameCenterLoadLeaderboard(string category, int playerScope, int timeScope, int rangeBegin, int rangeCount, int handlerContext);
 
+		[DllImport("__Internal")]
 		[Conditional("UNITY_IPHONE")]
-		private static void _GameCenterLoadLeaderboardForIDs(string category, string playerIDs, int timeScope, int handlerContext) { }
+		private static extern void _GameCenterLoadLeaderboardForIDs(string category, string playerIDs, int timeScope, int handlerContext);
 
+		[DllImport("__Internal")]
 		[Conditional("UNITY_IPHONE")]
-		private static void _GameCenterReportAchievement(string achievementID, float percentComplete, int showsCompletionBanner, int handlerContext) { }
+		private static extern void _GameCenterReportAchievement(string achievementID, float percentComplete, int showsCompletionBanner, int handlerContext);
 
+		[DllImport("__Internal")]
 		[Conditional("UNITY_IPHONE")]
-		private static void _GameCenterReportAchievements(string interleavedAchievements, int showsCompletionBanner, int handlerContext) { }
+		private static extern void _GameCenterReportAchievements(string interleavedAchievements, int showsCompletionBanner, int handlerContext);
 
+		[DllImport("__Internal")]
 		[Conditional("UNITY_IPHONE")]
-		private static void _GameCenterLoadAchievements(int handlerContext) { }
+		private static extern void _GameCenterLoadAchievements(int handlerContext);
 
+		[DllImport("__Internal")]
 		[Conditional("UNITY_IPHONE")]
-		private static void _GameCenterLoadAchievementDescriptions(int handlerContext) { }
+		private static extern void _GameCenterLoadAchievementDescriptions(int handlerContext);
 
+		[DllImport("__Internal")]
 		[Conditional("UNITY_IPHONE")]
-		private static void _GameCenterResetAchievements(int handlerContext) { }
+		private static extern void _GameCenterResetAchievements(int handlerContext);
 
 		public static bool IsSupported()
 		{

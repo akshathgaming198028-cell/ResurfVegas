@@ -33,11 +33,14 @@ namespace Kiloo.Plugins.AdColony.Internal
 			Debug.Log("AdColonyIOS: " + msg, context);
 		}
 
-		private static void _adcolonyplugin_configure(string appID, int zoneIDcount, string[] zoneIDs, bool debug) { }
+		[DllImport("__Internal")]
+		private static extern void _adcolonyplugin_configure(string appID, int zoneIDcount, string[] zoneIDs, bool debug);
 
-		private static void _adcolonyplugin_playVideoAdForZoneWithPopups(string zoneID, bool prePopupV4VC, bool postPopupV4VC) { }
+		[DllImport("__Internal")]
+		private static extern void _adcolonyplugin_playVideoAdForZoneWithPopups(string zoneID, bool prePopupV4VC, bool postPopupV4VC);
 
-		private static bool _adcolonyplugin_isVirtualCurrencyRewardAvailableForZone(string zoneID) { return false; }
+		[DllImport("__Internal")]
+		private static extern bool _adcolonyplugin_isVirtualCurrencyRewardAvailableForZone(string zoneID);
 
 		public void Configure(string appID, string[] zoneIDs)
 		{

@@ -25,31 +25,44 @@ namespace Kiloo.Common.FlurryAnalytics.Internal
 			return instance;
 		}
 
-		private static void flurryStartSession(string apiKey, bool crashReportingEnabled) { }
+		[DllImport("__Internal")]
+		private static extern void flurryStartSession(string apiKey, bool crashReportingEnabled);
 
-		private static void flurrySetUserId(string userId) { }
+		[DllImport("__Internal")]
+		private static extern void flurrySetUserId(string userId);
 
-		private static void flurrySetAge(int age) { }
+		[DllImport("__Internal")]
+		private static extern void flurrySetAge(int age);
 
-		private static void flurrySetGender(int gender) { }
+		[DllImport("__Internal")]
+		private static extern void flurrySetGender(int gender);
 
-		private static void flurryLogEvent(string eventName) { }
+		[DllImport("__Internal")]
+		private static extern void flurryLogEvent(string eventName);
 
-		private static void flurryLogEventWithParams(string eventName, string jsonParams) { }
+		[DllImport("__Internal")]
+		private static extern void flurryLogEventWithParams(string eventName, string jsonParams);
 
-		private static void flurryLogTimedEvent(string eventName) { }
+		[DllImport("__Internal")]
+		private static extern void flurryLogTimedEvent(string eventName);
 
-		private static void flurryLogTimedEventWithParams(string eventName, string jsonParams) { }
+		[DllImport("__Internal")]
+		private static extern void flurryLogTimedEventWithParams(string eventName, string jsonParams);
 
-		private static void flurryEndTimedEvent(string eventName) { }
+		[DllImport("__Internal")]
+		private static extern void flurryEndTimedEvent(string eventName);
 
-		private static void flurryOnPageView() { }
+		[DllImport("__Internal")]
+		private static extern void flurryOnPageView();
 
-		private static void flurrySetContinueSessionMillis(int milliseconds) { }
+		[DllImport("__Internal")]
+		private static extern void flurrySetContinueSessionMillis(int milliseconds);
 
-		private static void flurrySetDebugLogsEnabled(bool value) { }
+		[DllImport("__Internal")]
+		private static extern void flurrySetDebugLogsEnabled(bool value);
 
-		private static void flurryLogError(string errorName, string message) { }
+		[DllImport("__Internal")]
+		private static extern void flurryLogError(string errorName, string message);
 
 		public void StartSession(string apiKey)
 		{
