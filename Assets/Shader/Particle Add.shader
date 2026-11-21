@@ -1,17 +1,16 @@
 Shader "Particles/Additive" {
 Properties {
+ _MainTex ("Base (RGB)", 2D) = "white" { }
  _Color ("Color Tint", Color) = (1,1,1,1)
- _TintColor ("Tint Color", Color) = (0.5,0.5,0.5,0.5)
- _MainTex ("Particle Texture", 2D) = "white" { }
- _InvFade ("Soft Particles Factor", Range(0.01,3)) = 1
+ _MainColor ("Main Color", Color) = (1,1,1,0)
+ _Distort ("Distort", Color) = (0,0,0,0)
 }
 		SubShader {
 		Tags { "Queue"="Transparent" "RenderType"="Transparent" }
 		LOD 100
 		ZWrite Off
 		Cull Off
-		Blend SrcAlpha OneMinusSrcAlpha
-
+		Blend SrcAlpha One
 		Pass {
 			CGPROGRAM
 			#pragma vertex vert
@@ -19,12 +18,20 @@ Properties {
 			#include "UnityCG.cginc"
 			sampler2D _MainTex;
 			float4 _MainTex_ST;
-			fixed4 _Color;
+			float4 _Color;
+			float4 _MainColor;
+			float4 _Distort;
 			struct appdata { float4 vertex : POSITION; float2 texcoord : TEXCOORD0; fixed4 color : COLOR; };
 			struct v2f { float4 pos : SV_POSITION; float2 uv : TEXCOORD0; fixed4 color : COLOR; };
+
 			v2f vert(appdata v) {
 				v2f o;
-				o.pos = UnityObjectToClipPos(v.vertex);
+				float4 wp = mul(unity_ObjectToWorld, v.vertex);
+				float3 rel = wp.xyz - _WorldSpaceCameraPos;
+				float dd = rel.z * rel.z;
+				wp.x += _Distort.x * dd;
+				wp.y += _Distort.y * dd;
+				o.pos = mul(UNITY_MATRIX_VP, wp);
 				o.uv = TRANSFORM_TEX(v.texcoord, _MainTex);
 				o.color = v.color;
 				return o;

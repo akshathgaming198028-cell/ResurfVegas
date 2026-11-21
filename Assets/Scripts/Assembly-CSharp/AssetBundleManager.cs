@@ -18,7 +18,7 @@ public class AssetBundleManager
 {
 	public const string COMPRESSION_SIGNATURE = "subway_bundles";
 
-	private const string ASSET_BUNDLE_RESOURCES_PATH = "AssetBundles";
+	private const string ASSET_BUNDLE_RESOURCES_PATH = "assetbundles";
 
 	private const string DEBUG_TAG = "[AssetBundleManager]: ";
 
@@ -307,13 +307,13 @@ public class AssetBundleManager
 		{
 			return AssetBundleCache.CacheAssetBundle(bundleName, version, bundleBytes);
 		}
-		TextAsset textAsset = Resources.Load<TextAsset>(Path.Combine("AssetBundles", bundleName));
+		TextAsset textAsset = Resources.Load<TextAsset>(Path.Combine("assetbundles", bundleName));
 		if ((bool)textAsset)
 		{
 			byte[] bytes = textAsset.bytes.Decompress("subway_bundles");
 			return AssetBundleCache.CacheAssetBundle(bundleName, version, bytes);
 		}
-		LogError("Cannot load bundle from resources: " + Path.Combine("AssetBundles", bundleName));
+		LogError("Cannot load bundle from resources: " + Path.Combine("assetbundles", bundleName));
 		return false;
 	}
 

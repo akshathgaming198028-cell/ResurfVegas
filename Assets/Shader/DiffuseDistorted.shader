@@ -1,32 +1,48 @@
 Shader "Custom/Distorted/Unlit" {
 Properties {
- _Color ("Color Tint", Color) = (1,1,1,1)
  _MainTex ("Base (RGB)", 2D) = "white" { }
+ _Color ("Color Tint", Color) = (1,1,1,1)
+ _MainColor ("Main Color", Color) = (1,1,1,0)
+ _Distort ("Distort", Color) = (0,0,0,0)
 }
 		SubShader {
 		Tags { "Queue"="Geometry" "RenderType"="Opaque" }
-		LOD 100
-		ZWrite On
-		Cull Back
-
+		LOD 200
 		Pass {
+			Tags { "LightMode"="ForwardBase" }
+			ZWrite On
+			Cull Back
 			CGPROGRAM
 			#pragma vertex vert
 			#pragma fragment frag
+			#pragma multi_compile_fwdbase
 			#include "UnityCG.cginc"
+			#include "Lighting.cginc"
 			sampler2D _MainTex;
 			float4 _MainTex_ST;
-			fixed4 _Color;
-			struct appdata { float4 vertex : POSITION; float2 texcoord : TEXCOORD0; fixed4 color : COLOR; };
-			struct v2f { float4 pos : SV_POSITION; float2 uv : TEXCOORD0; fixed4 color : COLOR; };
+			float4 _Color;
+			float4 _Distort;
+			struct appdata { float4 vertex : POSITION; float3 normal : NORMAL; float2 texcoord : TEXCOORD0; };
+			struct v2f { float4 pos : SV_POSITION; float2 uv : TEXCOORD0; float3 n : TEXCOORD1; };
 			v2f vert(appdata v) {
 				v2f o;
-				o.pos = UnityObjectToClipPos(v.vertex);
+				float4 wp = mul(unity_ObjectToWorld, v.vertex);
+				float3 rel = wp.xyz - _WorldSpaceCameraPos;
+				float dd = rel.z * rel.z;
+				wp.x += _Distort.x * dd;
+				wp.y += _Distort.y * dd;
+				o.pos = mul(UNITY_MATRIX_VP, wp);
 				o.uv = TRANSFORM_TEX(v.texcoord, _MainTex);
-				o.color = v.color;
+				o.n = UnityObjectToWorldNormal(v.normal);
 				return o;
 			}
-			fixed4 frag(v2f i) : SV_Target { fixed4 t = tex2D(_MainTex, i.uv); return fixed4(t.rgb * _Color.rgb * i.color.rgb, 1); }
+			fixed4 frag(v2f i) : SV_Target {
+				fixed4 t = tex2D(_MainTex, i.uv) * _Color;
+				float3 n = normalize(i.n);
+				float ndl = dot(n, _WorldSpaceLightPos0.xyz) * 0.5 + 0.5;
+				fixed3 light = ndl * _LightColor0.rgb + ShadeSH9(float4(n, 1));
+				return fixed4(t.rgb * light, t.a);
+			}
 			ENDCG
 		}
 	}
