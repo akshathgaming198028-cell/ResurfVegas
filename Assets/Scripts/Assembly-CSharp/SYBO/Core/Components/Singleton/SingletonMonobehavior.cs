@@ -83,7 +83,11 @@ namespace SYBO.Core.Components.Singleton
 						UnityEngine.Object.DontDestroyOnLoad(gameObject);
 					}
 					// Direct virtual call. Reflection on the base type ran the empty base method under IL2CPP, so subclass setup (SpawnPoolManager) never ran.
-					((SingletonMonobehavior<T>)_Instance).SingletonMonobehavior_OnInstantiateCompleted();
+					SingletonMonobehavior<T> self = (object)_Instance as SingletonMonobehavior<T>;
+					if (self != null)
+					{
+						self.SingletonMonobehavior_OnInstantiateCompleted();
+					}
 					if (OnInstantiateCompleted != null)
 					{
 						OnInstantiateCompleted(_Instance);
