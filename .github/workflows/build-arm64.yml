@@ -1,0 +1,54 @@
+name: Build Android 64-bit (test)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build ARM64 (IL2CPP)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Patch project for ARM64 test (CI only, not committed)
+        run: python3 -I .github/scripts/patch_arm64.py
+
+      - name: Build project
+        uses: game-ci/unity-builder@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          unityVersion: 2019.4.41f2
+          targetPlatform: Android
+          androidKeystoreName: user.keystore
+          androidKeystoreBase64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          androidKeystorePass: ${{ secrets.ANDROID_KEYSTORE_PASS }}
+          androidKeyaliasName: ${{ secrets.ANDROID_KEYALIAS_NAME }}
+          androidKeyaliasPass: ${{ secrets.ANDROID_KEYALIAS_PASS }}
+
+      - name: Check APK has ARM64 native code
+        run: |
+          APK=$(find build/Android -name "*.apk" | head -n 1)
+          echo "APK: $APK"
+          unzip -l "$APK" | tee apk-list.txt | grep -q "lib/arm64-v8a/" || { echo "NO arm64-v8a libs in APK"; exit 1; }
+          grep -c "lib/arm64-v8a/" apk-list.txt
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: arm64-apk
+          path: build/Android/*.apk
+
+      - name: Publish prerelease
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: arm64-${{ github.run_number }}
+          name: ARM64 test ${{ github.run_number }}
+          prerelease: true
+          files: build/Android/*.apk
