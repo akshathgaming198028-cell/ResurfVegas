@@ -6,11 +6,12 @@ Properties {
  _Falloff ("Falloff Distance", Float) = 200
 }
 		SubShader {
-		Tags { "Queue"="Transparent" "IgnoreProjector"="True" "RenderType"="Transparent" }
+		Tags { "Queue"="Transparent" "RenderType"="Transparent" }
 		LOD 100
 		ZWrite Off
-		Blend SrcAlpha OneMinusSrcAlpha
 		Cull Off
+		Blend SrcAlpha One
+
 		Pass {
 			CGPROGRAM
 			#pragma vertex vert
@@ -28,9 +29,7 @@ Properties {
 				o.color = v.color;
 				return o;
 			}
-			fixed4 frag(v2f i) : SV_Target {
-				return tex2D(_MainTex, i.uv) * _Color * i.color;
-			}
+			fixed4 frag(v2f i) : SV_Target { return tex2D(_MainTex, i.uv) * _Color * i.color; }
 			ENDCG
 		}
 	}

@@ -45,11 +45,7 @@ public static class EggHuntManager
 
 	public static bool HasEggHuntExpired()
 	{
-		if (PlayerInfo.Instance.isBoardActive(HOVERBOARDTYPE))
-		{
-			return false;
-		}
-		return true;
+		return false;
 	}
 
 	public static int GetMaximumNumberOfEggs()
