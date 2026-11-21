@@ -167,6 +167,7 @@ PlayerSettings:
   AndroidKeyaliasName:
   AndroidTVCompatibility: 0
   AndroidIsGame: 0
+  AndroidTargetArchitectures: 3
   androidEnableBanner: 0
   m_AndroidBanners: []
   androidGamepadSupportLevel: 0
@@ -364,6 +365,8 @@ PlayerSettings:
   psp2InfoBarColor: 0
   psmSplashimage: {fileID: 0}
   spritePackerPolicy:
+  scriptingBackend:
+    Android: 1
   scriptingDefineSymbols: {}
   metroPackageName:
   metroPackageVersion:
