@@ -1,0 +1,60 @@
+name: Original APK (re-signed)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sign:
+    name: Re-sign original APK
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download original APK from release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mkdir -p original
+          gh release download The_1.56 --repo "$GITHUB_REPOSITORY" --pattern "*.apk" --dir original
+          ls -la original
+
+      - name: Re-sign with project keystore
+        env:
+          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          ANDROID_KEYSTORE_PASS: ${{ secrets.ANDROID_KEYSTORE_PASS }}
+          ANDROID_KEYALIAS_NAME: ${{ secrets.ANDROID_KEYALIAS_NAME }}
+          ANDROID_KEYALIAS_PASS: ${{ secrets.ANDROID_KEYALIAS_PASS }}
+        run: |
+          set -e
+          BT=$(ls -d "$ANDROID_HOME"/build-tools/* | sort -V | tail -n 1)
+          SRC=$(ls original/*.apk | head -n 1)
+          echo "$ANDROID_KEYSTORE_BASE64" | base64 -d > ks.jks
+          "$BT/zipalign" -f -p 4 "$SRC" aligned.apk
+          "$BT/apksigner" sign --ks ks.jks --ks-type JKS --ks-key-alias "$ANDROID_KEYALIAS_NAME" \
+            --ks-pass "pass:$ANDROID_KEYSTORE_PASS" --key-pass "pass:$ANDROID_KEYALIAS_PASS" \
+            --out ResurfVegas-Original-Signed.apk aligned.apk
+          "$BT/apksigner" verify ResurfVegas-Original-Signed.apk && echo "signed ok"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: original-signed
+          path: ResurfVegas-Original-Signed.apk
+
+  release:
+    name: Publish original build
+    needs: sign
+    if: success()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: original-signed
+          path: out
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: original-${{ github.run_number }}
+          name: Original ${{ github.run_number }}
+          prerelease: true
+          files: out/*.apk
