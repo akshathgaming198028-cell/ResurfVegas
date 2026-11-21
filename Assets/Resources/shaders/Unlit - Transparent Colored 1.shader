@@ -1,8 +1,6 @@
 Shader "Hidden/Unlit/Transparent Colored 1" {
 Properties {
- _MainTex ("Base (RGB)", 2D) = "white" {  _ClipRange0 ("Clip Range", Vector) = (0,0,100000,100000)
- _ClipArgs0 ("Clip Args", Vector) = (1,1,0,0)
-}
+ _MainTex ("Base (RGB)", 2D) = "white" { }
  _Color ("Color Tint", Color) = (1,1,1,1)
  _MainColor ("Main Color", Color) = (1,1,1,0)
  _Distort ("Distort", Color) = (0,0,0,0)
