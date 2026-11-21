@@ -11,6 +11,9 @@ public static class CIArm64Build
     public static void Build()
     {
         PlayerSettings.SetScriptingBackend(BuildTargetGroup.Android, ScriptingImplementation.IL2CPP);
+        // IL2CPP stripping can remove classes the game only finds at runtime (UI, state scripts).
+        PlayerSettings.stripEngineCode = false;
+        PlayerSettings.SetManagedStrippingLevel(BuildTargetGroup.Android, ManagedStrippingLevel.Disabled);
         PlayerSettings.Android.targetArchitectures = AndroidArchitecture.ARM64;
 
         int code = 1;
