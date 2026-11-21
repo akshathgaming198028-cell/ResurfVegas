@@ -12,6 +12,7 @@ Properties {
 			Tags { "LightMode"="ForwardBase" }
 			ZWrite On
 			Cull Back
+			Offset -1, -1
 			CGPROGRAM
 			#pragma vertex vert
 			#pragma fragment frag
@@ -29,7 +30,7 @@ Properties {
 				float4 wp = mul(unity_ObjectToWorld, v.vertex);
 				float3 rel = wp.xyz - _WorldSpaceCameraPos;
 				float dd = rel.z * rel.z;
-				wp.x += _Distort.x * dd;
+				wp.x += _Distort.x * dd * 0.35;
 				wp.y += _Distort.y * dd;
 				o.pos = mul(UNITY_MATRIX_VP, wp);
 				o.uv = TRANSFORM_TEX(v.texcoord, _MainTex);
@@ -40,8 +41,8 @@ Properties {
 				fixed4 t = tex2D(_MainTex, i.uv) * _Color;
 				float3 n = normalize(i.n);
 				float ndl = dot(n, _WorldSpaceLightPos0.xyz) * 0.5 + 0.5;
-				fixed3 light = ndl * _LightColor0.rgb + ShadeSH9(float4(n, 1));
-				return fixed4(t.rgb * light, t.a);
+				fixed3 light = 0.8 + 0.2 * ndl;
+				return fixed4(t.rgb * light, 1);
 			}
 			ENDCG
 		}

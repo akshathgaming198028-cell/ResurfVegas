@@ -6,10 +6,11 @@ Properties {
  _Distort ("Distort", Color) = (0,0,0,0)
 }
 		SubShader {
-		Tags { "Queue"="AlphaTest" "RenderType"="TransparentCutout" }
+		Tags { "Queue"="Geometry" "RenderType"="Opaque" }
 		LOD 100
 		ZWrite On
-		Cull Off
+		Cull Back
+		Offset -1, -1
 		Pass {
 			CGPROGRAM
 			#pragma vertex vert
@@ -28,14 +29,14 @@ Properties {
 				float4 wp = mul(unity_ObjectToWorld, v.vertex);
 				float3 rel = wp.xyz - _WorldSpaceCameraPos;
 				float dd = rel.z * rel.z;
-				wp.x += _Distort.x * dd;
+				wp.x += _Distort.x * dd * 0.35;
 				wp.y += _Distort.y * dd;
 				o.pos = mul(UNITY_MATRIX_VP, wp);
 				o.uv = TRANSFORM_TEX(v.texcoord, _MainTex);
 				o.color = v.color;
 				return o;
 			}
-			fixed4 frag(v2f i) : SV_Target { fixed4 t = tex2D(_MainTex, i.uv) * _Color * i.color; clip(t.a - 0.5); return fixed4(t.rgb, 1); }
+			fixed4 frag(v2f i) : SV_Target { fixed4 t = tex2D(_MainTex, i.uv) * _Color * i.color; return fixed4(t.rgb, 1); }
 			ENDCG
 		}
 	}
