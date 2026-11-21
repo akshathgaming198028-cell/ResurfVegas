@@ -52,19 +52,18 @@ jobs:
           convert "$GITHUB_WORKSPACE/$ICON" -resize 192x192 res/mipmap-mdpi-v4/app_icon.png
           convert "$GITHUB_WORKSPACE/$ICON" -resize 192x192 res/mipmap-mdpi-v4/ic_launcher_foreground.png
           convert -size 192x192 xc:"#$COLOR" res/mipmap-mdpi-v4/ic_launcher_background.png
-          rm -f "$GITHUB_WORKSPACE/$APK_PATH"
           zip -q -r -X unsigned.apk .
           "$BT/zipalign" -f -p 4 unsigned.apk aligned.apk
           echo "$ANDROID_KEYSTORE_BASE64" | base64 -d > ks.jks
           "$BT/apksigner" sign --ks ks.jks --ks-type JKS --ks-key-alias "$ANDROID_KEYALIAS_NAME" \
             --ks-pass "pass:$ANDROID_KEYSTORE_PASS" --key-pass "pass:$ANDROID_KEYALIAS_PASS" \
-            --out "$GITHUB_WORKSPACE/$APK_PATH" aligned.apk
-          "$BT/apksigner" verify "$GITHUB_WORKSPACE/$APK_PATH" && echo "signed ok"
+            --out "$GITHUB_WORKSPACE/ResurfVegas-Android.apk" aligned.apk
+          "$BT/apksigner" verify "$GITHUB_WORKSPACE/ResurfVegas-Android.apk" && echo "signed ok"
 
       - name: Rename APK
         run: |
           APK_PATH=$(find build/Android -name "*.apk" | head -n 1 || true)
-          if [ -f "$APK_PATH" ]; then
+          if [ ! -f ResurfVegas-Android.apk ] && [ -f "$APK_PATH" ]; then
             cp "$APK_PATH" ResurfVegas-Android.apk
           fi
 
