@@ -139,11 +139,8 @@ namespace Kiloo.Plugins.DeviceUtility.Internal
 			{
 			case RuntimePlatform.OSXEditor:
 			case RuntimePlatform.OSXPlayer:
-			case (RuntimePlatform)(-1):
-			case (RuntimePlatform)(-1):
 				return "osx";
 			case RuntimePlatform.WindowsPlayer:
-			case (RuntimePlatform)(-1):
 			case RuntimePlatform.WindowsEditor:
 				return "windows";
 			case RuntimePlatform.IPhonePlayer:
