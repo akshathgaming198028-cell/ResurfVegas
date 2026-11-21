@@ -23,6 +23,39 @@ namespace Kiloo.Plugins.DeviceUtility.Internal
 
 		private AndroidJavaObject _androidBridge;
 
+		private bool _bridgeOk;
+
+		private T SafeCall<T>(string method, T fallback)
+		{
+			if (!_bridgeOk)
+			{
+				return fallback;
+			}
+			try
+			{
+				return _androidBridge.Call<T>(method, new object[0]);
+			}
+			catch (Exception)
+			{
+				return fallback;
+			}
+		}
+
+		private void SafeCallVoid(string method, params object[] args)
+		{
+			if (!_bridgeOk)
+			{
+				return;
+			}
+			try
+			{
+				_androidBridge.Call(method, args);
+			}
+			catch (Exception)
+			{
+			}
+		}
+
 		public bool hasPhysicalBackButton
 		{
 			get
@@ -66,7 +99,15 @@ namespace Kiloo.Plugins.DeviceUtility.Internal
 		[UsedImplicitly]
 		private void Awake()
 		{
-			_androidBridge = new AndroidJavaObject("com.kiloo.unityplugin.deviceutility.DeviceUtilityBridgeAndroid");
+			try
+			{
+				_androidBridge = new AndroidJavaObject("com.kiloo.unityplugin.deviceutility.DeviceUtilityBridgeAndroid");
+				_bridgeOk = true;
+			}
+			catch (Exception)
+			{
+				_bridgeOk = false;
+			}
 		}
 
 		[UsedImplicitly]
@@ -102,13 +143,13 @@ namespace Kiloo.Plugins.DeviceUtility.Internal
 
 		public void SetDeviceUtilityDebugEnabled(bool val)
 		{
-			_androidBridge.Set("debugLogEnabled", val);
+			if (_bridgeOk) { try { _androidBridge.Set("debugLogEnabled", val); } catch (Exception) { } }
 		}
 
 		public string GetUserDataPath()
 		{
 			string text = null;
-			text = _androidBridge.Call<string>("getUserDataPath", new object[0]);
+			text = SafeCall<string>("getUserDataPath", Application.persistentDataPath);
 			if (string.IsNullOrEmpty(text))
 			{
 				throw new InvalidOperationException("Could not get user data path");
@@ -119,7 +160,7 @@ namespace Kiloo.Plugins.DeviceUtility.Internal
 		public string GetCachePath()
 		{
 			string text = null;
-			text = _androidBridge.Call<string>("getCachePath", new object[0]);
+			text = SafeCall<string>("getCachePath", Application.temporaryCachePath);
 			if (string.IsNullOrEmpty(text))
 			{
 				throw new InvalidOperationException("Could not get cache path");
@@ -129,27 +170,27 @@ namespace Kiloo.Plugins.DeviceUtility.Internal
 
 		public string GetDeviceIdentifier()
 		{
-			return _androidBridge.Call<string>("getDeviceIdentifier", new object[0]);
+			return SafeCall<string>("getDeviceIdentifier", SystemInfo.deviceUniqueIdentifier);
 		}
 
 		public string GetBundleVersion()
 		{
-			return _androidBridge.Call<string>("getBundleVersion", new object[0]);
+			return SafeCall<string>("getBundleVersion", Application.version);
 		}
 
 		public string GetBundleIdentifier()
 		{
-			return _androidBridge.Call<string>("getBundleIdentifier", new object[0]);
+			return SafeCall<string>("getBundleIdentifier", Application.identifier);
 		}
 
 		public string GetLocale()
 		{
-			return _androidBridge.Call<string>("getLocale", new object[0]);
+			return SafeCall<string>("getLocale", "en_US");
 		}
 
 		public string GetOSVersion()
 		{
-			return _androidBridge.Call<string>("getOSVersion", new object[0]);
+			return SafeCall<string>("getOSVersion", SystemInfo.operatingSystem);
 		}
 
 		public string GetOSIdentifier()
@@ -179,22 +220,22 @@ namespace Kiloo.Plugins.DeviceUtility.Internal
 				};
 				num = Depository.CheckIn(deposit, this);
 			}
-			_androidBridge.Call("showNativePopup", num, title, message, cancelButton, optionalButton1, optionalButton2);
+			SafeCallVoid("showNativePopup", num, title, message, cancelButton, optionalButton1, optionalButton2);
 		}
 
 		public void SetDeviceClipBoard(string text)
 		{
-			_androidBridge.Call("setDeviceClipBoard", text);
+			SafeCallVoid("setDeviceClipBoard", text);
 		}
 
 		public int GetDeviceFreeMemory()
 		{
-			return _androidBridge.Call<int>("getDeviceFreeMemory", new object[0]);
+			return SafeCall<int>("getDeviceFreeMemory", 0);
 		}
 
 		public int GetCurrentMemoryUsage()
 		{
-			return _androidBridge.Call<int>("getDeviceCurrentMemoryUsage", new object[0]);
+			return SafeCall<int>("getDeviceCurrentMemoryUsage", 0);
 		}
 
 		public int GetPeakMemoryUsage()
@@ -204,52 +245,52 @@ namespace Kiloo.Plugins.DeviceUtility.Internal
 
 		public int GetMemoryUsageLimit()
 		{
-			return _androidBridge.Call<int>("getDeviceMemoryLimit", new object[0]);
+			return SafeCall<int>("getDeviceMemoryLimit", 0);
 		}
 
 		public int GetBatteryLevel()
 		{
-			return _androidBridge.Call<int>("getBatteryLevel", new object[0]);
+			return SafeCall<int>("getBatteryLevel", 100);
 		}
 
 		public int GetFreeDiskSpace()
 		{
-			return _androidBridge.Call<int>("getFreeDiskSpace", new object[0]);
+			return SafeCall<int>("getFreeDiskSpace", 0);
 		}
 
 		public int GetTotalDiskSpace()
 		{
-			return _androidBridge.Call<int>("getTotalDiskSpace", new object[0]);
+			return SafeCall<int>("getTotalDiskSpace", 0);
 		}
 
 		public int GetFreeSDCardSpace()
 		{
-			return _androidBridge.Call<int>("getFreeSDCardSpace", new object[0]);
+			return SafeCall<int>("getFreeSDCardSpace", 0);
 		}
 
 		public int GetTotalSDCardSpace()
 		{
-			return _androidBridge.Call<int>("getTotalSDCardSpace", new object[0]);
+			return SafeCall<int>("getTotalSDCardSpace", 0);
 		}
 
 		public string GetAndroidExternalSavePath()
 		{
-			return _androidBridge.Call<string>("getAndroidExternalSavePath", new object[0]);
+			return SafeCall<string>("getAndroidExternalSavePath", Application.persistentDataPath);
 		}
 
 		public int GetAndroidApiLevel()
 		{
-			return _androidBridge.Call<int>("getAndroidApiLevel", new object[0]);
+			return SafeCall<int>("getAndroidApiLevel", 0);
 		}
 
 		public int GetAndroidVersionCode()
 		{
-			return _androidBridge.Call<int>("getAndroidVersionCode", new object[0]);
+			return SafeCall<int>("getAndroidVersionCode", 0);
 		}
 
 		public string GetAndroidAdvertisingID()
 		{
-			return _androidBridge.Call<string>("getAndroidAdvertisingID", new object[0]);
+			return SafeCall<string>("getAndroidAdvertisingID", "");
 		}
 
 		public bool GetIOSOtherAudioPlaying()
