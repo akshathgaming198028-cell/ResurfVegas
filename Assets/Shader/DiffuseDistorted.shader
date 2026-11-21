@@ -4,9 +4,9 @@ Properties {
 	_Color ("Color Tint", Color) = (1,1,1,1)
 	_MainColor ("Main Color", Color) = (1,1,1,0)
 	_Distort ("Distort", Color) = (0,0,0,0)
-	_FogStart ("Fog start distance", Float) = 60
-	_FogEnd ("Fog end distance", Float) = 180
-	_FogStrength ("Fog strength", Range(0,1)) = 0.8
+	_FogStart ("Fog start distance", Float) = 120
+	_FogEnd ("Fog end distance", Float) = 360
+	_FogStrength ("Fog strength", Range(0,1)) = 0.45
 }
 		SubShader {
 		Tags { "Queue"="Geometry" "RenderType"="Opaque" }
@@ -31,6 +31,7 @@ Properties {
 			float4 _SkyGradientTopColor;
 			float4 _SkyGradientBottomColor;
 			float _SkyGradientOffset;
+			float4 _FogSilhouetteColor;
 
 			float _FogStart;
 			float _FogEnd;
@@ -50,12 +51,11 @@ Properties {
 				o.uv = TRANSFORM_TEX(v.texcoord, _MainTex);
 				o.n = UnityObjectToWorldNormal(v.normal);
 
-				// Distance fog that fades into the sky gradient in the direction of the vertex.
+				// Distance haze in the original purple fog silhouette colour, not the orange sky bottom.
 				float3 toV = wp.xyz - _WorldSpaceCameraPos;
 				float dist = length(toV);
 				float dirY = normalize(toV).y;
-				float g = saturate(dirY * 1.5 + _SkyGradientOffset);
-				o.fogCol = lerp(_SkyGradientBottomColor.rgb, _SkyGradientTopColor.rgb, g);
+				o.fogCol = _FogSilhouetteColor.rgb;
 				o.fogAmt = saturate((dist - _FogStart) / max(_FogEnd - _FogStart, 0.001)) * _FogStrength;
 				return o;
 			}
