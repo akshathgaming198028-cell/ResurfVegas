@@ -6,7 +6,7 @@ Properties {
 	_Distort ("Distort", Color) = (0,0,0,0)
 	_FogStart ("Fog start distance", Float) = 120
 	_FogEnd ("Fog end distance", Float) = 360
-	_FogStrength ("Fog strength", Range(0,1)) = 0.45
+	_FogStrength ("Fog strength", Range(0,1)) = 0
 }
 		SubShader {
 		Tags { "Queue"="Geometry" "RenderType"="Opaque" }
