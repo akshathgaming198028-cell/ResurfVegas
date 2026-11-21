@@ -170,7 +170,7 @@ namespace Kiloo.Monetization.Offerwall.Internal
 			{
 				GameObject gameObject = new GameObject("ImageDownloadManager");
 				UnityEngine.Object.DontDestroyOnLoad(gameObject);
-				_monobehavior = gameObject.AddComponent<MonoBehaviour>();
+				_monobehavior = gameObject.AddComponent<ResurfCoroutineRunner>();
 			}
 			return _monobehavior;
 		}

@@ -92,7 +92,7 @@ public class OnlineSettings
 			}
 			_downloadGameObject = new GameObject("OnlineSettingsDownloader");
 			UnityEngine.Object.DontDestroyOnLoad(_downloadGameObject);
-			_downloadGameObject.AddComponent<MonoBehaviour>().StartCoroutine(DownloadCoroutine());
+			_downloadGameObject.AddComponent<ResurfCoroutineRunner>().StartCoroutine(DownloadCoroutine());
 		}
 		else
 		{

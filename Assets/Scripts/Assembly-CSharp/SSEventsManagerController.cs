@@ -184,7 +184,7 @@ public class SSEventsManagerController
 		}
 		_eventTimerGameObject = new GameObject("EventTimers");
 		UnityEngine.Object.DontDestroyOnLoad(_eventTimerGameObject);
-		_eventTimerMono = _eventTimerGameObject.AddComponent<MonoBehaviour>();
+		_eventTimerMono = _eventTimerGameObject.AddComponent<ResurfCoroutineRunner>();
 		HierarchyUtility.ReparentByHierarchyPathType(_eventTimerGameObject.transform, HierarchyPathType.DynamicManagers);
 		if (PlayerInfo.Instance.lastTimeAnEventWasStarted.CompareTo(num2) < 0)
 		{

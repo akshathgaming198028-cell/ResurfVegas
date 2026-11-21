@@ -18,7 +18,7 @@ namespace Kiloo.Common
 			if (_coroutineRunner == null)
 			{
 				GameObject gameObject = new GameObject("CoroutineRunner");
-				_coroutineRunner = gameObject.AddComponent<MonoBehaviour>();
+				_coroutineRunner = gameObject.AddComponent<ResurfCoroutineRunner>();
 				UnityEngine.Object.DontDestroyOnLoad(_coroutineRunner.gameObject);
 			}
 			return _coroutineRunner.StartCoroutine(coroutine);
