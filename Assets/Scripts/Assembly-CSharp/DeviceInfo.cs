@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Kiloo.Common.Performance;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 public class DeviceInfo
 {

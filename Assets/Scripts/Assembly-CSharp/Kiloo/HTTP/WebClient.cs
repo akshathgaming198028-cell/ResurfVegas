@@ -8,6 +8,7 @@ using JetBrains.Annotations;
 using Kiloo.Common;
 using Kiloo.Plugins.DeviceUtility;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 namespace Kiloo.HTTP
 {

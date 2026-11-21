@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 public static class NGUITools
 {
@@ -193,7 +194,7 @@ public static class NGUITools
 	{
 		get
 		{
-			return Application.platform != RuntimePlatform.WindowsWebPlayer && Application.platform != RuntimePlatform.OSXWebPlayer;
+			return Application.platform != (RuntimePlatform)(-1) && Application.platform != (RuntimePlatform)(-1);
 		}
 	}
 

@@ -3,6 +3,7 @@ using System.Diagnostics;
 using JetBrains.Annotations;
 using Kiloo.Common;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 namespace Kiloo.Plugins.DeviceUtility.Internal
 {

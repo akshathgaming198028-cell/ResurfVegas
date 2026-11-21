@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Globalization;
 using SYBO.Core.Utilities;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 namespace Kiloo.Plugins.DeviceUtility.Internal
 {
@@ -138,11 +139,11 @@ namespace Kiloo.Plugins.DeviceUtility.Internal
 			{
 			case RuntimePlatform.OSXEditor:
 			case RuntimePlatform.OSXPlayer:
-			case RuntimePlatform.OSXWebPlayer:
-			case RuntimePlatform.OSXDashboardPlayer:
+			case (RuntimePlatform)(-1):
+			case (RuntimePlatform)(-1):
 				return "osx";
 			case RuntimePlatform.WindowsPlayer:
-			case RuntimePlatform.WindowsWebPlayer:
+			case (RuntimePlatform)(-1):
 			case RuntimePlatform.WindowsEditor:
 				return "windows";
 			case RuntimePlatform.IPhonePlayer:

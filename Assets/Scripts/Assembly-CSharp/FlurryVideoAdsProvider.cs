@@ -5,6 +5,7 @@ using System.Diagnostics;
 using Kiloo.Common;
 using Kiloo.Monetization.Flurry;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 public class FlurryVideoAdsProvider : VideoAdProvider
 {

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Diagnostics;
 using MiniJSON;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 namespace Kiloo.Plugins.Vungle.Internal
 {

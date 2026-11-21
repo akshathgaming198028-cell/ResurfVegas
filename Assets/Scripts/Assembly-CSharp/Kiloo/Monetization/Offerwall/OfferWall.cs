@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using Kiloo.Plugins.DeviceUtility;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 namespace Kiloo.Monetization.Offerwall
 {

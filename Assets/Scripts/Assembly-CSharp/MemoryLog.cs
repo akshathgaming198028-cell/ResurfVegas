@@ -9,6 +9,7 @@ using Kiloo.HTTP;
 using Kiloo.Plugins.DeviceUtility;
 using SYBO.Subway;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 public class MemoryLog
 {

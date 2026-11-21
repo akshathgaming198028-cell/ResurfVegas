@@ -12,6 +12,7 @@ using SYBO.Subway.Info;
 using SYBO.Subway.Level;
 using TopRun;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 using com.kiloo.awards;
 
 public class UIScreenController : MonoBehaviour

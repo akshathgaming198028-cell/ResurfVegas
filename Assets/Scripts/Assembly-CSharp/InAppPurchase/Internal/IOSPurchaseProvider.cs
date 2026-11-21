@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 namespace InAppPurchase.Internal
 {

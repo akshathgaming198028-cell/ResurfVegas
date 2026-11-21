@@ -88,7 +88,7 @@ public class TakeScreenshot : MonoBehaviour
 	private void _Shoot()
 	{
 		string filename = "screenshot" + screenshotCount + ".png";
-		Application.CaptureScreenshot(filename, scale);
+		ScreenCapture.CaptureScreenshot(filename, scale);
 	}
 
 	private IEnumerator TakeLargeScreenshot()
@@ -116,7 +116,7 @@ public class TakeScreenshot : MonoBehaviour
 				screenshotFilename = "screenshot" + screenshotCount + "_" + x + "_" + y + ".png";
 			}
 			while (File.Exists(screenshotFilename));
-			Application.CaptureScreenshot(screenshotFilename, 2);
+			ScreenCapture.CaptureScreenshot(screenshotFilename, 2);
 			x++;
 			if (x >= scale)
 			{

@@ -5,6 +5,7 @@ using Kiloo.Common;
 using Kiloo.Plugins.Vungle;
 using Kiloo.Plugins.Vungle.Internal;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 public class VungleProvider : VideoAdProvider
 {

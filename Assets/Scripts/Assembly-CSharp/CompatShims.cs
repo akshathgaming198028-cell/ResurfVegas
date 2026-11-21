@@ -10,6 +10,7 @@ public class ParticleEmitter : MonoBehaviour
 	public float maxEmission;
 	public float delay;
 	public bool emit;
+	public int particleCount;
 
 	public bool IsAlive(bool includeChildren)
 	{
@@ -27,6 +28,8 @@ public class ParticleEmitter : MonoBehaviour
 
 public class ParticleAnimator : MonoBehaviour
 {
+	public bool autodestruct;
+	public Vector3 force;
 }
 
 public class ParticleRenderer : MonoBehaviour

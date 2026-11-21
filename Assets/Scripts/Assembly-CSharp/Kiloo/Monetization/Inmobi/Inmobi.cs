@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Kiloo.Monetization.Inmobi.Internal;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 namespace Kiloo.Monetization.Inmobi
 {

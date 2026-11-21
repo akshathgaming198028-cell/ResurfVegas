@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Kiloo.Monetization.Tapjoy.Internal;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 namespace Kiloo.Monetization.Tapjoy
 {

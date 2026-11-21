@@ -18,7 +18,7 @@ public class Spawner : MonoBehaviour
 	{
 		spawner = this;
 		int num = 0;
-		for (int i = 0; i < Extensions.get_length((Array)caches); i++)
+		for (int i = 0; i < Extensions.get_length((System.Array)caches); i++)
 		{
 			caches[i].Initialize();
 			num += caches[i].cacheSize;
@@ -31,7 +31,7 @@ public class Spawner : MonoBehaviour
 		ObjectCache objectCache = null;
 		if ((bool)spawner)
 		{
-			for (int i = 0; i < Extensions.get_length((Array)spawner.caches); i++)
+			for (int i = 0; i < Extensions.get_length((System.Array)spawner.caches); i++)
 			{
 				if (spawner.caches[i].prefab == prefab)
 				{

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Diagnostics;
 using JetBrains.Annotations;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 namespace Kiloo.Common
 {

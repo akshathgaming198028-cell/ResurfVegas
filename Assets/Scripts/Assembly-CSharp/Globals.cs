@@ -6,6 +6,7 @@ using System.Text;
 using Kiloo.Plugins.DeviceUtility;
 using SYBO.Subway.Info;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 public class Globals
 {

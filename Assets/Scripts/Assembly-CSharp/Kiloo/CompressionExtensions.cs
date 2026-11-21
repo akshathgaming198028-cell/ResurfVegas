@@ -4,6 +4,7 @@ using System.IO;
 using System.Text;
 using Ionic.Zlib;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 namespace Kiloo
 {

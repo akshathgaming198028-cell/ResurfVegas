@@ -9,6 +9,7 @@ using Kiloo.Monetization.Tapjoy;
 using Kiloo.Plugins.DeviceUtility;
 using MiniJSON;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 namespace Kiloo.Monetization.Offerwall.TapjoyOfferwall
 {

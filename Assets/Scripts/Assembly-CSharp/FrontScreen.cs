@@ -5,6 +5,7 @@ using Kiloo.Common;
 using Kiloo.Plugins.DeviceUtility;
 using TopRun;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 public class FrontScreen : RunStartScreen
 {

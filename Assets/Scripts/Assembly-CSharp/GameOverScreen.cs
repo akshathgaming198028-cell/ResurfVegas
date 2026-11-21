@@ -6,6 +6,7 @@ using SYBO.Subway;
 using SYBO.Subway.Info;
 using TopRun;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 public class GameOverScreen : RunStartScreen
 {

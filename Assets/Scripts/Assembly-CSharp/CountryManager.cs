@@ -3,6 +3,7 @@ using System.Diagnostics;
 using Kiloo.Plugins.DeviceUtility;
 using TopRun;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 public class CountryManager
 {

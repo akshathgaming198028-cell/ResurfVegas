@@ -5,6 +5,7 @@ using System.Diagnostics;
 using JetBrains.Annotations;
 using Kiloo.Common.UI;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 [RequireComponent(typeof(UIPanel))]
 public class ScrollView : MonoBehaviour

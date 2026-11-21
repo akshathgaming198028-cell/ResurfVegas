@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Text;
 using Kiloo.Plugins.InappPurchase;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 namespace InAppPurchase.Internal
 {

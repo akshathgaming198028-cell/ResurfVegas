@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Kiloo.Monetization.Inmobi;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 public class InmobiAdsProvider : ScreenAdProvider
 {

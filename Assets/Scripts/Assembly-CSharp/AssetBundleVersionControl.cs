@@ -8,6 +8,7 @@ using MiniJSON;
 using SYBO.Core.Components.Singleton;
 using SYBO.Subway.Info;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 public class AssetBundleVersionControl
 {

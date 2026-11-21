@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using Kiloo.Common.FlurryAnalytics.Internal;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 namespace Kiloo.Common.FlurryAnalytics
 {

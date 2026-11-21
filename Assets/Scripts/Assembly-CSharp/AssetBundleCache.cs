@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using Kiloo.Plugins.DeviceUtility;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 public static class AssetBundleCache
 {

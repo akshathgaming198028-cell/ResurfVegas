@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Linq;
 using InAppPurchase.Internal;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 namespace InAppPurchase
 {

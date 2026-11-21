@@ -15,7 +15,7 @@ public class SignalSender
 	{
 		if (!hasFired || !onlyOnce)
 		{
-			for (int i = 0; i < Extensions.get_length((Array)receivers); i++)
+			for (int i = 0; i < Extensions.get_length((System.Array)receivers); i++)
 			{
 				sender.StartCoroutine(receivers[i].SendWithDelay(sender));
 			}

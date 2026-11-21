@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using SYBO.Core.Utilities;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 namespace InAppPurchase.Internal
 {

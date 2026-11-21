@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using MiniJSON;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 public class NotificationsObserver : MonoBehaviour
 {

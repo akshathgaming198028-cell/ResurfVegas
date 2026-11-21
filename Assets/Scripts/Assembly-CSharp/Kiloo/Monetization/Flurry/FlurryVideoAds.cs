@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using Kiloo.Monetization.Flurry.Internal;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 namespace Kiloo.Monetization.Flurry
 {

@@ -9,6 +9,7 @@ using System.Text;
 using Kiloo.Common;
 using Kiloo.Plugins.DeviceUtility;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 public class OnlineSettings
 {

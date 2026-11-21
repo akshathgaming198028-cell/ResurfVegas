@@ -4,6 +4,7 @@ using System.Diagnostics;
 using Kiloo.Common;
 using Kiloo.Plugins.Chartboost;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 public class ChartboostVideoAdsProvider : VideoAdProvider
 {

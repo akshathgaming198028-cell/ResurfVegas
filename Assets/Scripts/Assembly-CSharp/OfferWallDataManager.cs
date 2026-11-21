@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using Kiloo.Monetization.Offerwall;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 public class OfferWallDataManager : IOfferWallDataManager
 {

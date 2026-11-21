@@ -12,6 +12,7 @@ using Kiloo.Plugins.Facebook;
 using Kiloo.Plugins.GameCenter;
 using SYBO.Core.Utilities;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 public class SocialManager : MonoBehaviour
 {

@@ -4,6 +4,7 @@ using System.Diagnostics;
 using Kiloo.Common;
 using Kiloo.Monetization.Tapjoy;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 public class TapJoyVideoProvider : VideoAdProvider
 {

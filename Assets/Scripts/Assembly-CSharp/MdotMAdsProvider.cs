@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Kiloo.Plugins.MdotM;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 public class MdotMAdsProvider : ScreenAdProvider
 {

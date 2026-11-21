@@ -1,6 +1,7 @@
 #define ENABLE_ERROR_LOGS
 using System.Diagnostics;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 namespace InAppPurchase.Internal
 {

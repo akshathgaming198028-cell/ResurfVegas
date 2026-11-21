@@ -6,6 +6,7 @@ using System.Diagnostics;
 using Kiloo.Common;
 using Kiloo.Plugins.DeviceUtility;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 public class VideoAdsManager
 {

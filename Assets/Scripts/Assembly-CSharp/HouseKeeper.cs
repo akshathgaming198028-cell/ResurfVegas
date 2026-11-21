@@ -9,6 +9,7 @@ using Kiloo.Plugins.DeviceUtility;
 using SYBO.Subway.Info;
 using TopRun;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 using com.kiloo.awards;
 
 public class HouseKeeper : MonoBehaviour

@@ -3,6 +3,7 @@ using System;
 using System.Diagnostics;
 using Kiloo.Common;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 public class Strings
 {

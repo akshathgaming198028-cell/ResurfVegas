@@ -5,6 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using JetBrains.Annotations;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 namespace Kiloo.Plugins.GameCenter
 {

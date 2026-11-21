@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Text;
 using Kiloo.Common;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 public class DailyWord : MonoBehaviour
 {

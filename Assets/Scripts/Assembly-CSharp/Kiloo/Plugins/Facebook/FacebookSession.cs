@@ -4,6 +4,7 @@ using System.Diagnostics;
 using JetBrains.Annotations;
 using MiniJSON;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 namespace Kiloo.Plugins.Facebook
 {

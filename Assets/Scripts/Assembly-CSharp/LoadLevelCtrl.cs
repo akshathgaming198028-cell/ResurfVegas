@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Diagnostics;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 using UnityEngine.SceneManagement;
 
 public class LoadLevelCtrl : MonoBehaviour

@@ -11,6 +11,7 @@ using Kiloo.HTTP;
 using Kiloo.Plugins.DeviceUtility;
 using MiniJSON;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 namespace TopRun.Internal
 {

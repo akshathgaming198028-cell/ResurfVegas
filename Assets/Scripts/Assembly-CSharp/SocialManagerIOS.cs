@@ -6,6 +6,7 @@ using System.Diagnostics;
 using Kiloo.Plugins.GameCenter;
 using SYBO.Core.Utilities;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 public class SocialManagerIOS : MonoBehaviour
 {

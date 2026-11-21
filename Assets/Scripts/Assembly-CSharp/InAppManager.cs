@@ -7,6 +7,7 @@ using JetBrains.Annotations;
 using SYBO.Core.Utilities;
 using SYBO.Subway.Info;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 public class InAppManager : MonoBehaviour, IInAppManager
 {

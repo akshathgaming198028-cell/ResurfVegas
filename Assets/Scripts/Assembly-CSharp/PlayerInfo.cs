@@ -9,6 +9,7 @@ using Kiloo.Plugins.DeviceUtility;
 using SYBO.Subway.Info;
 using SYBO.Subway.Pickups;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 public class PlayerInfo
 {
@@ -3246,7 +3247,7 @@ public class PlayerInfo
 			{
 			default:
 			{
-				int num;
+				int num = 0;
 				if (num == 1)
 				{
 					result = ActivePickupSystemVersion.Version2015;
@@ -3883,7 +3884,7 @@ public class PlayerInfo
 
 	public void Load()
 	{
-		if (Application.isWebPlayer)
+		if (false)
 		{
 			InitNew();
 			return;

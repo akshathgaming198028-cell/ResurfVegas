@@ -3,6 +3,7 @@ using System.Collections;
 using System.Diagnostics;
 using Kiloo.Plugins.Vungle.Internal;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 namespace Kiloo.Plugins.Vungle
 {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using Kiloo.Common.FlurryAnalytics;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 public static class Flurry
 {

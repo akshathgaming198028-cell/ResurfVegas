@@ -2,6 +2,7 @@ using System;
 using System.Diagnostics;
 using System.Reflection;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 [Serializable]
 public class PropertyReference

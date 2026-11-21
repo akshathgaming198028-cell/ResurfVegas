@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Diagnostics;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 namespace Kiloo.Monetization.Offerwall.Internal
 {
