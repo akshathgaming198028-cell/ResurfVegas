@@ -133,7 +133,7 @@ namespace UnityTest
 			}
 		}
 
-		virtual GameObject ITestComponent.gameObject
+		GameObject ITestComponent.gameObject
 		{
 			get
 			{
