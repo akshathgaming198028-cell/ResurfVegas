@@ -110,8 +110,7 @@ public class LongMagnet : MonoBehaviour
 			PickupSpawnPoint2 component3 = collider.GetComponent<PickupSpawnPoint2>();
 			if (component3 != null && component3.SpawnPointState == SpawnPointState.Spawned)
 			{
-				// TEST: spawn point pull disabled to isolate coin motion. Restore if coins are fine.
-				// StartCoroutine(PullPickupSpawnPoint(component3));
+				StartCoroutine(PullPickupSpawnPoint(component3));
 			}
 		}
 	}
