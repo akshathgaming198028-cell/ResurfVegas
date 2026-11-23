@@ -1,47 +1,65 @@
 Shader "Custom/Sky" {
 Properties {
-	_MainTex ("Base (RGB)", 2D) = "white" { }
-	_Color ("Color Tint", Color) = (1,1,1,1)
-	_MainColor ("Main Color", Color) = (1,1,1,0)
-	_Distort ("Distort", Color) = (0,0,0,0)
-	_GradientFade ("Fade", Float) = 1.5
-	_GradientOffset ("Gradient offset", Float) = 0
+ _MainTex ("Base (RGB)", 2D) = "white" { }
+ _GradientFade ("Fade", Float) = 1
+ _GradientOffset ("Gradient offset", Float) = 0
 }
-	SubShader {
-	Tags { "QUEUE"="Background+2000" "RenderType"="Opaque" }
-	LOD 100
-	ZWrite Off
-	Cull Off
-	Pass {
-		Tags { "QUEUE"="Background+2000" "RenderType"="Opaque" }
-		CGPROGRAM
-		#pragma vertex vert
-		#pragma fragment frag
-		#include "UnityCG.cginc"
+SubShader {
+ Tags { "QUEUE"="Background+2000" "RenderType"="Opaque" }
+ Pass {
+  Tags { "QUEUE"="Background+2000" "RenderType"="Opaque" }
+  ZWrite Off
+  CGPROGRAM
+  #pragma vertex vert
+  #pragma fragment frag
+  #include "UnityCG.cginc"
 
-		// Set globally from ThemeManager.cs (SetShaderStates).
-		float4 _SkyGradientTopColor;
-		float4 _SkyGradientBottomColor;
-		float _SkyGradientOffset;
+  // Globals set by ThemeManager.SetShaderStates (same names as the original GLES program).
+  float4 _SkyGradientTopColor;
+  float4 _SkyGradientBottomColor;
+  float _SkyGradientOffset;
 
-		struct appdata { float4 vertex : POSITION; };
-		struct v2f { float4 pos : SV_POSITION; fixed4 col : COLOR0; };
+  struct appdata { float4 vertex : POSITION; };
+  struct v2f { float4 pos : SV_POSITION; fixed4 col : COLOR0; };
 
-		// Exact transcription of the original Custom/Sky GLES program:
-		// gradient from bottom to top colour driven by the clip-space screen Y.
-		v2f vert(appdata v) {
-			v2f o;
-			o.pos = UnityObjectToClipPos(v.vertex);
-			float screenY = o.pos.y / o.pos.w;
-			float g = saturate((screenY - _SkyGradientOffset) / (1.0 - _SkyGradientOffset));
-			o.col = fixed4(lerp(_SkyGradientBottomColor.rgb, _SkyGradientTopColor.rgb, g), 1);
-			return o;
-		}
+  // Line-by-line port of the original Custom/Sky pass 1 (GLES):
+  // gl_Position = MVP * vertex; gradient from bottom to top by clip-space screen Y.
+  v2f vert(appdata v) {
+    v2f o;
+    o.pos = UnityObjectToClipPos(v.vertex);
+    float screenPosY = o.pos.y / o.pos.w;
+    o.col = fixed4(lerp(_SkyGradientBottomColor.rgb, _SkyGradientTopColor.rgb,
+                        saturate((screenPosY - _SkyGradientOffset) / (1.0 - _SkyGradientOffset))), 1);
+    return o;
+  }
+  fixed4 frag(v2f i) : SV_Target { return i.col; }
+  ENDCG
+ }
+ Pass {
+  Tags { "QUEUE"="Background" "RenderType"="Opaque" }
+  ZWrite Off
+  Cull Front
+  CGPROGRAM
+  #pragma vertex vert
+  #pragma fragment frag
+  #include "UnityCG.cginc"
 
-		fixed4 frag(v2f i) : SV_Target {
-			return i.col;
-		}
-		ENDCG
-	}
-	}
+  sampler2D _MainTex;
+  float4 _MainTex_ST;
+
+  struct appdata { float4 vertex : POSITION; float4 texcoord : TEXCOORD0; };
+  struct v2f { float4 pos : SV_POSITION; float2 uv : TEXCOORD0; };
+
+  // Line-by-line port of the original Custom/Sky pass 2 (GLES): plain textured draw.
+  v2f vert(appdata v) {
+    v2f o;
+    o.pos = UnityObjectToClipPos(v.vertex);
+    o.uv = v.texcoord.xy * _MainTex_ST.xy + _MainTex_ST.zw;
+    return o;
+  }
+  fixed4 frag(v2f i) : SV_Target { return tex2D(_MainTex, i.uv); }
+  ENDCG
+ }
+}
+Fallback "Diffuse"
 }
