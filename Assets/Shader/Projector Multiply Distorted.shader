@@ -1,43 +1,71 @@
 Shader "Custom/Distorted/Projector Multiply" {
 Properties {
- _MainTex ("Base (RGB)", 2D) = "white" { }
- _Color ("Color Tint", Color) = (1,1,1,1)
- _MainColor ("Main Color", Color) = (1,1,1,0)
- _Distort ("Distort", Color) = (0,0,0,0)
+ _ShadowTex ("Cookie", 2D) = "gray" { }
+ _Falloff ("Falloff distance", Float) = 0.01
 }
-		SubShader {
-		Tags { "Queue"="Transparent" "RenderType"="Transparent" }
-		LOD 100
-		ZWrite Off
-		Cull Off
-		Blend DstColor Zero
-		Pass {
-			CGPROGRAM
-			#pragma vertex vert
-			#pragma fragment frag
-			#include "UnityCG.cginc"
-			sampler2D _MainTex;
-			float4 _MainTex_ST;
-			float4 _Color;
-			float4 _MainColor;
-			float4 _Distort;
-			struct appdata { float4 vertex : POSITION; float2 texcoord : TEXCOORD0; fixed4 color : COLOR; };
-			struct v2f { float4 pos : SV_POSITION; float2 uv : TEXCOORD0; fixed4 color : COLOR; };
+SubShader { 
+ Tags { "RenderType"="Transparent-1" }
+ Pass {
+  Tags { "RenderType"="Transparent-1" }
+  ZWrite Off
+  Blend DstColor Zero
+  ColorMask RGB
+  Offset -1, -1
+GLSLPROGRAM
 
-			v2f vert(appdata v) {
-				v2f o;
-				float4 wp = mul(unity_ObjectToWorld, v.vertex);
-				float3 rel = wp.xyz - _WorldSpaceCameraPos;
-				float dd = rel.z * rel.z;
-				wp.x += _Distort.x * dd;
-				wp.y += _Distort.y * dd;
-				o.pos = mul(UNITY_MATRIX_VP, wp);
-				o.uv = TRANSFORM_TEX(v.texcoord, _MainTex);
-				o.color = v.color;
-				return o;
-			}
-			fixed4 frag(v2f i) : SV_Target { fixed4 t = tex2D(_MainTex, i.uv); fixed3 m = lerp(fixed3(1,1,1), t.rgb * _Color.rgb, t.a * _Color.a); return fixed4(m, 1); }
-			ENDCG
-		}
-	}
+					
+					#ifdef VERTEX
+					attribute vec4 _glesVertex;
+					uniform highp mat4 glstate_matrix_mvp;
+					uniform highp vec4 _Distort;
+					uniform lowp float _Falloff;
+					uniform mediump mat4 _Projector;
+					varying mediump vec4 xlv_TEXCOORD0;
+					varying lowp vec4 xlv_COLOR;
+					void main ()
+					{
+					  highp float neg_1;
+					  highp vec4 tmpvar_2;
+					  mediump vec4 tmpvar_3;
+					  lowp vec4 tmpvar_4;
+					  tmpvar_2 = (glstate_matrix_mvp * _glesVertex);
+					  tmpvar_2.x = (tmpvar_2.x + ((tmpvar_2.z * tmpvar_2.z) * _Distort.x));
+					  tmpvar_2.y = (tmpvar_2.y + ((tmpvar_2.z * tmpvar_2.z) * _Distort.y));
+					  tmpvar_3 = (_Projector * _glesVertex);
+					  mediump float tmpvar_5;
+					  tmpvar_5 = float((tmpvar_3.z < 0.0));
+					  neg_1 = tmpvar_5;
+					  mediump float tmpvar_6;
+					  tmpvar_6 = clamp ((tmpvar_3.z * _Falloff), 0.0, 1.0);
+					  highp vec4 tmpvar_7;
+					  tmpvar_7 = vec4((neg_1 + tmpvar_6));
+					  tmpvar_4 = tmpvar_7;
+					  gl_Position = tmpvar_2;
+					  xlv_TEXCOORD0 = tmpvar_3;
+					  xlv_COLOR = tmpvar_4;
+					}
+					
+					
+					#endif
+					#ifdef FRAGMENT
+					uniform sampler2D _ShadowTex;
+					varying mediump vec4 xlv_TEXCOORD0;
+					varying lowp vec4 xlv_COLOR;
+					void main ()
+					{
+					  lowp vec4 tmpvar_1;
+					  tmpvar_1 = mix (texture2DProj (_ShadowTex, xlv_TEXCOORD0), vec4(1.0, 1.0, 1.0, 1.0), xlv_COLOR.xxxx);
+					  gl_FragData[0] = tmpvar_1;
+					}
+					
+					
+					#endif
+
+
+
+
+ENDGLSL
+
+ }
+}
 }

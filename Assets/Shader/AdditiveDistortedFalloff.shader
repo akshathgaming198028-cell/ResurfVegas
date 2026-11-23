@@ -1,43 +1,67 @@
 Shader "Custom/Distorted/Additive (falloff)" {
 Properties {
  _MainTex ("Base (RGB)", 2D) = "white" { }
- _Color ("Color Tint", Color) = (1,1,1,1)
- _MainColor ("Main Color", Color) = (1,1,1,0)
- _Distort ("Distort", Color) = (0,0,0,0)
+ _MainColor ("Color (RGBC)", Color) = (1,1,1,0)
+ _Falloff ("Falloff Distance", Float) = 200
 }
-		SubShader {
-		Tags { "Queue"="Transparent" "RenderType"="Transparent" }
-		LOD 100
-		ZWrite Off
-		Cull Off
-		Blend One One
-		Pass {
-			CGPROGRAM
-			#pragma vertex vert
-			#pragma fragment frag
-			#include "UnityCG.cginc"
-			sampler2D _MainTex;
-			float4 _MainTex_ST;
-			float4 _Color;
-			float4 _MainColor;
-			float4 _Distort;
-			struct appdata { float4 vertex : POSITION; float2 texcoord : TEXCOORD0; fixed4 color : COLOR; };
-			struct v2f { float4 pos : SV_POSITION; float2 uv : TEXCOORD0; fixed4 color : COLOR; };
+SubShader { 
+ Tags { "QUEUE"="Transparent" }
+ Pass {
+  Tags { "QUEUE"="Transparent" }
+  ZWrite Off
+  Blend One One
+GLSLPROGRAM
 
-			v2f vert(appdata v) {
-				v2f o;
-				float4 wp = mul(unity_ObjectToWorld, v.vertex);
-				float3 rel = wp.xyz - _WorldSpaceCameraPos;
-				float dd = rel.z * rel.z;
-				wp.x += _Distort.x * dd;
-				wp.y += _Distort.y * dd;
-				o.pos = mul(UNITY_MATRIX_VP, wp);
-				o.uv = TRANSFORM_TEX(v.texcoord, _MainTex);
-				o.color = v.color;
-				return o;
-			}
-			fixed4 frag(v2f i) : SV_Target { return tex2D(_MainTex, i.uv) * _Color * i.color; }
-			ENDCG
-		}
-	}
+					
+					#ifdef VERTEX
+					attribute vec4 _glesVertex;
+					attribute vec4 _glesMultiTexCoord0;
+					uniform highp mat4 glstate_matrix_mvp;
+					uniform highp vec4 _Distort;
+					uniform mediump vec4 _MainTex_ST;
+					uniform lowp float _Falloff;
+					varying lowp vec4 xlv_COLOR;
+					varying highp vec2 xlv_TEXCOORD0;
+					void main ()
+					{
+					  lowp float normalized_distance_1;
+					  highp vec4 tmpvar_2;
+					  tmpvar_2 = (glstate_matrix_mvp * _glesVertex);
+					  tmpvar_2.x = (tmpvar_2.x + ((tmpvar_2.z * tmpvar_2.z) * _Distort.x));
+					  tmpvar_2.y = (tmpvar_2.y + ((tmpvar_2.z * tmpvar_2.z) * _Distort.y));
+					  highp float tmpvar_3;
+					  tmpvar_3 = (tmpvar_2.z / _Falloff);
+					  normalized_distance_1 = tmpvar_3;
+					  lowp vec4 tmpvar_4;
+					  tmpvar_4.yzw = vec3(0.0, 0.0, 0.0);
+					  tmpvar_4.x = (1.0 - (normalized_distance_1 * normalized_distance_1));
+					  gl_Position = tmpvar_2;
+					  xlv_COLOR = tmpvar_4;
+					  xlv_TEXCOORD0 = ((_glesMultiTexCoord0.xy * _MainTex_ST.xy) + _MainTex_ST.zw);
+					}
+					
+					
+					#endif
+					#ifdef FRAGMENT
+					uniform lowp vec4 _MainColor;
+					uniform sampler2D _MainTex;
+					varying lowp vec4 xlv_COLOR;
+					varying highp vec2 xlv_TEXCOORD0;
+					void main ()
+					{
+					  lowp vec4 tmpvar_1;
+					  tmpvar_1 = ((texture2D (_MainTex, xlv_TEXCOORD0) * _MainColor) * xlv_COLOR.x);
+					  gl_FragData[0] = tmpvar_1;
+					}
+					
+					
+					#endif
+
+
+
+
+ENDGLSL
+
+ }
+}
 }
