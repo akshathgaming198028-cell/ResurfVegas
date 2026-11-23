@@ -31,10 +31,6 @@ Properties {
 				v2f o;
 				float4 wp = mul(unity_ObjectToWorld, v.vertex);
 				o.wxy = wp.xy;
-				float3 rel = wp.xyz - _WorldSpaceCameraPos;
-				float dd = rel.z * rel.z;
-				wp.x += _Distort.x * dd;
-				wp.y += _Distort.y * dd;
 				o.pos = mul(UNITY_MATRIX_VP, wp);
 				o.uv = TRANSFORM_TEX(v.texcoord, _MainTex);
 				o.color = v.color;
