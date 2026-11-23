@@ -105,12 +105,11 @@ public class CharacterPickupParticles : MonoBehaviour
 	{
 		details.target.Rotate(0f, 0f, UnityEngine.Random.Range(0f, 360f));
 		Material material = details.target.GetComponent<Renderer>().sharedMaterial;
-		EffectDetails details2 = default(EffectDetails);
 		yield return StartCoroutine(pTween.To(details.duration, delegate(float t)
 		{
-			details2.target.GetComponent<Renderer>().enabled = true;
+			details.target.GetComponent<Renderer>().enabled = true;
 			material.SetColor("_MainColor", Color.Lerp(Color.white, Color.black, t));
-			details2.target.localScale = Vector3.one * details2.scaleCurve.Evaluate(t);
+			details.target.localScale = Vector3.one * details.scaleCurve.Evaluate(t);
 		}));
 		details.target.GetComponent<Renderer>().enabled = false;
 	}

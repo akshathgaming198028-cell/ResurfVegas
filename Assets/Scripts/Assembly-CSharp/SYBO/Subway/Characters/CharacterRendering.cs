@@ -1114,10 +1114,9 @@ namespace SYBO.Subway.Characters
 			caught.normalizedTime = 0f;
 			caught.enabled = true;
 			yield return new WaitForSeconds(delay);
-			AnimationState caught2 = default(AnimationState);
 			StartCoroutine(pTween.To(0.2f, delegate(float t)
 			{
-				caught2.weight = Mathf.Lerp(0f, 1f, t);
+				caught.weight = Mathf.Lerp(0f, 1f, t);
 			}));
 		}
 

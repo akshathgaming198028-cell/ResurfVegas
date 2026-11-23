@@ -143,10 +143,9 @@ public class LongMagnet : MonoBehaviour
 		Vector3 position = pivot.position;
 		float distance = (position - characterController.transform.position).magnitude;
 		Vector3 pickupSpawnPointPositionOffset = new Vector3(0f, 0f, 0f);
-		PickupSpawnPoint2 pickupSpawnPoint2 = default(PickupSpawnPoint2);
 		yield return StartCoroutine(pTween.To(distance / (pullSpeed * game.NormalizedGameSpeed), delegate(float t)
 		{
-			pickupSpawnPoint2.SetWorldPosition(Vector3.Lerp(position, characterRendering.CharacterModel.MeshSuperSneaker.transform.position + pickupSpawnPointPositionOffset, t * t));
+			pickupSpawnPoint.SetWorldPosition(Vector3.Lerp(position, characterRendering.CharacterModel.MeshSuperSneaker.transform.position + pickupSpawnPointPositionOffset, t * t));
 		}));
 	}
 
