@@ -1,82 +1,74 @@
 Shader "Custom/Distorted/Unlit" {
 Properties {
- _MainTex ("Base (RGB)", 2D) = "white" { }
+	_MainTex ("Base (RGB)", 2D) = "white" { }
+	_Color ("Color Tint", Color) = (1,1,1,1)
+	_MainColor ("Main Color", Color) = (1,1,1,0)
+	_Distort ("Distort", Color) = (0,0,0,0)
+	_FogStart ("Fog start distance", Float) = 120
+	_FogEnd ("Fog end distance", Float) = 360
+	_FogStrength ("Fog strength", Range(0,1)) = 0
 }
-SubShader { 
- Pass {
-GLSLPROGRAM
+		SubShader {
+		Tags { "Queue"="Geometry" "RenderType"="Opaque" }
+		LOD 200
+		Pass {
+			Tags { "LightMode"="ForwardBase" }
+			ZWrite On
+			Cull Back
+			Offset -1, -1
+			CGPROGRAM
+			#pragma vertex vert
+			#pragma fragment frag
+			#pragma multi_compile_fwdbase
+			#include "UnityCG.cginc"
+			#include "Lighting.cginc"
+			sampler2D _MainTex;
+			float4 _MainTex_ST;
+			float4 _Color;
+			float4 _Distort;
 
-					
-					#ifdef VERTEX
-					attribute vec4 _glesVertex;
-					attribute vec4 _glesMultiTexCoord0;
-					uniform highp mat4 glstate_matrix_mvp;
-					uniform lowp vec4 _SkyGradientTopColor;
-					uniform lowp vec4 _SkyGradientBottomColor;
-					uniform lowp vec4 _FogSilhouetteColor;
-					uniform lowp float _SkyGradientOffset;
-					uniform highp vec2 _Distort;
-					uniform mediump vec4 _MainTex_ST;
-					varying mediump vec2 xlv_TEXCOORD0;
-					varying lowp vec4 xlv_TEXCOORD1;
-					varying highp vec4 xlv_TEXCOORD2;
-					void main ()
-					{
-					  lowp float screenPosY_1;
-					  highp vec4 tmpvar_2;
-					  mediump vec2 tmpvar_3;
-					  lowp vec4 tmpvar_4;
-					  highp vec4 tmpvar_5;
-					  tmpvar_2 = (glstate_matrix_mvp * _glesVertex);
-					  tmpvar_2.x = (tmpvar_2.x + ((tmpvar_2.z * tmpvar_2.z) * _Distort.x));
-					  tmpvar_2.y = (tmpvar_2.y + ((tmpvar_2.z * tmpvar_2.z) * _Distort.y));
-					  highp float tmpvar_6;
-					  tmpvar_6 = (tmpvar_2.y / tmpvar_2.w);
-					  screenPosY_1 = tmpvar_6;
-					  tmpvar_4.xyz = mix (_SkyGradientBottomColor.xyz, _SkyGradientTopColor.xyz, vec3(clamp ((
-					    (screenPosY_1 - _SkyGradientOffset)
-					   / 
-					    (1.0 - _SkyGradientOffset)
-					  ), 0.0, 1.0)));
-					  lowp float tmpvar_7;
-					  highp float tmpvar_8;
-					  tmpvar_8 = clamp (((1100.0 - tmpvar_2.w) / 300.0), 0.0, 1.0);
-					  tmpvar_7 = tmpvar_8;
-					  tmpvar_4.xyz = mix (tmpvar_4.xyz, _FogSilhouetteColor.xyz, vec3(tmpvar_7));
-					  highp float tmpvar_9;
-					  tmpvar_9 = clamp (((800.0 - tmpvar_2.w) / 500.0), 0.0, 1.0);
-					  tmpvar_4.w = tmpvar_9;
-					  tmpvar_3 = ((_glesMultiTexCoord0.xy * _MainTex_ST.xy) + _MainTex_ST.zw);
-					  gl_Position = tmpvar_2;
-					  xlv_TEXCOORD0 = tmpvar_3;
-					  xlv_TEXCOORD1 = tmpvar_4;
-					  xlv_TEXCOORD2 = tmpvar_5;
-					}
-					
-					
-					#endif
-					#ifdef FRAGMENT
-					uniform sampler2D _MainTex;
-					varying mediump vec2 xlv_TEXCOORD0;
-					varying lowp vec4 xlv_TEXCOORD1;
-					void main ()
-					{
-					  lowp vec4 c_1;
-					  lowp vec4 tmpvar_2;
-					  tmpvar_2 = texture2D (_MainTex, xlv_TEXCOORD0);
-					  c_1.w = tmpvar_2.w;
-					  c_1.xyz = mix (xlv_TEXCOORD1.xyz, tmpvar_2.xyz, xlv_TEXCOORD1.www);
-					  gl_FragData[0] = c_1;
-					}
-					
-					
-					#endif
+			// Set globally from ThemeManager.cs: the sky gradient the fog blends into.
+			float4 _SkyGradientTopColor;
+			float4 _SkyGradientBottomColor;
+			float _SkyGradientOffset;
+			float4 _FogSilhouetteColor;
 
+			float _FogStart;
+			float _FogEnd;
+			float _FogStrength;
 
+			struct appdata { float4 vertex : POSITION; float3 normal : NORMAL; float2 texcoord : TEXCOORD0; };
+			struct v2f { float4 pos : SV_POSITION; float2 uv : TEXCOORD0; float3 n : TEXCOORD1; float3 fogCol : TEXCOORD2; float fogAmt : TEXCOORD3; };
 
+			v2f vert(appdata v) {
+				v2f o;
+				float4 wp = mul(unity_ObjectToWorld, v.vertex);
+				float3 rel = wp.xyz - _WorldSpaceCameraPos;
+				float dd = rel.z * rel.z;
+				wp.x += _Distort.x * dd;
+				wp.y += _Distort.y * dd;
+				o.pos = mul(UNITY_MATRIX_VP, wp);
+				o.uv = TRANSFORM_TEX(v.texcoord, _MainTex);
+				o.n = UnityObjectToWorldNormal(v.normal);
 
-ENDGLSL
+				// Distance haze in the original purple fog silhouette colour, not the orange sky bottom.
+				float3 toV = wp.xyz - _WorldSpaceCameraPos;
+				float dist = length(toV);
+				float dirY = normalize(toV).y;
+				o.fogCol = _FogSilhouetteColor.rgb;
+				o.fogAmt = saturate((dist - _FogStart) / max(_FogEnd - _FogStart, 0.001)) * _FogStrength;
+				return o;
+			}
 
- }
-}
+			fixed4 frag(v2f i) : SV_Target {
+				fixed4 t = tex2D(_MainTex, i.uv) * _Color;
+				float3 n = normalize(i.n);
+				float ndl = dot(n, _WorldSpaceLightPos0.xyz) * 0.5 + 0.5;
+				fixed3 light = 0.8 + 0.2 * ndl;
+				fixed3 lit = t.rgb * light;
+				return fixed4(lerp(lit, i.fogCol, i.fogAmt), 1);
+			}
+			ENDCG
+		}
+	}
 }

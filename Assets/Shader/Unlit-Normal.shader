@@ -1,50 +1,43 @@
 Shader "Unlit/Texture" {
 Properties {
  _MainTex ("Base (RGB)", 2D) = "white" { }
+ _Color ("Color Tint", Color) = (1,1,1,1)
+ _MainColor ("Main Color", Color) = (1,1,1,0)
+ _Distort ("Distort", Color) = (0,0,0,0)
 }
-SubShader { 
- LOD 100
- Tags { "RenderType"="Opaque" }
- Pass {
-  Tags { "RenderType"="Opaque" }
-GLSLPROGRAM
+		SubShader {
+		Tags { "Queue"="Geometry" "RenderType"="Opaque" }
+		LOD 100
+		ZWrite On
+		Cull Back
+		Offset -1, -1
+		Pass {
+			CGPROGRAM
+			#pragma vertex vert
+			#pragma fragment frag
+			#include "UnityCG.cginc"
+			sampler2D _MainTex;
+			float4 _MainTex_ST;
+			float4 _Color;
+			float4 _MainColor;
+			float4 _Distort;
+			struct appdata { float4 vertex : POSITION; float2 texcoord : TEXCOORD0; fixed4 color : COLOR; };
+			struct v2f { float4 pos : SV_POSITION; float2 uv : TEXCOORD0; fixed4 color : COLOR; };
 
-					
-					#ifdef VERTEX
-					attribute vec4 _glesVertex;
-					attribute vec4 _glesMultiTexCoord0;
-					uniform highp mat4 glstate_matrix_mvp;
-					uniform highp vec4 _MainTex_ST;
-					varying mediump vec2 xlv_TEXCOORD0;
-					void main ()
-					{
-					  mediump vec2 tmpvar_1;
-					  tmpvar_1 = ((_glesMultiTexCoord0.xy * _MainTex_ST.xy) + _MainTex_ST.zw);
-					  gl_Position = (glstate_matrix_mvp * _glesVertex);
-					  xlv_TEXCOORD0 = tmpvar_1;
-					}
-					
-					
-					#endif
-					#ifdef FRAGMENT
-					uniform sampler2D _MainTex;
-					varying mediump vec2 xlv_TEXCOORD0;
-					void main ()
-					{
-					  lowp vec4 col_1;
-					  col_1.xyz = texture2D (_MainTex, xlv_TEXCOORD0).xyz;
-					  col_1.w = 1.0;
-					  gl_FragData[0] = col_1;
-					}
-					
-					
-					#endif
-
-
-
-
-ENDGLSL
-
- }
-}
+			v2f vert(appdata v) {
+				v2f o;
+				float4 wp = mul(unity_ObjectToWorld, v.vertex);
+				float3 rel = wp.xyz - _WorldSpaceCameraPos;
+				float dd = rel.z * rel.z;
+				wp.x += _Distort.x * dd;
+				wp.y += _Distort.y * dd;
+				o.pos = mul(UNITY_MATRIX_VP, wp);
+				o.uv = TRANSFORM_TEX(v.texcoord, _MainTex);
+				o.color = v.color;
+				return o;
+			}
+			fixed4 frag(v2f i) : SV_Target { fixed4 t = tex2D(_MainTex, i.uv) * _Color * i.color; return fixed4(t.rgb, 1); }
+			ENDCG
+		}
+	}
 }
