@@ -32,8 +32,8 @@ SubShader {
     v2f o;
     float4 clip = UnityObjectToClipPos(v.vertex);
     float normalizedDistance = clip.z / _Falloff;
-    clip.x = clip.x + (clip.z * clip.z) * _Distort.x;
-    clip.y = clip.y + (clip.z * clip.z) * _Distort.y;
+    clip.x = clip.x + 0.0 * (clip.z * clip.z) * _Distort.x; // TEST: coin bend off
+    clip.y = clip.y + 0.0 * (clip.z * clip.z) * _Distort.y;
     o.pos = clip;
     o.uv = v.texcoord * _MainTex_ST.xy + _MainTex_ST.zw;
     o.alpha = 1.0 - normalizedDistance * normalizedDistance;
