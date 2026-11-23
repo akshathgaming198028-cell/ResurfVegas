@@ -31,13 +31,13 @@ Properties {
 			v2f vert(appdata v) {
 				v2f o;
 				float4 wp = mul(unity_ObjectToWorld, v.vertex);
-				o.wxy = v.vertex.xy * _ClipRange0.zw + _ClipRange0.xy; // clip coord in object space, as original
+				o.wxy = wp.xy;
 				o.pos = mul(UNITY_MATRIX_VP, wp);
 				o.uv = TRANSFORM_TEX(v.texcoord, _MainTex);
 				o.color = v.color;
 				return o;
 			}
-			fixed4 frag(v2f i) : SV_Target { fixed4 c = tex2D(_MainTex, i.uv) * _Color * i.color; float2 cf = (float2(1,1) - abs(i.wxy)) * _ClipArgs0.xy; float clipA = saturate(min(cf.x, cf.y)); c *= clipA; return c; }
+			fixed4 frag(v2f i) : SV_Target { fixed4 c = tex2D(_MainTex, i.uv) * _Color * i.color; float2 cp = (i.wxy - _ClipRange0.xy) / _ClipRange0.zw; float2 cf = (float2(1,1) - abs(cp)) * _ClipArgs0.xy; float clipA = saturate(min(cf.x, cf.y)); c *= clipA; return c; }
 			ENDCG
 		}
 	}
