@@ -114,6 +114,9 @@ public class ScreenAdsManager
 	{
 		get
 		{
+			// Ads removed: this getter gates every path into the native ad plugin (InmobiAndroid.HasCachedAd).
+			// That call threw a NullReferenceException on every FrontScreen tween finish and stopped the home screen.
+			return false;
 			if (Globals.DEBUG_INTERSTITIAL_PROVIDERS_IGNORE_IN_APP_PURCHASES)
 			{
 				return true;
