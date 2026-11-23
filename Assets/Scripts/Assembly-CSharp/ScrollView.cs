@@ -717,16 +717,8 @@ public class ScrollView : MonoBehaviour
 	public IEnumerator AnimateSwapPositions(int dataPosition1, int dataPosition2, float time, Action onComplete = null)
 	{
 		animating = true;
-		Container item1 = _recycleBin.activeContainers.Find((Container T) =>
-		{
-			int dataPosition3 = default(int);
-			return T.dataIndex == dataPosition3;
-		});
-		Container item2 = _recycleBin.activeContainers.Find((Container T) =>
-		{
-			int dataPosition3 = default(int);
-			return T.dataIndex == dataPosition3;
-		});
+		Container item1 = _recycleBin.activeContainers.Find((Container T) => T.dataIndex == dataPosition1);
+		Container item2 = _recycleBin.activeContainers.Find((Container T) => T.dataIndex == dataPosition2);
 		if (item1 != null && item2 != null)
 		{
 			Vector3 origin1 = item1.modelTransform.localPosition;

@@ -1127,12 +1127,10 @@ namespace SYBO.Subway.Characters
 			stopColliding = true;
 			characterController.enabled = false;
 			NotifyOnTutorialMoveBackToCheckPoint(time);
-			float newX2 = default(float);
-			float newZ2 = default(float);
 			yield return StartCoroutine(pTween.To(time, delegate(float t)
 			{
-				x = Mathf.SmoothStep(oldX, newX2, t);
-				z = Mathf.SmoothStep(oldZ, newZ2, t);
+				x = Mathf.SmoothStep(oldX, newX, t);
+				z = Mathf.SmoothStep(oldZ, newZ, t);
 			}));
 			immuneToCriticalHit = false;
 			characterController.enabled = true;
