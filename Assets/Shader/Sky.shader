@@ -6,9 +6,6 @@ Properties {
 	_Distort ("Distort", Color) = (0,0,0,0)
 	_GradientFade ("Fade", Float) = 1.5
 	_GradientOffset ("Gradient offset", Float) = 0
-	_HorizonColor ("Horizon band colour (measured)", Color) = (0.569,0.098,0.239,1)
-	_HorizonWidth ("Horizon band width", Float) = 0.12
-	_HorizonStrength ("Horizon band strength", Float) = 1
 }
 	SubShader {
 	Tags { "QUEUE"="Background+2000" "RenderType"="Opaque" }
@@ -22,35 +19,27 @@ Properties {
 		#pragma fragment frag
 		#include "UnityCG.cginc"
 
-		// Set globally from ThemeManager.cs (theme colours).
+		// Set globally from ThemeManager.cs (SetShaderStates).
 		float4 _SkyGradientTopColor;
-		float4 _FogSilhouetteColor;
+		float4 _SkyGradientBottomColor;
 		float _SkyGradientOffset;
-		float _GradientFade;
-		float _GradientOffset;
-		float4 _HorizonColor;
-		float _HorizonWidth;
-		float _HorizonStrength;
 
 		struct appdata { float4 vertex : POSITION; };
-		struct v2f { float4 pos : SV_POSITION; float dirY : TEXCOORD0; };
+		struct v2f { float4 pos : SV_POSITION; fixed4 col : COLOR0; };
 
+		// Exact transcription of the original Custom/Sky GLES program:
+		// gradient from bottom to top colour driven by the clip-space screen Y.
 		v2f vert(appdata v) {
 			v2f o;
 			o.pos = UnityObjectToClipPos(v.vertex);
-			float3 wp = mul(unity_ObjectToWorld, v.vertex).xyz;
-			o.dirY = normalize(wp - _WorldSpaceCameraPos).y;
+			float screenY = o.pos.y / o.pos.w;
+			float g = saturate((screenY - _SkyGradientOffset) / (1.0 - _SkyGradientOffset));
+			o.col = fixed4(lerp(_SkyGradientBottomColor.rgb, _SkyGradientTopColor.rgb, g), 1);
 			return o;
 		}
 
 		fixed4 frag(v2f i) : SV_Target {
-			// Measured from the original screenshot: deep purple at the top (theme top colour),
-			// violet fog-silhouette colour below it, and a pink-red band at the horizon.
-			float g = saturate(i.dirY * _GradientFade + _SkyGradientOffset + _GradientOffset);
-			float3 col = lerp(_FogSilhouetteColor.rgb, _SkyGradientTopColor.rgb, g);
-			float band = 1.0 - smoothstep(0.0, _HorizonWidth, abs(i.dirY));
-			col = lerp(col, _HorizonColor.rgb, band * _HorizonStrength);
-			return fixed4(col, 1);
+			return i.col;
 		}
 		ENDCG
 	}
