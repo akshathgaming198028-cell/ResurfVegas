@@ -1,43 +1,55 @@
 Shader "Unlit/Transparent Masked" {
 Properties {
- _MainTex ("Base (RGB)", 2D) = "white" { }
- _Color ("Color Tint", Color) = (1,1,1,1)
- _MainColor ("Main Color", Color) = (1,1,1,0)
- _Distort ("Distort", Color) = (0,0,0,0)
- _ClipRange0 ("Clip Range", Vector) = (0,0,100000,100000)
- _ClipArgs0 ("Clip Args", Vector) = (1,1,0,0)
+ _MainTex ("Base (RGB), Alpha (A)", 2D) = "black" { }
+ _Mask ("Alpha (A)", 2D) = "white" { }
 }
-		SubShader {
-		Tags { "Queue"="AlphaTest" "RenderType"="TransparentCutout" }
-		LOD 100
-		ZWrite On
-		Cull Off
-		Pass {
-			CGPROGRAM
-			#pragma vertex vert
-			#pragma fragment frag
-			#include "UnityCG.cginc"
-			sampler2D _MainTex;
-			float4 _MainTex_ST;
-			float4 _Color;
-			float4 _MainColor;
-			float4 _Distort;
-			struct appdata { float4 vertex : POSITION; float2 texcoord : TEXCOORD0; fixed4 color : COLOR; };
-			struct v2f { float4 pos : SV_POSITION; float2 uv : TEXCOORD0; fixed4 color : COLOR; float2 wxy : TEXCOORD1; };
-			float4 _ClipRange0;
-			float4 _ClipArgs0;
+SubShader {
+ LOD 200
+ Tags { "QUEUE"="Transparent" "IGNOREPROJECTOR"="true" "RenderType"="Transparent" }
+ Pass {
+  Tags { "QUEUE"="Transparent" "IGNOREPROJECTOR"="true" "RenderType"="Transparent" }
+  ZWrite Off
+  Cull Off
+  Blend SrcAlpha OneMinusSrcAlpha
+  Offset -1, -1
 
-			v2f vert(appdata v) {
-				v2f o;
-				float4 wp = mul(unity_ObjectToWorld, v.vertex);
-				o.wxy = wp.xy;
-				o.pos = mul(UNITY_MATRIX_VP, wp);
-				o.uv = TRANSFORM_TEX(v.texcoord, _MainTex);
-				o.color = v.color;
-				return o;
-			}
-			fixed4 frag(v2f i) : SV_Target { fixed4 c = tex2D(_MainTex, i.uv) * _Color * i.color; float2 cp = (i.wxy - _ClipRange0.xy) / _ClipRange0.zw; float2 cf = (float2(1,1) - abs(cp)) * _ClipArgs0.xy; float clipA = saturate(min(cf.x, cf.y)); clip(c.a * clipA - 0.5); return fixed4(c.rgb, 1); }
-			ENDCG
-		}
-	}
+  CGPROGRAM
+  #pragma vertex vert
+  #pragma fragment frag
+  #include "UnityCG.cginc"
+
+  sampler2D _MainTex;
+  sampler2D _Mask;
+
+  struct appdata {
+    float4 vertex : POSITION;
+    float2 texcoord : TEXCOORD0;
+    float2 texcoord1 : TEXCOORD1;
+    fixed4 color : COLOR;
+  };
+
+  struct v2f {
+    float4 pos : SV_POSITION;
+    float2 uv : TEXCOORD0;
+    float2 uv1 : TEXCOORD1;
+    fixed4 color : COLOR;
+  };
+
+  v2f vert(appdata v) {
+    v2f o;
+    o.pos = UnityObjectToClipPos(v.vertex);
+    o.uv = v.texcoord;
+    o.uv1 = v.texcoord1;
+    o.color = v.color;
+    return o;
+  }
+
+  fixed4 frag(v2f i) : SV_Target {
+    fixed4 c = tex2D(_MainTex, i.uv) * i.color;
+    c.a = c.a * tex2D(_Mask, i.uv1).a;
+    return c;
+  }
+  ENDCG
+ }
+}
 }
