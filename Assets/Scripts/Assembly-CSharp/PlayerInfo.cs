@@ -2766,11 +2766,30 @@ public class PlayerInfo
 		}
 		DateTime t = CharacterStartAvailabilityDate(characterType);
 		DateTime t2 = CharacterExpirationDate(characterType);
-		if (DateTime.Compare(t2, DateTime.Now) > 0 && DateTime.Compare(t, DateTime.Now) < 0)
+		DateTime loopedNow = LimitedCharacterNow(characterType);
+		if (DateTime.Compare(t2, loopedNow) > 0 && DateTime.Compare(t, loopedNow) < 0)
 		{
 			return true;
 		}
 		return false;
+	}
+
+	// Limited characters repeat their availability window (like the season hunt), so they never expire.
+	public DateTime LimitedCharacterNow(Characters.CharacterType characterType)
+	{
+		DateTime start = CharacterStartAvailabilityDate(characterType);
+		DateTime end = CharacterExpirationDate(characterType);
+		if (start == DateTime.MinValue || end == DateTime.MaxValue || end <= start)
+		{
+			return DateTime.Now;
+		}
+		long span = (end - start).Ticks;
+		long offset = (DateTime.Now - start).Ticks % span;
+		if (offset < 0)
+		{
+			offset += span;
+		}
+		return start.AddTicks(offset);
 	}
 
 	public TimeSpan CharacterExpirationTimespan(Characters.CharacterType characterType)
@@ -2790,7 +2809,7 @@ public class PlayerInfo
 		{
 			dateTime = DateTime.Now;
 		}
-		return dateTime - DateTime.Now;
+		return dateTime - LimitedCharacterNow(characterType);
 	}
 
 	private DateTime DefaultExpirationDateForHoverboard(Hoverboards.BoardType bType)

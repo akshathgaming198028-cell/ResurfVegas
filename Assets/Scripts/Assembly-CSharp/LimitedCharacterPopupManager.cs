@@ -83,7 +83,7 @@ public class LimitedCharacterPopupManager
 		}
 		DateTime value = PlayerInfo.Instance.CharacterStartAvailabilityDate(currentCharacter);
 		DateTime value2 = PlayerInfo.Instance.CharacterExpirationDate(currentCharacter);
-		DateTime now = DateTime.Now;
+		DateTime now = PlayerInfo.Instance.LimitedCharacterNow(currentCharacter);
 		return now.CompareTo(value) > 0 && now.CompareTo(value2) < 0;
 	}
 
@@ -116,7 +116,7 @@ public class LimitedCharacterPopupManager
 	{
 		DateTime dateTime = PlayerInfo.Instance.CharacterStartAvailabilityDate(currentCharacter);
 		DateTime dateTime2 = PlayerInfo.Instance.CharacterExpirationDate(currentCharacter);
-		DateTime now = DateTime.Now;
+		DateTime now = PlayerInfo.Instance.LimitedCharacterNow(currentCharacter);
 		CoroutineUtil.StopCoroutine(_startTimerCoroutine);
 		CoroutineUtil.StopCoroutine(_endTimerCoroutine);
 		if (now.CompareTo(dateTime) < 0)
