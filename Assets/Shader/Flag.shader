@@ -8,10 +8,8 @@ Properties {
 		SubShader {
 		Tags { "Queue"="Geometry" "RenderType"="Opaque" }
 		LOD 100
-		ZWrite On
-		Cull Back
-		Offset -1, -1
 		Pass {
+			Cull Off
 			CGPROGRAM
 			#pragma vertex vert
 			#pragma fragment frag

@@ -8,10 +8,9 @@ Properties {
 		SubShader {
 		Tags { "Queue"="Geometry" "RenderType"="Opaque" }
 		LOD 100
-		ZWrite On
-		Cull Back
-		Offset -1, -1
 		Pass {
+			Blend One One
+			ColorMask 0
 			CGPROGRAM
 			#pragma vertex vert
 			#pragma fragment frag

@@ -8,10 +8,10 @@ Properties {
 		SubShader {
 		Tags { "Queue"="Transparent" "RenderType"="Transparent" }
 		LOD 100
-		ZWrite Off
-		Cull Off
-		Blend One One
 		Pass {
+			Blend One One
+			Offset 0, -50
+			ZTest Always
 			CGPROGRAM
 			#pragma vertex vert
 			#pragma fragment frag

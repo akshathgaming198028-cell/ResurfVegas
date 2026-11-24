@@ -8,10 +8,9 @@ Properties {
 		SubShader {
 		Tags { "Queue"="Transparent" "RenderType"="Transparent" }
 		LOD 100
-		ZWrite Off
-		Cull Off
-		Blend SrcAlpha OneMinusSrcAlpha
 		Pass {
+			Blend SrcAlpha OneMinusSrcAlpha
+			ZWrite Off
 			CGPROGRAM
 			#pragma vertex vert
 			#pragma fragment frag

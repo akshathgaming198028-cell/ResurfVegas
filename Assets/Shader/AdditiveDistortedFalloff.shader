@@ -8,8 +8,8 @@ SubShader {
  Tags { "QUEUE"="Transparent" }
  Pass {
   Tags { "QUEUE"="Transparent" }
-  ZWrite Off
   Blend One One
+  ZWrite Off
   CGPROGRAM
   #pragma vertex vert
   #pragma fragment frag
