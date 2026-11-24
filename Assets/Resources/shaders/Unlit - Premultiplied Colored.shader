@@ -37,7 +37,7 @@ Properties {
 				o.color = v.color;
 				return o;
 			}
-			fixed4 frag(v2f i) : SV_Target { fixed4 c = tex2D(_MainTex, i.uv) * _Color * i.color; float2 cp = (i.wxy - _ClipRange0.xy) / _ClipRange0.zw; float2 cf = (float2(1,1) - abs(cp)) * _ClipArgs0.xy; float clipA = saturate(min(cf.x, cf.y)); c *= clipA; return c; }
+			fixed4 frag(v2f i) : SV_Target { fixed4 c = tex2D(_MainTex, i.uv) * _Color * i.color; return c; }
 			ENDCG
 		}
 	}
