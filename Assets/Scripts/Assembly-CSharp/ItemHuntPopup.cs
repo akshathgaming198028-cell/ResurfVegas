@@ -355,7 +355,7 @@ public class ItemHuntPopup : UIScreen
 			}
 			cell.stickerGroup.SetActive(true);
 			endDate = periodData.periodEndDate;
-			TimeSpan theStickerContent = endDate - DateTime.Now;
+			TimeSpan theStickerContent = endDate - WeeklyHuntManager.GetSeasonNow();
 			cell.SetTheStickerContent(theStickerContent);
 			cell.activePeriodTitle.text = Strings.Get(periodData.periodTitle);
 			cell.RefreshProgressBar(periodData.itemsCollected, periodData.itemsToColect);
@@ -416,7 +416,7 @@ public class ItemHuntPopup : UIScreen
 
 	private void Update()
 	{
-		TimeSpan theStickerContent = endDate - DateTime.Now;
+		TimeSpan theStickerContent = endDate - WeeklyHuntManager.GetSeasonNow();
 		if (theStickerContent.Days < 1 && currentActiveCell != null)
 		{
 			currentActiveCell.SetTheStickerContent(theStickerContent);

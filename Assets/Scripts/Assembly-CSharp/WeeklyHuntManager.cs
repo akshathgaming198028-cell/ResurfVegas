@@ -177,6 +177,12 @@ public static class WeeklyHuntManager
 
 	public static event Action ItemCountUpdated;
 
+	// Season-mapped current time, for UI countdowns that must follow the loop.
+	public static DateTime GetSeasonNow()
+	{
+		return SeasonNow;
+	}
+
 	private static long SeasonLengthTicks
 	{
 		get
