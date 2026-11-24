@@ -37,7 +37,7 @@ Properties {
 				o.color = v.color;
 				return o;
 			}
-			fixed4 frag(v2f i) : SV_Target { fixed4 c = tex2D(_MainTex, i.uv) * _Color * i.color; c.a = c.a; // no clipping in the original for this shader return c; }
+			fixed4 frag(v2f i) : SV_Target { fixed4 c = tex2D(_MainTex, i.uv) * _Color * i.color; return c; }
 			ENDCG
 		}
 	}
