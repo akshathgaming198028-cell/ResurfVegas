@@ -78,6 +78,10 @@ public static class WeeklyHuntManager
 
 	private static bool _hasInited = false;
 
+	// Season clock: the hunt loops over its calendar window forever, so it never expires.
+	// Progress resets at each loop (a new cycle), so the season restarts from day one.
+	private static readonly DateTime SEASON_FIRST_DAY = new DateTime(2016, 5, 12);
+
 	public static bool HIDE_LAST_PERIOD = true;
 
 	public static Vector3 HUNT_ITEM_POSITION_OFFSET = new Vector3(7.38f, 0.76f, 0f);
@@ -173,6 +177,33 @@ public static class WeeklyHuntManager
 
 	public static event Action ItemCountUpdated;
 
+	private static long SeasonLengthTicks
+	{
+		get
+		{
+			return (huntPeriodData[PrizePeriodId.PeriodThree].periodEndDate - SEASON_FIRST_DAY).Ticks;
+		}
+	}
+
+	private static long CurrentCycleIndex()
+	{
+		return (DateTime.Now - SEASON_FIRST_DAY).Ticks / SeasonLengthTicks;
+	}
+
+	// The hunt's calendar date, looped into the season window so it repeats.
+	private static DateTime SeasonNow
+	{
+		get
+		{
+			long ticks = (DateTime.Now - SEASON_FIRST_DAY).Ticks % SeasonLengthTicks;
+			if (ticks < 0)
+			{
+				ticks += SeasonLengthTicks;
+			}
+			return SEASON_FIRST_DAY.AddTicks(ticks);
+		}
+	}
+
 	public static bool IsAnyPeriodActive()
 	{
 		InitIfNeeded();
@@ -197,7 +228,7 @@ public static class WeeklyHuntManager
 	{
 		InitIfNeeded();
 		WeeklyHuntPeriodData weeklyHuntPeriodData = huntPeriodData[PrizePeriodId.PeriodOne];
-		if (DateTime.Compare(((!HIDE_LAST_PERIOD) ? huntPeriodData[PrizePeriodId.PeriodFour] : huntPeriodData[PrizePeriodId.PeriodThree]).periodEndDate, DateTime.Now) >= 0 && DateTime.Compare(weeklyHuntPeriodData.periodStartDate, DateTime.Now) <= 0)
+		if (DateTime.Compare(((!HIDE_LAST_PERIOD) ? huntPeriodData[PrizePeriodId.PeriodFour] : huntPeriodData[PrizePeriodId.PeriodThree]).periodEndDate, SeasonNow) >= 0 && DateTime.Compare(weeklyHuntPeriodData.periodStartDate, SeasonNow) <= 0)
 		{
 			return true;
 		}
@@ -213,7 +244,7 @@ public static class WeeklyHuntManager
 			WeeklyHuntPeriodData value = huntPeriodDatum.Value;
 			DateTime periodEndDate = value.periodEndDate;
 			DateTime periodStartDate = value.periodStartDate;
-			if (DateTime.Compare(periodEndDate, DateTime.Now) >= 0 && DateTime.Compare(periodStartDate, DateTime.Now) <= 0 && (huntPeriodDatum.Key != PrizePeriodId.PeriodFour || !HIDE_LAST_PERIOD))
+			if (DateTime.Compare(periodEndDate, SeasonNow) >= 0 && DateTime.Compare(periodStartDate, SeasonNow) <= 0 && (huntPeriodDatum.Key != PrizePeriodId.PeriodFour || !HIDE_LAST_PERIOD))
 			{
 				return key;
 			}
@@ -227,11 +258,11 @@ public static class WeeklyHuntManager
 		WeeklyHuntPeriodData weeklyHuntPeriodData = huntPeriodData[period];
 		DateTime periodEndDate = weeklyHuntPeriodData.periodEndDate;
 		DateTime periodStartDate = weeklyHuntPeriodData.periodStartDate;
-		if (DateTime.Compare(periodEndDate, DateTime.Now) >= 0 && DateTime.Compare(periodStartDate, DateTime.Now) <= 0)
+		if (DateTime.Compare(periodEndDate, SeasonNow) >= 0 && DateTime.Compare(periodStartDate, SeasonNow) <= 0)
 		{
 			return PeriodStatus.Current;
 		}
-		if (DateTime.Compare(periodEndDate, DateTime.Now) < 0)
+		if (DateTime.Compare(periodEndDate, SeasonNow) < 0)
 		{
 			return PeriodStatus.Expired;
 		}
@@ -397,11 +428,27 @@ public static class WeeklyHuntManager
 
 	private static void OnRunStarted()
 	{
+		string storedCycle = PlayerInfo.Instance.weeklyChallangeData.Split(',')[0];
+		if (ShouldResetChallangeData(storedCycle))
+		{
+			ResetHuntProgress();
+		}
 		PrizePeriodId activePeriode = GetActivePeriode();
 		if (activePeriode != PrizePeriodId.None && huntPeriodData[activePeriode].itemsCollected == 0)
 		{
 			_canCollectAllTokensInOneRun = true;
 		}
+	}
+
+	private static void ResetHuntProgress()
+	{
+		foreach (PrizePeriodId key in new List<PrizePeriodId>(huntPeriodData.Keys))
+		{
+			WeeklyHuntPeriodData value = huntPeriodData[key];
+			value.itemsCollected = 0;
+			huntPeriodData[key] = value;
+		}
+		SaveNewProgress(false);
 	}
 
 	private static void OnRunEnded()
@@ -447,14 +494,10 @@ public static class WeeklyHuntManager
 
 	private static bool ShouldResetChallangeData(string storedStringDate)
 	{
-		DateTime result = DateTime.MinValue;
-		if (DateTime.TryParse(storedStringDate, out result))
+		long result;
+		if (long.TryParse(storedStringDate, out result))
 		{
-			if (DateTime.Compare(result, START_CHALLANGE_DATE_TIME) != 0)
-			{
-				return true;
-			}
-			return false;
+			return result != CurrentCycleIndex();
 		}
 		return true;
 	}
@@ -463,7 +506,7 @@ public static class WeeklyHuntManager
 	{
 		PlayerInfo instance = PlayerInfo.Instance;
 		StringBuilder stringBuilder = new StringBuilder(string.Empty);
-		stringBuilder.Append(START_CHALLANGE_DATE_TIME.ToString() + ",");
+		stringBuilder.Append(CurrentCycleIndex() + ",");
 		foreach (KeyValuePair<PrizePeriodId, WeeklyHuntPeriodData> huntPeriodDatum in huntPeriodData)
 		{
 			if (shouldStartNewProgress)
