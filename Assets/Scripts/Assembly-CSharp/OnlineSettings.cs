@@ -69,7 +69,16 @@ public class OnlineSettings
 
 	private OnlineSettings()
 	{
-		LoadFromFile();
+		if (Globals.DEBUG_USE_FAKE_ONLINE_SETTINGS)
+		{
+			// Fake server: always use the built-in snapshot, never an old saved file.
+			_settings = StringUtility.ParseProperties(Globals.fakeOnlineSettings);
+			SaveToFile();
+		}
+		else
+		{
+			LoadFromFile();
+		}
 	}
 
 	public void AddOnFinishedDownloadingOnlineSettingsHandler(Action handler)
