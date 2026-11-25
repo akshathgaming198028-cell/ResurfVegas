@@ -25,6 +25,7 @@ jobs:
         with:
           unityVersion: 2019.4.41f2
           targetPlatform: Android
+          versioning: None
           androidKeystoreName: user.keystore
           androidKeystoreBase64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
           androidKeystorePass: ${{ secrets.ANDROID_KEYSTORE_PASS }}
