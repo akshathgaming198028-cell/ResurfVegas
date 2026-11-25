@@ -158,7 +158,7 @@ public class CoinEarnerVideoAds : MonoBehaviour
 		}
 		if (go == _videoAvailableGameObject || go == _noVideosGameObject)
 		{
-			if (_currentButtonState == ButtonState.VideoReady && VideoAdsManager.instance.IsVideoForKeysAvailable())
+			if (_currentButtonState == ButtonState.VideoReady || _currentButtonState == ButtonState.NoVideo)
 			{
 				SetButtonText(Strings.Get(StringID.EARN_KEYS_SPONSORED_VIDEO), Strings.Get(StringID.EARN_KEYS_SPONSORED_VIDEO_DESCRIPTION), VideoAdsManager.instance.GetAmountOfKeysRewardedForVideo(), true);
 				_contentKeys.SetActive(true);

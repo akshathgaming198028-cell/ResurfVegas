@@ -385,7 +385,8 @@ public class FrontScreen : RunStartScreen
 
 	private void CheckTheVideoButtonState()
 	{
-		if (PlayerInfo.Instance.IsTutorialCompleted && VideoAdsManager.instance.IsAnyVideoAvailable())
+		// Original 1.56: the keys button shows after the tutorial whether or not a video is cached.
+		if (PlayerInfo.Instance.IsTutorialCompleted)
 		{
 			UpdateVideoButtonState();
 			_videoReadyToShow = true;
