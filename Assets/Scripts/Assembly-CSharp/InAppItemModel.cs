@@ -22,7 +22,7 @@ public class InAppItemModel
 		Promotion = 2
 	}
 
-	private string _localizedPrize;
+	private string _localizedPrize = "$0.99";
 
 	public string DisplayName { get; private set; }
 
@@ -66,7 +66,7 @@ public class InAppItemModel
 		}
 	}
 
-	public bool IsValidated { get; set; }
+	public bool IsValidated { get; set; } = true;
 
 	public bool IsDynamic { get; set; }
 
