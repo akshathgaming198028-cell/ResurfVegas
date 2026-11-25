@@ -1,45 +1,78 @@
+// Custom/Distorted/FlyingCarpet
+// Ported from the 1.56 original's GLES program (sharedassets1, path_id 374),
+// decompressed with LZ4 (decompressedSize 1728). Source is verbatim.
 Shader "Custom/Distorted/FlyingCarpet" {
 Properties {
- _MainTex ("Base (RGB)", 2D) = "white" { }
- _Color ("Color (RGBA)", Color) = (1,1,1,1)
- _Frequency ("Frequency", Range(0.01,5)) = 4
+    _MainTex ("Base (RGB)", 2D) = "white" {}
+    _Color ("Color (RGBA)", Color) = (1,1,1,1)
+    _Frequency ("Frequency", Range(0.01,5)) = 4
+    _Distort ("Distort", Color) = (0,0,0,0)
 }
 SubShader {
- Pass {
-  Cull Off
-  // Port of the original GLES program: triangle-wave vertex wobble driven by _Time.x, _Frequency and
-  // the vertex colour's red channel, then the clip-space bend. Textured, tinted by _Color.
-  CGPROGRAM
-  #pragma vertex vert
-  #pragma fragment frag
-  #include "UnityCG.cginc"
+    Pass {
+        Cull Off
 
-  sampler2D _MainTex;
-  float4 _MainTex_ST;
-  fixed4 _Color;
-  float _Frequency;
-  float4 _Distort; // global, as in the original
+        GLSLPROGRAM
+        #version 100
 
-  struct appdata { float4 vertex : POSITION; float4 color : COLOR; float4 texcoord : TEXCOORD0; };
-  struct v2f { float4 pos : SV_POSITION; float2 uv : TEXCOORD0; };
-
-  v2f vert(appdata v) {
-    v2f o;
-    float intensity = v.color.x;
-    float3 p2 = float3(v.vertex.x, v.vertex.z, 0.0);
-    float3 t = abs(fract((((_Time.x * float3(50.0, 100.0, 0.0)) * _Frequency) - dot(p2, float3(1.0, 1.0, 1.0))) / 9.42477 + 0.5) * 2.0 - 1.0);
-    float3 off = float3(0.0, 0.0, 0.0);
-    off.y = intensity * ((((t * t) * (3.0 - 2.0 * t)) * 2.0 - 1.0).y) * 0.3;
-    float4 world = float4(v.vertex.xyz + off, v.vertex.w);
-    o.pos = UnityObjectToClipPos(world);
-    o.pos.x = o.pos.x + (o.pos.z * o.pos.z) * _Distort.x;
-    o.pos.y = o.pos.y + (o.pos.z * o.pos.z) * _Distort.y;
-    o.uv = v.texcoord.xy * _MainTex_ST.xy + _MainTex_ST.zw;
-    return o;
-  }
-
-  fixed4 frag(v2f i) : SV_Target { return tex2D(_MainTex, i.uv) * _Color; }
-  ENDCG
- }
+        #ifdef VERTEX
+        attribute vec4 _glesVertex;
+        attribute vec4 _glesColor;
+        attribute vec4 _glesMultiTexCoord0;
+        uniform highp vec4 _Time;
+        uniform highp mat4 glstate_matrix_mvp;
+        uniform highp vec4 _MainTex_ST;
+        uniform highp float _Frequency;
+        uniform highp vec2 _Distort;
+        varying highp vec2 xlv_TEXCOORD0;
+        void main ()
+        {
+          highp vec4 tmpvar_1;
+          tmpvar_1 = _glesVertex;
+          lowp vec4 tmpvar_2;
+          tmpvar_2 = _glesColor;
+          highp vec4 tmpvar_3;
+          tmpvar_3.w = tmpvar_1.w;
+          highp vec4 tmpvar_4;
+          highp float intensity_5;
+          intensity_5 = tmpvar_2.x;
+          highp vec3 off_6;
+          highp vec3 tmpvar_7;
+          tmpvar_7.z = 0.0;
+          tmpvar_7.xy = tmpvar_1.xz;
+          highp vec3 tmpvar_8;
+          tmpvar_8 = abs(((
+            fract((((
+              ((_Time.x * vec3(50.0, 100.0, 0.0)) * _Frequency)
+             - 
+              dot (tmpvar_7, vec3(1.0, 1.0, 1.0))
+            ) / 9.42477) + 0.5))
+           * 2.0) - 1.0));
+          off_6.x = 0.0;
+          off_6.y = ((intensity_5 * (
+            (((tmpvar_8 * tmpvar_8) * (3.0 - (2.0 * tmpvar_8))) * 2.0)
+           - 1.0)).y * 0.3);
+          off_6.z = 0.0;
+          tmpvar_3.xyz = (_glesVertex.xyz + off_6);
+          tmpvar_4 = (glstate_matrix_mvp * tmpvar_3);
+          tmpvar_4.x = (tmpvar_4.x + ((tmpvar_4.z * tmpvar_4.z) * _Distort.x));
+          tmpvar_4.y = (tmpvar_4.y + ((tmpvar_4.z * tmpvar_4.z) * _Distort.y));
+          gl_Position = tmpvar_4;
+          xlv_TEXCOORD0 = ((_glesMultiTexCoord0.xy * _MainTex_ST.xy) + _MainTex_ST.zw);
+        }
+        #endif
+        #ifdef FRAGMENT
+        uniform sampler2D _MainTex;
+        uniform mediump vec4 _Color;
+        varying highp vec2 xlv_TEXCOORD0;
+        void main ()
+        {
+          lowp vec4 tmpvar_1;
+          tmpvar_1 = (texture2D (_MainTex, xlv_TEXCOORD0) * _Color);
+          gl_FragData[0] = tmpvar_1;
+        }
+        #endif
+        ENDGLSL
+    }
 }
 }
