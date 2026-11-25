@@ -244,5 +244,10 @@ public class CoinEarnerVideoAds : MonoBehaviour
 			SetButtonState(ButtonState.VideoReady);
 			break;
 		}
+		BreadCrumbHelper componentInChildren = GetComponentInChildren<BreadCrumbHelper>(true);
+		if (componentInChildren != null)
+		{
+			componentInChildren.SetupBreadCrumbState();
+		}
 	}
 }
