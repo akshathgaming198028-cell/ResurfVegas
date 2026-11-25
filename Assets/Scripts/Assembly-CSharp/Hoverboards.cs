@@ -753,7 +753,7 @@ public class Hoverboards
 				isNewInThisUpdate = true,
 				hasOnlineTimeLimit = true,
 				defaultExpirationTime = new DateTime(2016, 6, 23),
-				defaultStartDate = new DateTime(2014, 11, 26)
+				defaultStartDate = new DateTime(2016, 6, 2)
 			}
 		},
 		{

@@ -70,7 +70,7 @@ public class LimitedBoardPopupManager
 		}
 		DateTime value = PlayerInfo.Instance.BoardExpirationDate(currentBoardType);
 		DateTime value2 = PlayerInfo.Instance.BoardStartAvailabilityDate(currentBoardType);
-		DateTime now = DateTime.Now;
+		DateTime now = PlayerInfo.Instance.LimitedBoardNow(currentBoardType);
 		return now.CompareTo(value2) > 0 && now.CompareTo(value) < 0;
 	}
 
@@ -86,7 +86,7 @@ public class LimitedBoardPopupManager
 	{
 		DateTime dateTime = PlayerInfo.Instance.BoardStartAvailabilityDate(currentBoardType);
 		DateTime dateTime2 = PlayerInfo.Instance.BoardExpirationDate(currentBoardType);
-		DateTime now = DateTime.Now;
+		DateTime now = PlayerInfo.Instance.LimitedBoardNow(currentBoardType);
 		CoroutineUtil.StopCoroutine(_startTimerCoroutine);
 		CoroutineUtil.StopCoroutine(_endTimerCoroutine);
 		if (now.CompareTo(dateTime) < 0)

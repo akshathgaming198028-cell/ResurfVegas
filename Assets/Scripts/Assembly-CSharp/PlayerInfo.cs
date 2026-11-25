@@ -2907,11 +2907,30 @@ public class PlayerInfo
 		}
 		DateTime t = BoardExpirationDate(boardType);
 		DateTime t2 = BoardStartAvailabilityDate(boardType);
-		if (DateTime.Compare(t, DateTime.Now) > 0 && DateTime.Compare(t2, DateTime.Now) < 0)
+		DateTime boardNow = LimitedBoardNow(boardType);
+		if (DateTime.Compare(t, boardNow) > 0 && DateTime.Compare(t2, boardNow) < 0)
 		{
 			return true;
 		}
 		return false;
+	}
+
+	// Limited boards repeat their availability window (like the season hunt), so they never expire.
+	public DateTime LimitedBoardNow(Hoverboards.BoardType boardType)
+	{
+		DateTime start = BoardStartAvailabilityDate(boardType);
+		DateTime end = BoardExpirationDate(boardType);
+		if (start == DateTime.MinValue || end == DateTime.MaxValue || end <= start)
+		{
+			return DateTime.Now;
+		}
+		long span = (end - start).Ticks;
+		long offset = (DateTime.Now - start).Ticks % span;
+		if (offset < 0)
+		{
+			offset += span;
+		}
+		return start.AddTicks(offset);
 	}
 
 	public TimeSpan BoardExpirationTimespan(Hoverboards.BoardType boardType)
@@ -2931,7 +2950,7 @@ public class PlayerInfo
 		{
 			dateTime = DateTime.Now;
 		}
-		return dateTime - DateTime.Now;
+		return dateTime - LimitedBoardNow(boardType);
 	}
 
 	public void UnlockHoverboard(Hoverboards.BoardType boardType)
