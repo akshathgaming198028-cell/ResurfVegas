@@ -105,6 +105,7 @@ public class CoinEarnerVideoAds : MonoBehaviour
 		else if (_currentButtonState == ButtonState.NoVideo)
 		{
 			Flurry.LogEventWithAParameter("Video Ads button clicked", "State", string.Concat(ButtonState.NoVideo, string.Empty));
+			UIScreenController.Instance.QueueErrorMessageSlidein(Strings.Get(StringID.EARN_COINS_NATIVE_POPUP_TITLE));
 			_adsManagerInstance.TryCachingVideosAgain();
 		}
 		else if (_currentButtonState != ButtonState.Loading)

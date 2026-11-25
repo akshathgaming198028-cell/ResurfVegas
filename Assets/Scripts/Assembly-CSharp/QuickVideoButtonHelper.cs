@@ -42,7 +42,7 @@ public class QuickVideoButtonHelper : MonoBehaviour
 		yield return new WaitForEndOfFrame();
 		if (!VideoAdsManager.instance.PlayVideoIfAvailable())
 		{
-			UIScreenController.Instance.QueueErrorMessageSlidein(Strings.Get(StringID.SLIDEIN_VIDEO_PLAY_ERROR));
+			UIScreenController.Instance.QueueErrorMessageSlidein(Strings.Get(StringID.EARN_COINS_NATIVE_POPUP_TITLE));
 		}
 		else
 		{

@@ -444,14 +444,8 @@ public class FrontScreen : RunStartScreen
 
 	private void UpdateVideoButtonState()
 	{
-		if (VideoAdsManager.instance.IsVideoForKeysAvailable())
-		{
-			_quickVideoBtnHelper.SetState(QuickVideoButtonHelper.State.Keys);
-		}
-		else
-		{
-			_quickVideoBtnHelper.SetState(QuickVideoButtonHelper.State.Minibox);
-		}
+		// Original 1.56: the keys button always shows; tapping with no video ready shows "No videos available".
+		_quickVideoBtnHelper.SetState(QuickVideoButtonHelper.State.Keys);
 	}
 
 	private void AnimateVideoButton()
