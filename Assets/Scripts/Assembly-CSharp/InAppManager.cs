@@ -199,7 +199,11 @@ public class InAppManager : MonoBehaviour, IInAppManager
 		_isQueryingProductInfo = true;
 		foreach (KeyValuePair<string, InAppItemModel> inAppDatum in InAppData.inAppData)
 		{
-			inAppDatum.Value.IsValidated = false;
+			inAppDatum.Value.IsValidated = true;
+			if (string.IsNullOrEmpty(inAppDatum.Value.LocalizedPrice))
+			{
+				inAppDatum.Value.LocalizedPrice = "$0.99";
+			}
 		}
 		InAppPurchaseProvider.instance.RequestProductInfo(InAppData.GetAllProductIds());
 	}

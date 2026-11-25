@@ -168,7 +168,7 @@ public class BreadCrumbHelper : MonoBehaviour
 				_hideSaleSticker = true;
 			}
 		}
-		else if ((_currentLocation == BreadCrumbLocations.earnCoinsVideoButton || (_currentLocation == BreadCrumbLocations.earnCoinsFooterButton && !topScreenName.Equals("EarnCoinsScreen"))) && VideoAdsManager.instance.IsVideoForKeysAvailable())
+		else if ((_currentLocation == BreadCrumbLocations.earnCoinsVideoButton || (_currentLocation == BreadCrumbLocations.earnCoinsFooterButton && !topScreenName.Equals("EarnCoinsScreen"))) && ShouldShowEarnKeysSticker())
 		{
 			_currentState = BreadCrumbStates.earnKeys;
 		}
@@ -193,6 +193,20 @@ public class BreadCrumbHelper : MonoBehaviour
 			}
 		}
 		SetupBreadCrumb();
+	}
+
+	private bool ShouldShowEarnKeysSticker()
+	{
+		if (VideoAdsManager.instance.IsVideoForKeysAvailable())
+		{
+			return true;
+		}
+		if (_currentLocation != BreadCrumbLocations.earnCoinsVideoButton)
+		{
+			return false;
+		}
+		VideoAdsManager.VideoState videoState = VideoAdsManager.instance.GetCurrentVideoState();
+		return videoState == VideoAdsManager.VideoState.NoVideos || videoState == VideoAdsManager.VideoState.Offline;
 	}
 
 	private bool ShouldShowBoardsGiftSticker()
