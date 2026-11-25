@@ -65,7 +65,7 @@ public class OfferWallManager
 			OfferWallDataManager dataManager = new OfferWallDataManager();
 			_offerWall.Initialize(dataManager, new List<IOfferWallProvider>
 			{
-				new TapJoyOfferWallProvider()
+				new DummyOfferWallProvider()
 			});
 			_isInitialized = true;
 		}
