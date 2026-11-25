@@ -50,7 +50,9 @@ SubShader {
             tmpvar_7.xy = tmpvar_1.xz;
             float3 tmpvar_8 = abs(((frac((((_Time.x * float3(50.0, 100.0, 0.0)) * _Frequency) - dot(tmpvar_7, float3(1.0, 1.0, 1.0))) / 9.42477) + 0.5)) * 2.0) - 1.0);
             off_6.x = 0.0;
-            off_6.y = ((intensity_5 * (((tmpvar_8 * tmpvar_8) * (3.0 - (2.0 * tmpvar_8))) * 2.0) - 1.0).y * 0.3);
+            float3 shaped_9 = (((tmpvar_8 * tmpvar_8) * (3.0 - (2.0 * tmpvar_8))) * 2.0) - 1.0;
+            float3 scaled_10 = intensity_5 * shaped_9;
+            off_6.y = scaled_10.y * 0.3;
             off_6.z = 0.0;
             tmpvar_3.xyz = (v.vertex.xyz + off_6);
             float4 tmpvar_4 = mul(UNITY_MATRIX_MVP, tmpvar_3);
