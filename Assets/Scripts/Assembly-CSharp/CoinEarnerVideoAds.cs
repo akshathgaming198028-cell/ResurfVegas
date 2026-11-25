@@ -130,7 +130,7 @@ public class CoinEarnerVideoAds : MonoBehaviour
 			SetStateGameObjectActive(_loadingGameObject);
 			break;
 		case ButtonState.NoVideo:
-			SetStateGameObjectActive(_noVideosGameObject);
+			SetStateGameObjectActive(_videoAvailableGameObject);
 			break;
 		default:
 			SetStateGameObjectActive(_loadingGameObject);
