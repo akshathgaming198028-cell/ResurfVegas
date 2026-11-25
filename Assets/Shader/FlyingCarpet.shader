@@ -48,7 +48,9 @@ SubShader {
             float3 tmpvar_7;
             tmpvar_7.z = 0.0;
             tmpvar_7.xy = tmpvar_1.xz;
-            float3 tmpvar_8 = abs(((frac((((_Time.x * float3(50.0, 100.0, 0.0)) * _Frequency) - dot(tmpvar_7, float3(1.0, 1.0, 1.0))) / 9.42477) + 0.5)) * 2.0) - 1.0);
+            float3 wave_t = (_Time.x * float3(50.0, 100.0, 0.0)) * _Frequency;
+            float3 q_8 = (wave_t - dot(tmpvar_7, float3(1.0, 1.0, 1.0))) / 9.42477 + 0.5;
+            float3 tmpvar_8 = abs(frac(q_8) * 2.0 - 1.0);
             off_6.x = 0.0;
             float3 shaped_9 = (((tmpvar_8 * tmpvar_8) * (3.0 - (2.0 * tmpvar_8))) * 2.0) - 1.0;
             float3 scaled_10 = intensity_5 * shaped_9;
