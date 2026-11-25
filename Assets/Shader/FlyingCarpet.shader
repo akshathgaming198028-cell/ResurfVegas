@@ -52,10 +52,9 @@ SubShader {
             (((tmpvar_8 * tmpvar_8) * (3.0 - (2.0 * tmpvar_8))) * 2.0)
            - 1.0)).y * 0.3);
           off_6.z = 0.0;
-          tmpvar_3.xyz = (_glesVertex.xyz + off_6);
+          tmpvar_3.xyz = _glesVertex.xyz; // DIAGNOSTIC: wave off
           tmpvar_4 = (glstate_matrix_mvp * tmpvar_3);
-          tmpvar_4.x = (tmpvar_4.x + ((tmpvar_4.z * tmpvar_4.z) * _Distort.x));
-          tmpvar_4.y = (tmpvar_4.y + ((tmpvar_4.z * tmpvar_4.z) * _Distort.y));
+          // DIAGNOSTIC: distort off
           gl_Position = tmpvar_4;
           xlv_TEXCOORD0 = ((_glesMultiTexCoord0.xy * _MainTex_ST.xy) + _MainTex_ST.zw);
         }
