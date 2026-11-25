@@ -899,11 +899,9 @@ public class CelebrationPopup : UIScreen
 		_isFingerPressed = true;
 		stopIdleAnim = true;
 		Animation animation = null;
-		Debug.Log("BOXDBG pressed reward=" + _currentReward + " two=" + IsTwoStepsCelebration(_currentReward));
 		if (IsTwoStepsCelebration(_currentReward))
 		{
 			animation = _celebrationRewardContainer[_currentReward].GetComponentInChildren<Animation>();
-			Debug.Log("BOXDBG down anim=" + (animation != null));
 			if (animation != null && (bool)animation["down"])
 			{
 				animation.Play("down");
@@ -918,7 +916,6 @@ public class CelebrationPopup : UIScreen
 
 	public void FingerReleased()
 	{
-		Debug.Log("BOXDBG released started=" + celebrationHasStarted + " origin=" + rewardsToUnlock[_currentReward].CelebrationRewardOrigin);
 		if (preOpenLabel != null)
 		{
 			UnityEngine.Object.Destroy(preOpenLabel);
@@ -1060,11 +1057,9 @@ public class CelebrationPopup : UIScreen
 				}
 			}
 			Animation animation = null;
-			Debug.Log("BOXDBG showReward idx=" + currentRewardIndex + " two=" + IsTwoStepsCelebration(currentRewardIndex));
 			if (IsTwoStepsCelebration(currentRewardIndex))
 			{
 				animation = _celebrationRewardContainer[currentRewardIndex].GetComponentInChildren<Animation>();
-				Debug.Log("BOXDBG up anim=" + (animation != null));
 				if (animation != null && (bool)animation["up"])
 				{
 					animation.Play("up");
