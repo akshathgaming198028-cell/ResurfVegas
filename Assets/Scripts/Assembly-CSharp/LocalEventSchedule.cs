@@ -16,7 +16,7 @@ public static class LocalEventSchedule
 		int week = (int)((thursday - FirstThursday).TotalDays / 7.0);
 		Characters.CharacterType character = Rotation[((week % Rotation.Length) + Rotation.Length) % Rotation.Length];
 		long start = (long)(thursday - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds;
-		long end = start + 7L * 86400L;
+		long end = start + 86400L;
 		settings["event_id"] = start.ToString();
 		settings["event_start"] = start.ToString();
 		settings["event_end"] = end.ToString();
