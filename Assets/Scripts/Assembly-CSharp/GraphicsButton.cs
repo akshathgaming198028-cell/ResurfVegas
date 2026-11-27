@@ -40,7 +40,7 @@ public class GraphicsButton : MonoBehaviour
 		string stored = Settings.optionGraphics.ToString();
 		string applied = DeviceInfo.Instance.performanceLevel.ToString();
 		string device = DeviceInfo.Instance.gpuCategory.ToString();
-		GUI.Label(new Rect(10f, 10f, 1000f, 300f), "GFX taps=" + _tapCount + " last=" + _lastEvent + " stored=" + stored + " applied=" + applied + " device=" + device + " quality=" + QualitySettings.GetQualityLevel() + " fps=" + Application.targetFrameRate);
+		GUI.Label(new Rect(10f, 10f, 1000f, 300f), "GFX taps=" + _tapCount + " last=" + _lastEvent + " stored=" + stored + " applied=" + applied + " device=" + device + " quality=" + QualitySettings.GetQualityLevel() + " fps=" + Application.targetFrameRate + " hover=" + (UICamera.hoveredObject != null ? UICamera.hoveredObject.name : "none") + " pressed=" + (UICamera.currentTouch != null && UICamera.currentTouch.pressed != null ? UICamera.currentTouch.pressed.name : "none"));
 	}
 
 	private void _Refresh()
