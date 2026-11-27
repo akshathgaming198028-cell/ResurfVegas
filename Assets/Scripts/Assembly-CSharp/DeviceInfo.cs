@@ -124,6 +124,15 @@ public class DeviceInfo
 		{
 			performanceLevel = PerformanceLevel.Low;
 		}
+		int graphicsOverride = Settings.optionGraphics;
+		if (graphicsOverride == 1)
+		{
+			performanceLevel = PerformanceLevel.High;
+		}
+		else if (graphicsOverride == 2)
+		{
+			performanceLevel = PerformanceLevel.Low;
+		}
 	}
 
 	public static bool isKindleDevice()

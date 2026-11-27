@@ -44,6 +44,19 @@ public class Settings : MonoBehaviour
 		}
 	}
 
+	// 0 = Auto (device decides), 1 = High (original high path), 2 = Low (original low path). Applied at startup in DeviceInfo.
+	public static int optionGraphics
+	{
+		get
+		{
+			return PlayerPrefs.GetInt("OPTION_GRAPHICS", 0);
+		}
+		set
+		{
+			PlayerPrefs.SetInt("OPTION_GRAPHICS", value);
+		}
+	}
+
 	public static bool optionTopRunChallengers
 	{
 		get

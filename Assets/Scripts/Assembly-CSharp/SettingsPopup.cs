@@ -75,6 +75,8 @@ public class SettingsPopup : UIScreen
 
 	private int numberOfDisabledButtons;
 
+	private bool _graphicsRowAdded;
+
 	private void Awake()
 	{
 		titleLabel.text = Strings.Get(StringID.SETTINGS_POPUP_TITLE);
@@ -96,6 +98,62 @@ public class SettingsPopup : UIScreen
 		{
 			Object.Destroy(debugButton);
 		}
+		AddGraphicsRow();
+	}
+
+	// Clones the sound row (same look and layout) into a Graphics Auto/High/Low row under it.
+	private void AddGraphicsRow()
+	{
+		if (_graphicsRowAdded || grid == null)
+		{
+			return;
+		}
+		SoundButton sound = grid.GetComponentInChildren<SoundButton>(true);
+		if (sound == null)
+		{
+			return;
+		}
+		_graphicsRowAdded = true;
+		GameObject row = sound.gameObject;
+		GameObject clone = NGUITools.AddChild(grid.gameObject, row);
+		clone.name = "1b Graphics";
+		clone.transform.SetSiblingIndex(row.transform.GetSiblingIndex() + 1);
+		Object.Destroy(clone.GetComponent<SoundButton>());
+		foreach (UIButtonMessage message in clone.GetComponentsInChildren<UIButtonMessage>(true))
+		{
+			Object.Destroy(message);
+		}
+		GraphicsButton graphics = clone.AddComponent<GraphicsButton>();
+		UILabel title = null;
+		foreach (UILabel label in clone.GetComponentsInChildren<UILabel>(true))
+		{
+			if (label.name == "Title")
+			{
+				title = label;
+			}
+			if (label.name == "Desc")
+			{
+				label.text = "Auto uses the device. High and Low use the original graphics paths.";
+			}
+		}
+		foreach (Transform child in clone.GetComponentsInChildren<Transform>(true))
+		{
+			if (child.name == "IconOff")
+			{
+				child.gameObject.SetActive(false);
+			}
+		}
+		graphics.Setup(title);
+		foreach (UIButton button in clone.GetComponentsInChildren<UIButton>(true))
+		{
+			button.onClick.Clear();
+			EventDelegate.Add(button.onClick, new EventDelegate(graphics, "Click"));
+		}
+		// The popup baseline is the all-rows layout, so one more row grows the panel and moves the footer down.
+		originalFillScale += SCALE_INCREASE;
+		originalOutlineScale += SCALE_INCREASE;
+		originalVersionNrHeight -= SCALE_INCREASE;
+		originalContactInfoHeight -= SCALE_INCREASE;
 	}
 
 	public override void Show()
