@@ -907,6 +907,7 @@ public class CelebrationPopup : UIScreen
 				animation.Play("down");
 			}
 		}
+		_mysteryBoxDebugText = "PRESS reward=" + _currentReward + " container=" + IsTwoStepsCelebration(_currentReward) + " anim=" + (animation != null) + " down=" + (animation != null && (bool)animation["down"]);
 	}
 
 	private void StartOneStepUnlock()
@@ -1060,6 +1061,7 @@ public class CelebrationPopup : UIScreen
 			if (IsTwoStepsCelebration(currentRewardIndex))
 			{
 				animation = _celebrationRewardContainer[currentRewardIndex].GetComponentInChildren<Animation>();
+				_mysteryBoxDebugText = "SHOW reward=" + currentRewardIndex + " container=" + IsTwoStepsCelebration(currentRewardIndex) + " anim=" + (animation != null) + " up=" + (animation != null && (bool)animation["up"]);
 				if (animation != null && (bool)animation["up"])
 				{
 					animation.Play("up");
@@ -1865,6 +1867,16 @@ public class CelebrationPopup : UIScreen
 		openButtonCollider.enabled = false;
 		skipButtonCollider.enabled = false;
 		tapToStartLabel.enabled = false;
+	}
+
+	private string _mysteryBoxDebugText = string.Empty;
+
+	private void OnGUI()
+	{
+		if (Globals.DEBUG_MYSTERY_BOX_READOUT && !string.IsNullOrEmpty(_mysteryBoxDebugText))
+		{
+			GUI.Label(new Rect(10f, 10f, 1000f, 300f), _mysteryBoxDebugText);
+		}
 	}
 
 	private void Update()
