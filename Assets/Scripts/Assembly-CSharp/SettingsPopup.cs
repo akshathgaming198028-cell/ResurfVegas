@@ -201,7 +201,6 @@ public class SettingsPopup : UIScreen
 		// instead of growing the panel (growing it pushed the list off screen).
 		UIGrid uiGrid = grid.GetComponent<UIGrid>();
 		uiGrid.cellHeight = GRID_CELL_HEIGHT_WITH_GRAPHICS;
-		SetupScrollableList();
 	}
 
 	public override void Show()
