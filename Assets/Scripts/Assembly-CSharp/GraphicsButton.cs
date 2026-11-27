@@ -1,3 +1,4 @@
+using Kiloo.Common.Performance;
 using UnityEngine;
 
 public class GraphicsButton : MonoBehaviour
