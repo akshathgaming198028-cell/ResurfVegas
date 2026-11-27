@@ -279,7 +279,9 @@ public class SettingsPopup : UIScreen
 
 	private bool IsMessagesButtonActive()
 	{
-		return Application.platform == RuntimePlatform.Android && !DeviceUtility.isKindleDevice && DeviceUtility.GetAndroidApiLevel() < 16;
+		// GetAndroidApiLevel returns -1 when the device bridge is missing; that must not count as "old Android".
+		int apiLevel = DeviceUtility.GetAndroidApiLevel();
+		return Application.platform == RuntimePlatform.Android && !DeviceUtility.isKindleDevice && apiLevel > 0 && apiLevel < 16;
 	}
 
 	public void LoggedOutOfFacebook()
