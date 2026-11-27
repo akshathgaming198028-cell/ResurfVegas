@@ -77,8 +77,6 @@ public class SettingsPopup : UIScreen
 
 	private bool _graphicsRowAdded;
 
-	private const int GRID_CELL_HEIGHT_WITH_GRAPHICS = 52;
-
 	private void Awake()
 	{
 		titleLabel.text = Strings.Get(StringID.SETTINGS_POPUP_TITLE);
@@ -161,10 +159,6 @@ public class SettingsPopup : UIScreen
 			}
 		}
 		graphics.SetHitArea(hit);
-		// The panel is already full screen height, so the extra row is fitted by tightening the grid spacing
-		// instead of growing the panel (growing it pushed the list off screen).
-		UIGrid uiGrid = grid.GetComponent<UIGrid>();
-		uiGrid.cellHeight = GRID_CELL_HEIGHT_WITH_GRAPHICS;
 	}
 
 	public override void Show()
