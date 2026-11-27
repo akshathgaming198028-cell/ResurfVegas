@@ -77,6 +77,8 @@ public class SettingsPopup : UIScreen
 
 	private bool _graphicsRowAdded;
 
+	private const int GRID_CELL_HEIGHT_WITH_GRAPHICS = 57;
+
 	private void Awake()
 	{
 		titleLabel.text = Strings.Get(StringID.SETTINGS_POPUP_TITLE);
@@ -159,6 +161,8 @@ public class SettingsPopup : UIScreen
 			}
 		}
 		graphics.SetHitArea(hit);
+		// Seven rows must fit above the footer: 57px keeps them close to the original 60px spacing.
+		grid.GetComponent<UIGrid>().cellHeight = GRID_CELL_HEIGHT_WITH_GRAPHICS;
 	}
 
 	public override void Show()
