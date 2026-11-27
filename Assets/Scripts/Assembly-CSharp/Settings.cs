@@ -106,16 +106,12 @@ public class Settings : MonoBehaviour
 	{
 		get
 		{
-			if (!optionMessageDirty)
-			{
-				_optionMessages = PlayerInfo.Instance.remoteNotificationsEnabled;
-			}
-			return _optionMessages;
+			return PlayerPrefs.GetInt("OPTION_MESSAGES", 1) == 1;
 		}
 		set
 		{
+			PlayerPrefs.SetInt("OPTION_MESSAGES", value ? 1 : 0);
 			optionMessageDirty = true;
-			_optionMessages = value;
 		}
 	}
 
@@ -162,7 +158,7 @@ public class Settings : MonoBehaviour
 		if (optionMessageDirty)
 		{
 			optionMessageDirty = false;
-			SocialManager.instance.UpdateRemoteNotificationControl(_optionMessages);
+			SocialManager.instance.UpdateRemoteNotificationControl(optionMessages);
 		}
 	}
 }

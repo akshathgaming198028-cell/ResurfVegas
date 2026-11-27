@@ -47,24 +47,14 @@ public class NotificationsButton : MonoBehaviour
 			reminderLabel.text = Strings.Get(StringID.SETTINGS_POPUP_MESSAGES_OFF);
 			iconOff.enabled = true;
 		}
-		if (SocialManager.instance.requestInvolvingDevicetokenInProgress)
+		// Always stays tappable: the device-token request can stay pending forever (push plugin missing),
+		// which used to grey the row and disable its tap area.
+		if (buttonOverlayGO != null)
 		{
-			if (buttonOverlayGO != null)
-			{
-				buttonOverlayGO.SetActive(false);
-			}
-			normalFillSprite.color = GlobalColors.PRIMARY_ACTION_COLOR_UNAVAILABLE;
-			btnNotification.GetComponent<BoxCollider>().enabled = false;
+			buttonOverlayGO.SetActive(true);
 		}
-		else
-		{
-			if (buttonOverlayGO != null)
-			{
-				buttonOverlayGO.SetActive(true);
-			}
-			normalFillSprite.color = originalColor;
-			btnNotification.GetComponent<BoxCollider>().enabled = true;
-		}
+		normalFillSprite.color = originalColor;
+		btnNotification.GetComponent<BoxCollider>().enabled = true;
 	}
 
 	private void OnDisable()
