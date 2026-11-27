@@ -907,7 +907,6 @@ public class CelebrationPopup : UIScreen
 			{
 				animation.Play(downState.name);
 			}
-			_mysteryBoxDebugText = "PRESS reward=" + _currentReward + " anim=" + (animation != null) + " down=" + (downState != null ? downState.clip.name : "NOT FOUND");
 		}
 	}
 
@@ -1063,7 +1062,6 @@ public class CelebrationPopup : UIScreen
 			{
 				animation = _celebrationRewardContainer[currentRewardIndex].GetComponentInChildren<Animation>();
 				AnimationState upState = FindClipState(animation, "up");
-				_mysteryBoxDebugText = "SHOW reward=" + currentRewardIndex + " anim=" + (animation != null) + " up=" + (upState != null ? upState.clip.name : "NOT FOUND");
 				if (upState != null)
 				{
 					animation.Play(upState.name);
@@ -1871,8 +1869,6 @@ public class CelebrationPopup : UIScreen
 		tapToStartLabel.enabled = false;
 	}
 
-	private string _mysteryBoxDebugText = string.Empty;
-
 	private static AnimationState FindClipState(Animation anim, string clipPrefix)
 	{
 		if (anim == null)
@@ -1887,14 +1883,6 @@ public class CelebrationPopup : UIScreen
 			}
 		}
 		return null;
-	}
-
-	private void OnGUI()
-	{
-		if (Globals.DEBUG_MYSTERY_BOX_READOUT && !string.IsNullOrEmpty(_mysteryBoxDebugText))
-		{
-			GUI.Label(new Rect(10f, 10f, 1000f, 300f), _mysteryBoxDebugText);
-		}
 	}
 
 	private void Update()

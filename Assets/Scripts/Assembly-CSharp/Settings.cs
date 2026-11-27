@@ -44,7 +44,7 @@ public class Settings : MonoBehaviour
 		}
 	}
 
-	// 0 = Auto (device decides), 1 = High (original high path), 2 = Low (original low path). Applied at startup in DeviceInfo.
+	// 0 = not chosen yet (device default), 1 = High, 2 = Low. Read once at startup in DeviceInfo.
 	public static int optionGraphics
 	{
 		get

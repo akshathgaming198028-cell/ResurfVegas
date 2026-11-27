@@ -2,27 +2,33 @@ using UnityEngine;
 
 public class GraphicsButton : MonoBehaviour
 {
-	private static readonly string[] MODE_NAMES = new string[3] { "Auto", "High", "Low" };
+	private UILabel _desc;
 
-	private UILabel _label;
-
-	public void Setup(UILabel label)
+	// Only High or Low is ever stored. Until the player picks one, the row shows the level this device starts with.
+	public void Setup(UILabel desc)
 	{
-		_label = label;
+		_desc = desc;
 		_Refresh();
 	}
 
 	public void Click()
 	{
-		Settings.optionGraphics = (Settings.optionGraphics + 1) % 3;
+		int current = Settings.optionGraphics == 0 ? _DeviceDefault() : Settings.optionGraphics;
+		Settings.optionGraphics = current == 1 ? 2 : 1;
 		_Refresh();
+	}
+
+	private static int _DeviceDefault()
+	{
+		return DeviceInfo.Instance.gpuCategory == GPUCategory.High ? 1 : 2;
 	}
 
 	private void _Refresh()
 	{
-		if (_label != null)
+		if (_desc != null)
 		{
-			_label.text = "Graphics: " + MODE_NAMES[Settings.optionGraphics] + " (restart to apply)";
+			int current = Settings.optionGraphics == 0 ? _DeviceDefault() : Settings.optionGraphics;
+			_desc.text = (current == 1 ? "High" : "Low") + ", restart to apply";
 		}
 	}
 }

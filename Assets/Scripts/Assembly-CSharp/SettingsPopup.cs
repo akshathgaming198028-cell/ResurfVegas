@@ -125,15 +125,17 @@ public class SettingsPopup : UIScreen
 		}
 		GraphicsButton graphics = clone.AddComponent<GraphicsButton>();
 		UILabel title = null;
+		UILabel desc = null;
 		foreach (UILabel label in clone.GetComponentsInChildren<UILabel>(true))
 		{
 			if (label.name == "Title")
 			{
 				title = label;
+				label.text = "Graphics";
 			}
 			if (label.name == "Desc")
 			{
-				label.text = "Auto uses the device. High and Low use the original graphics paths.";
+				desc = label;
 			}
 		}
 		foreach (Transform child in clone.GetComponentsInChildren<Transform>(true))
@@ -143,7 +145,7 @@ public class SettingsPopup : UIScreen
 				child.gameObject.SetActive(false);
 			}
 		}
-		graphics.Setup(title);
+		graphics.Setup(desc);
 		foreach (UIButton button in clone.GetComponentsInChildren<UIButton>(true))
 		{
 			button.onClick.Clear();

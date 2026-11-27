@@ -124,7 +124,6 @@ public class Globals
 	public static readonly bool DEBUG_USE_DEBUG_LOGIN_STATE;
 
 	public static readonly bool DEBUG_USE_FAKE_ONLINE_SETTINGS;
-	public static readonly bool DEBUG_MYSTERY_BOX_READOUT = true;
 
 	public static readonly bool DEBUG_OVERRIDE_ONLINE_SETTINGS_URL;
 
