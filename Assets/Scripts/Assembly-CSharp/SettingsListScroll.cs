@@ -4,9 +4,6 @@ using UnityEngine;
 // so it does not depend on NGUI's event routing. The rows are moved inside the clipped panel.
 public class SettingsListScroll : MonoBehaviour
 {
-	// Half a row: the grid's top row starts at its localPosition.y and extends this far below.
-	private const float ROW_HALF_HEIGHT = 24f;
-
 	private Transform _grid;
 
 	private UIGrid _uiGrid;
@@ -16,6 +13,8 @@ public class SettingsListScroll : MonoBehaviour
 	private float _gridTopY;
 
 	private bool _dragging;
+
+	private float _maxScroll;
 
 	private float _lastY;
 
@@ -108,25 +107,14 @@ public class SettingsListScroll : MonoBehaviour
 		return Vector3.Distance(a, b);
 	}
 
-	// How far the rows may move up so the last active row can reach the bottom of the window.
+	// How far the rows may move up: set by SettingsPopup from the measured rows and footer.
+	public void SetMaxScroll(float max)
+	{
+		_maxScroll = max;
+	}
+
 	private float MaxScroll()
 	{
-		int rows = 0;
-		foreach (Transform child in _grid)
-		{
-			if (child.gameObject.activeInHierarchy)
-			{
-				rows++;
-			}
-		}
-		if (rows <= 0)
-		{
-			return 0f;
-		}
-		float cell = _uiGrid != null ? _uiGrid.cellHeight : 60f;
-		Vector4 clip = _panel.baseClipRegion;
-		float windowBottom = clip.y - clip.w * 0.5f;
-		float contentBottom = _gridTopY - (rows - 1) * cell - ROW_HALF_HEIGHT;
-		return Mathf.Max(0f, windowBottom - contentBottom);
+		return _maxScroll;
 	}
 }

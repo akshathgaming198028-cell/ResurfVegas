@@ -84,8 +84,6 @@ public class SettingsPopup : UIScreen
 
 	private float _gridTopY;
 
-	private float fillParentGrowth;
-
 	private void Awake()
 	{
 		titleLabel.text = Strings.Get(StringID.SETTINGS_POPUP_TITLE);
@@ -96,17 +94,65 @@ public class SettingsPopup : UIScreen
 		privacyDescription.text = Strings.Get(StringID.SETTINGS_POPUP_PRIVACY_DESCRIPTION);
 	}
 
-	// The visible window for the rows: from just under the first row down to just above the footer.
+	// Measures the real rows and footer on screen, then sets the scroll window and how far the rows may scroll.
 	private void UpdateScrollWindow()
 	{
-		if (_listPanel == null || _listScroll == null)
+		if (_listPanel == null || _listScroll == null || grid == null)
 		{
 			return;
 		}
-		float top = _gridTopY + 26f;
-		float bottom = versionNr.localPosition.y + 6f;
-		_listPanel.baseClipRegion = new Vector4(0f, (top + bottom) * 0.5f, 270f, top - bottom);
+		UIGrid uiGrid = grid.GetComponent<UIGrid>();
+		if (uiGrid != null)
+		{
+			uiGrid.Reposition();
+		}
 		_listScroll.ResetOffset();
+		Transform st = _listPanel.transform;
+		Transform first = null;
+		Transform last = null;
+		foreach (Transform child in grid.transform)
+		{
+			if (child.gameObject.activeInHierarchy)
+			{
+				if (first == null)
+				{
+					first = child;
+				}
+				last = child;
+			}
+		}
+		if (first == null)
+		{
+			return;
+		}
+		float rowTop = RowEdge(st, first, true);
+		float rowBottom = RowEdge(st, last, false);
+		float footerTop = st.InverseTransformPoint(versionNr.position).y + 6f;
+		float windowTop = rowTop + 4f;
+		float windowBottom = footerTop - 2f;
+		_listPanel.baseClipRegion = new Vector4(0f, (windowTop + windowBottom) * 0.5f, 270f, windowTop - windowBottom);
+		_listScroll.SetMaxScroll(Mathf.Max(0f, windowBottom - rowBottom));
+	}
+
+	// Top or bottom edge of a row's background, in the scroll panel's local space.
+	private float RowEdge(Transform panelSpace, Transform row, bool top)
+	{
+		float edge = top ? float.MinValue : float.MaxValue;
+		bool found = false;
+		foreach (UIWidget w in row.GetComponentsInChildren<UIWidget>(true))
+		{
+			if (w.name != "Outline")
+			{
+				continue;
+			}
+			found = true;
+			foreach (Vector3 corner in w.worldCorners)
+			{
+				float y = panelSpace.InverseTransformPoint(corner).y;
+				edge = top ? Mathf.Max(edge, y) : Mathf.Min(edge, y);
+			}
+		}
+		return found ? edge : panelSpace.InverseTransformPoint(row.position).y + (top ? 28f : -28f);
 	}
 
 	public override void Init()
@@ -288,23 +334,11 @@ public class SettingsPopup : UIScreen
 		{
 			messagesButton.SetActive(true);
 		}
-		// The Graphics row is always shown. Give it room in the dialog while the dialog is shorter than its full size;
-		// once the dialog is at full size, the rows scroll instead.
-		if (_graphicsRowAdded)
-		{
-			float growth = Mathf.Clamp(originalFillScale - num, 0f, 60f);
-			num += growth;
-			num2 += growth;
-			num3 -= growth;
-			num4 -= growth;
-			fillParentGrowth = growth / 2f;
-		}
 		fill.height = Mathf.RoundToInt(num);
 		outline.height = Mathf.RoundToInt(num2);
 		versionNr.localPosition = new Vector3(versionNr.localPosition.x, num3, -1f);
 		contactInfo.localPosition = new Vector3(contactInfo.localPosition.x, num4, -1f);
-		fillParent.localPosition = new Vector3(fillParent.localPosition.x, fillParent.localPosition.y - (float)(numberOfDisabledButtons * 60 / 2) + fillParentGrowth, 1f);
-		fillParentGrowth = 0f;
+		fillParent.localPosition = new Vector3(fillParent.localPosition.x, fillParent.localPosition.y - (float)(numberOfDisabledButtons * 60 / 2), 1f);
 		grid.GetComponent<UIGrid>().repositionNow = true;
 		UpdateScrollWindow();
 	}
