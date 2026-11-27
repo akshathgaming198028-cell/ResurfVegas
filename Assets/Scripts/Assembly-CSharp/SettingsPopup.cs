@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Kiloo.Plugins.DeviceUtility;
 using UnityEngine;
 
@@ -77,8 +78,6 @@ public class SettingsPopup : UIScreen
 
 	private bool _graphicsRowAdded;
 
-	private const int GRID_CELL_HEIGHT_WITH_GRAPHICS = 57;
-
 	private void Awake()
 	{
 		titleLabel.text = Strings.Get(StringID.SETTINGS_POPUP_TITLE);
@@ -152,17 +151,16 @@ public class SettingsPopup : UIScreen
 			button.onClick.Clear();
 		}
 		// Taps are detected in GraphicsButton.Update from the screen position, not through NGUI's event chain.
-		UIWidget hit = null;
+		// Tap areas: the row's background, its title and its description, so tapping the text works too.
+		List<UIWidget> hits = new List<UIWidget>();
 		foreach (UIWidget widget in clone.GetComponentsInChildren<UIWidget>(true))
 		{
-			if (widget.name == "Fill")
+			if (widget.name == "Fill" || widget.name == "Title" || widget.name == "Desc")
 			{
-				hit = widget;
+				hits.Add(widget);
 			}
 		}
-		graphics.SetHitArea(hit);
-		// Seven rows must fit above the footer: 57px keeps them close to the original 60px spacing.
-		grid.GetComponent<UIGrid>().cellHeight = GRID_CELL_HEIGHT_WITH_GRAPHICS;
+		graphics.SetHitAreas(hits.ToArray());
 	}
 
 	public override void Show()
@@ -312,5 +310,36 @@ public class SettingsPopup : UIScreen
 			logInFBButton.SetActive(false);
 		}
 		grid.GetComponent<UIGrid>().repositionNow = true;
+	}
+
+	private void OnGUI()
+	{
+		if (!Globals.DEBUG_SCROLL_READOUT || grid == null)
+		{
+			return;
+		}
+		Transform scroll = grid.transform.parent;
+		UIPanel panel = scroll != null ? scroll.GetComponent<UIPanel>() : null;
+		UIScrollView sv = scroll != null ? scroll.GetComponent<UIScrollView>() : null;
+		string clip = panel != null ? panel.finalClipRegion.ToString() : "no panel";
+		string depth = panel != null ? panel.depth.ToString() : "-";
+		string gridLocal = grid.transform.localPosition.ToString();
+		string gridWorld = grid.transform.position.ToString();
+		string bounds = sv != null ? sv.bounds.ToString() : "-";
+		string first = "-";
+		UIWidget fill = null;
+		foreach (UIWidget w in grid.GetComponentsInChildren<UIWidget>(true))
+		{
+			if (w.name == "Fill")
+			{
+				fill = w;
+				break;
+			}
+		}
+		if (fill != null)
+		{
+			first = "fill screen y " + Mathf.RoundToInt(Camera.main.WorldToScreenPoint(fill.transform.position).y) + " alpha " + fill.alpha + " active " + fill.gameObject.activeInHierarchy;
+		}
+		GUI.Label(new Rect(10f, 40f, 1200f, 300f), "SCROLL clip=" + clip + " depth=" + depth + " gridLocal=" + gridLocal + " gridWorld=" + gridWorld + " bounds=" + bounds + " " + first + " screen=" + Screen.width + "x" + Screen.height);
 	}
 }

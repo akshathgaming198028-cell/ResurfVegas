@@ -7,7 +7,7 @@ public class GraphicsButton : MonoBehaviour
 
 	private UILabel _desc;
 
-	private UIWidget _hitArea;
+	private UIWidget[] _hitAreas = new UIWidget[0];
 
 	// Only High (1) or Low (2) is ever stored. 0 means the player has not picked yet, so the device default is shown.
 	public void Setup(UILabel title, UILabel desc)
@@ -17,14 +17,14 @@ public class GraphicsButton : MonoBehaviour
 		_Refresh();
 	}
 
-	public void SetHitArea(UIWidget area)
+	public void SetHitAreas(UIWidget[] areas)
 	{
-		_hitArea = area;
+		_hitAreas = areas;
 	}
 
 	private void Update()
 	{
-		if (_hitArea == null || !Input.GetMouseButtonUp(0) || !gameObject.activeInHierarchy)
+		if (!Input.GetMouseButtonUp(0) || !gameObject.activeInHierarchy)
 		{
 			return;
 		}
@@ -33,23 +33,31 @@ public class GraphicsButton : MonoBehaviour
 		{
 			return;
 		}
-		Vector3[] corners = _hitArea.worldCorners;
-		float minX = float.MaxValue;
-		float minY = float.MaxValue;
-		float maxX = float.MinValue;
-		float maxY = float.MinValue;
-		foreach (Vector3 corner in corners)
-		{
-			Vector3 sp = cam.WorldToScreenPoint(corner);
-			minX = Mathf.Min(minX, sp.x);
-			maxX = Mathf.Max(maxX, sp.x);
-			minY = Mathf.Min(minY, sp.y);
-			maxY = Mathf.Max(maxY, sp.y);
-		}
 		Vector3 p = Input.mousePosition;
-		if (p.x >= minX && p.x <= maxX && p.y >= minY && p.y <= maxY)
+		foreach (UIWidget area in _hitAreas)
 		{
-			Click();
+			if (area == null || !area.gameObject.activeInHierarchy)
+			{
+				continue;
+			}
+			Vector3[] corners = area.worldCorners;
+			float minX = float.MaxValue;
+			float minY = float.MaxValue;
+			float maxX = float.MinValue;
+			float maxY = float.MinValue;
+			foreach (Vector3 corner in corners)
+			{
+				Vector3 sp = cam.WorldToScreenPoint(corner);
+				minX = Mathf.Min(minX, sp.x);
+				maxX = Mathf.Max(maxX, sp.x);
+				minY = Mathf.Min(minY, sp.y);
+				maxY = Mathf.Max(maxY, sp.y);
+			}
+			if (p.x >= minX && p.x <= maxX && p.y >= minY && p.y <= maxY)
+			{
+				Click();
+				return;
+			}
 		}
 	}
 
