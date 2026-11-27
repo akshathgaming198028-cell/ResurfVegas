@@ -161,6 +161,12 @@ public class SettingsPopup : UIScreen
 			}
 		}
 		graphics.SetHitAreas(hits.ToArray());
+		// Scroll the rows inside the clipped panel when they do not all fit.
+		UIPanel listPanel = grid.transform.parent.GetComponent<UIPanel>();
+		if (listPanel != null)
+		{
+			listPanel.gameObject.AddComponent<SettingsListScroll>().Setup(grid.GetComponent<UIGrid>(), listPanel);
+		}
 	}
 
 	public override void Show()

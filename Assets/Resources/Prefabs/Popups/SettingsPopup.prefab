@@ -162,7 +162,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 464753}
   - 114: {fileID: 11497582}
-  - 114: {fileID: 990005}
   m_Layer: 30
   m_Name: 4Grid
   m_TagString: Untagged
@@ -6709,7 +6708,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 990002}
   - 114: {fileID: 990003}
-  - 114: {fileID: 990004}
   m_Layer: 30
   m_Name: SettingsListScroll
   m_TagString: Untagged
@@ -6772,51 +6770,9 @@ MonoBehaviour:
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3
-  mClipRange: {x: 0, y: -20, z: 300, w: 400}
+  mClipRange: {x: 0, y: -18.5, z: 270, w: 437}
   mClipSoftness: {x: 4, y: 4}
   mDepth: 6
   mSortingOrder: 0
   mClipOffset: {x: 0, y: 0}
 
---- !u!114 &990004
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 990001}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 141259954a6143d42fcbe0b240fe34b2, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
-  movement: 1
-  dragEffect: 1
-  restrictWithinPanel: 1
-  disableDragIfFits: 1
-  smoothDragStart: 1
-  iOSDragEmulation: 1
-  scrollWheelFactor: 0
-  momentumAmount: 50
-  dampenStrength: 9
-  horizontalScrollBar: {fileID: 0}
-  verticalScrollBar: {fileID: 0}
-  showScrollBars: 0
-  customMovement: {x: 1, y: 0}
-  contentPivot: 0
-  scale: {x: 0, y: 0, z: 0}
-  relativePositionOnReset: {x: 0, y: 0}
-  centerOnChild: {fileID: 0}
-
---- !u!114 &990005
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 131434}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc65df5b24e5821c40f7df5bd607c0b5, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
-  scrollView: {fileID: 990004}
-  draggablePanel: {fileID: 0}
