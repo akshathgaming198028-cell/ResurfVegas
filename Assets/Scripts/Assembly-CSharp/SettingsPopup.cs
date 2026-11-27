@@ -5,8 +5,6 @@ public class SettingsPopup : UIScreen
 {
 	private const int SCALE_INCREASE = 60;
 
-	private const int GRID_CELL_HEIGHT_WITH_GRAPHICS = 52;
-
 	[SerializeField]
 	private Transform fillParent;
 
@@ -129,7 +127,8 @@ public class SettingsPopup : UIScreen
 		UIPanel panel = scrollGO.AddComponent<UIPanel>();
 		panel.depth = parentPanel != null ? parentPanel.depth : 0;
 		panel.clipping = UIDrawCall.Clipping.SoftClip;
-		panel.baseClipRegion = new Vector4(0f, -20f, 300f, 400f);
+		panel.clipRange = new Vector4(0f, -20f, 300f, 400f);
+		panel.baseClipRegion = panel.clipRange;
 		panel.clipSoftness = new Vector2(4f, 4f);
 		UIScrollView scrollView = scrollGO.AddComponent<UIScrollView>();
 		scrollView.movement = UIScrollView.Movement.Vertical;
@@ -197,10 +196,7 @@ public class SettingsPopup : UIScreen
 			}
 		}
 		graphics.SetHitArea(hit);
-		// The panel is already full screen height, so the extra row is fitted by tightening the grid spacing
-		// instead of growing the panel (growing it pushed the list off screen).
-		UIGrid uiGrid = grid.GetComponent<UIGrid>();
-		uiGrid.cellHeight = GRID_CELL_HEIGHT_WITH_GRAPHICS;
+		SetupScrollableList();
 	}
 
 	public override void Show()
