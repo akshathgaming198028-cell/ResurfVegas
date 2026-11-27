@@ -29,6 +29,11 @@ public class SettingsListScroll : MonoBehaviour
 
 	private void OnEnable()
 	{
+		ResetOffset();
+	}
+
+	public void ResetOffset()
+	{
 		if (_grid != null)
 		{
 			Vector3 p = _grid.localPosition;

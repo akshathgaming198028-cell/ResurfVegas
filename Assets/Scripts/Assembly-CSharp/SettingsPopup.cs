@@ -78,6 +78,14 @@ public class SettingsPopup : UIScreen
 
 	private bool _graphicsRowAdded;
 
+	private UIPanel _listPanel;
+
+	private SettingsListScroll _listScroll;
+
+	private float _gridTopY;
+
+	private float fillParentGrowth;
+
 	private void Awake()
 	{
 		titleLabel.text = Strings.Get(StringID.SETTINGS_POPUP_TITLE);
@@ -86,6 +94,19 @@ public class SettingsPopup : UIScreen
 		topRunChallengersDescription.text = Strings.Get(StringID.SETTINGS_POPUP_TOPRUNCHALLENGERS_DESCRIPTION);
 		privacyButtonLabel.text = Strings.Get(StringID.SETTINGS_POPUP_PRIVACY);
 		privacyDescription.text = Strings.Get(StringID.SETTINGS_POPUP_PRIVACY_DESCRIPTION);
+	}
+
+	// The visible window for the rows: from just under the first row down to just above the footer.
+	private void UpdateScrollWindow()
+	{
+		if (_listPanel == null || _listScroll == null)
+		{
+			return;
+		}
+		float top = _gridTopY + 26f;
+		float bottom = versionNr.localPosition.y + 6f;
+		_listPanel.baseClipRegion = new Vector4(0f, (top + bottom) * 0.5f, 270f, top - bottom);
+		_listScroll.ResetOffset();
 	}
 
 	public override void Init()
@@ -165,7 +186,10 @@ public class SettingsPopup : UIScreen
 		UIPanel listPanel = grid.transform.parent.GetComponent<UIPanel>();
 		if (listPanel != null)
 		{
-			listPanel.gameObject.AddComponent<SettingsListScroll>().Setup(grid.GetComponent<UIGrid>(), listPanel);
+			_listPanel = listPanel;
+			_gridTopY = grid.localPosition.y;
+			_listScroll = listPanel.gameObject.AddComponent<SettingsListScroll>();
+			_listScroll.Setup(grid.GetComponent<UIGrid>(), listPanel);
 		}
 	}
 
@@ -264,12 +288,25 @@ public class SettingsPopup : UIScreen
 		{
 			messagesButton.SetActive(true);
 		}
+		// The Graphics row is always shown. Give it room in the dialog while the dialog is shorter than its full size;
+		// once the dialog is at full size, the rows scroll instead.
+		if (_graphicsRowAdded)
+		{
+			float growth = Mathf.Clamp(originalFillScale - num, 0f, 60f);
+			num += growth;
+			num2 += growth;
+			num3 -= growth;
+			num4 -= growth;
+			fillParentGrowth = growth / 2f;
+		}
 		fill.height = Mathf.RoundToInt(num);
 		outline.height = Mathf.RoundToInt(num2);
 		versionNr.localPosition = new Vector3(versionNr.localPosition.x, num3, -1f);
 		contactInfo.localPosition = new Vector3(contactInfo.localPosition.x, num4, -1f);
-		fillParent.localPosition = new Vector3(fillParent.localPosition.x, fillParent.localPosition.y - (float)(numberOfDisabledButtons * 60 / 2), 1f);
+		fillParent.localPosition = new Vector3(fillParent.localPosition.x, fillParent.localPosition.y - (float)(numberOfDisabledButtons * 60 / 2) + fillParentGrowth, 1f);
+		fillParentGrowth = 0f;
 		grid.GetComponent<UIGrid>().repositionNow = true;
+		UpdateScrollWindow();
 	}
 
 	private bool AreFacebookFriendsConsolidated()
