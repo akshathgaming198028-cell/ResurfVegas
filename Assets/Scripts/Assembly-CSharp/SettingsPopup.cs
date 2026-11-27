@@ -151,8 +151,17 @@ public class SettingsPopup : UIScreen
 		foreach (UIButton button in clone.GetComponentsInChildren<UIButton>(true))
 		{
 			button.onClick.Clear();
-			EventDelegate.Add(button.onClick, new EventDelegate(graphics, "Click"));
 		}
+		// Taps are detected in GraphicsButton.Update from the screen position, not through NGUI's event chain.
+		UIWidget hit = null;
+		foreach (UIWidget widget in clone.GetComponentsInChildren<UIWidget>(true))
+		{
+			if (widget.name == "Fill")
+			{
+				hit = widget;
+			}
+		}
+		graphics.SetHitArea(hit);
 		// The panel is already full screen height, so the extra row is fitted by tightening the grid spacing
 		// instead of growing the panel (growing it pushed the list off screen).
 		UIGrid uiGrid = grid.GetComponent<UIGrid>();
