@@ -3,20 +3,16 @@ using UnityEngine;
 
 public class GraphicsButton : MonoBehaviour
 {
+	private UILabel _title;
+
 	private UILabel _desc;
 
-	// Debug readout, visible on screen so no logcat is needed. Shows whether taps reach the button.
-	private static int _tapCount;
-
-	private static string _lastEvent = "none";
-
-	private static string _lastTouch = "none";
-
-	// Only High or Low is ever stored. Until the player picks one, the row shows the level this device starts with.
 	private UIWidget _hitArea;
 
-	public void Setup(UILabel desc)
+	// Only High (1) or Low (2) is ever stored. 0 means the player has not picked yet, so the device default is shown.
+	public void Setup(UILabel title, UILabel desc)
 	{
+		_title = title;
 		_desc = desc;
 		_Refresh();
 	}
@@ -51,7 +47,6 @@ public class GraphicsButton : MonoBehaviour
 			maxY = Mathf.Max(maxY, sp.y);
 		}
 		Vector3 p = Input.mousePosition;
-		_lastTouch = "touch " + Mathf.RoundToInt(p.x) + "," + Mathf.RoundToInt(p.y) + " box " + Mathf.RoundToInt(minX) + "-" + Mathf.RoundToInt(maxX) + "," + Mathf.RoundToInt(minY) + "-" + Mathf.RoundToInt(maxY);
 		if (p.x >= minX && p.x <= maxX && p.y >= minY && p.y <= maxY)
 		{
 			Click();
@@ -60,36 +55,29 @@ public class GraphicsButton : MonoBehaviour
 
 	public void Click()
 	{
-		_tapCount++;
-		_lastEvent = "click " + _tapCount;
-		int current = Settings.optionGraphics == 0 ? _DeviceDefault() : Settings.optionGraphics;
+		int current = _Current();
 		Settings.optionGraphics = current == 1 ? 2 : 1;
 		_Refresh();
 	}
 
-	private static int _DeviceDefault()
+	private static int _Current()
 	{
-		return DeviceInfo.Instance.gpuCategory == GPUCategory.High ? 1 : 2;
-	}
-
-	private void OnGUI()
-	{
-		if (!Globals.DEBUG_GRAPHICS_READOUT)
+		if (Settings.optionGraphics != 0)
 		{
-			return;
+			return Settings.optionGraphics;
 		}
-		string stored = Settings.optionGraphics.ToString();
-		string applied = DeviceInfo.Instance.performanceLevel.ToString();
-		string device = DeviceInfo.Instance.gpuCategory.ToString();
-		GUI.Label(new Rect(10f, 10f, 1000f, 300f), "GFX taps=" + _tapCount + " last=" + _lastEvent + " stored=" + stored + " applied=" + applied + " device=" + device + " quality=" + QualitySettings.GetQualityLevel() + " fps=" + Application.targetFrameRate + " " + _lastTouch);
+		return DeviceInfo.Instance.gpuCategory == GPUCategory.High ? 1 : 2;
 	}
 
 	private void _Refresh()
 	{
+		if (_title != null)
+		{
+			_title.text = "Graphics: " + (_Current() == 1 ? "High" : "Low");
+		}
 		if (_desc != null)
 		{
-			int current = Settings.optionGraphics == 0 ? _DeviceDefault() : Settings.optionGraphics;
-			_desc.text = (current == 1 ? "High" : "Low") + ", restart to apply";
+			_desc.text = "Restart to apply";
 		}
 	}
 }

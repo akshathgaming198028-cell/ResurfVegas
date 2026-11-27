@@ -115,8 +115,6 @@ public class Globals
 
 	public static bool DEBUG_ALL_BOARDS;
 
-	public static readonly bool DEBUG_GRAPHICS_READOUT = true;
-
 	public static bool DEBUG_FREE_INAPP_PURCHASE;
 
 	public static bool DEBUG_SKIP_VIDEO_ADS;

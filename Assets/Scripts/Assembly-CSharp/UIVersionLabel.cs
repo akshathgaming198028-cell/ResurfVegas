@@ -1,3 +1,4 @@
+using System;
 using Kiloo.Plugins.DeviceUtility;
 using UnityEngine;
 
@@ -6,13 +7,8 @@ public class UIVersionLabel : MonoBehaviour
 {
 	private void Start()
 	{
-		if (!DeviceUtility.isFlexionDevice)
-		{
-			GetComponent<UILabel>().text = "v" + DeviceUtility.GetBundleVersion();
-		}
-		else
-		{
-			GetComponent<UILabel>().text = "v" + DeviceUtility.GetBundleVersion() + "f";
-		}
+		string arch = IntPtr.Size == 8 ? "ARM v8a (64 bit)" : "ARM v7a (32 bit)";
+		string flexion = DeviceUtility.isFlexionDevice ? "f" : "";
+		GetComponent<UILabel>().text = "v" + DeviceUtility.GetBundleVersion() + flexion + " " + arch;
 	}
 }

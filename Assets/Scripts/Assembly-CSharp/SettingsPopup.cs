@@ -79,6 +79,8 @@ public class SettingsPopup : UIScreen
 
 	private bool _graphicsRowAdded;
 
+	private bool _scrollSetup;
+
 	private void Awake()
 	{
 		titleLabel.text = Strings.Get(StringID.SETTINGS_POPUP_TITLE);
@@ -101,6 +103,40 @@ public class SettingsPopup : UIScreen
 			Object.Destroy(debugButton);
 		}
 		AddGraphicsRow();
+	}
+
+	// Puts the rows in a clipped, draggable area so the list scrolls when it is taller than the dialog.
+	private void SetupScrollableList()
+	{
+		if (_scrollSetup || grid == null)
+		{
+			return;
+		}
+		_scrollSetup = true;
+		Transform gridTr = grid.transform;
+		Transform parent = gridTr.parent;
+		UIPanel parentPanel = parent.GetComponentInParent<UIPanel>();
+		GameObject scrollGO = new GameObject("SettingsListScroll");
+		scrollGO.layer = gridTr.gameObject.layer;
+		Transform scrollTr = scrollGO.transform;
+		scrollTr.SetParent(parent, false);
+		scrollTr.localPosition = Vector3.zero;
+		scrollTr.localRotation = Quaternion.identity;
+		scrollTr.localScale = Vector3.one;
+		Vector3 gridLocal = gridTr.localPosition;
+		gridTr.SetParent(scrollTr, false);
+		gridTr.localPosition = gridLocal;
+		UIPanel panel = scrollGO.AddComponent<UIPanel>();
+		panel.depth = parentPanel != null ? parentPanel.depth : 0;
+		panel.clipping = UIDrawCall.Clipping.SoftClip;
+		panel.baseClipRegion = new Vector4(0f, -20f, 300f, 400f);
+		panel.clipSoftness = new Vector2(4f, 4f);
+		UIScrollView scrollView = scrollGO.AddComponent<UIScrollView>();
+		scrollView.movement = UIScrollView.Movement.Vertical;
+		scrollView.restrictWithinPanel = true;
+		scrollView.dragEffect = UIScrollView.DragEffect.MomentumAndSpring;
+		UIDragScrollView dragForward = gridTr.gameObject.AddComponent<UIDragScrollView>();
+		dragForward.scrollView = scrollView;
 	}
 
 	// Clones the sound row (same look and layout) into a Graphics Auto/High/Low row under it.
@@ -133,7 +169,6 @@ public class SettingsPopup : UIScreen
 			if (label.name == "Title")
 			{
 				title = label;
-				label.text = "Graphics";
 			}
 			if (label.name == "Desc")
 			{
@@ -147,7 +182,7 @@ public class SettingsPopup : UIScreen
 				child.gameObject.SetActive(false);
 			}
 		}
-		graphics.Setup(desc);
+		graphics.Setup(title, desc);
 		foreach (UIButton button in clone.GetComponentsInChildren<UIButton>(true))
 		{
 			button.onClick.Clear();
@@ -166,6 +201,7 @@ public class SettingsPopup : UIScreen
 		// instead of growing the panel (growing it pushed the list off screen).
 		UIGrid uiGrid = grid.GetComponent<UIGrid>();
 		uiGrid.cellHeight = GRID_CELL_HEIGHT_WITH_GRAPHICS;
+		SetupScrollableList();
 	}
 
 	public override void Show()
