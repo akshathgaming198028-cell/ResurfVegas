@@ -6774,7 +6774,7 @@ MonoBehaviour:
   mClipping: 3
   mClipRange: {x: 0, y: -20, z: 300, w: 400}
   mClipSoftness: {x: 4, y: 4}
-  mDepth: 5
+  mDepth: 6
   mSortingOrder: 0
   mClipOffset: {x: 0, y: 0}
 
