@@ -902,12 +902,13 @@ public class CelebrationPopup : UIScreen
 		if (IsTwoStepsCelebration(_currentReward))
 		{
 			animation = _celebrationRewardContainer[_currentReward].GetComponentInChildren<Animation>();
-			if (animation != null && (bool)animation["down"])
+			AnimationState downState = FindClipState(animation, "down");
+			if (downState != null)
 			{
-				animation.Play("down");
+				animation.Play(downState.name);
 			}
+			_mysteryBoxDebugText = "PRESS reward=" + _currentReward + " anim=" + (animation != null) + " down=" + (downState != null ? downState.clip.name : "NOT FOUND");
 		}
-		_mysteryBoxDebugText = "PRESS reward=" + _currentReward + " container=" + IsTwoStepsCelebration(_currentReward) + " anim=" + (animation != null) + " down=" + (animation != null && (bool)animation["down"]);
 	}
 
 	private void StartOneStepUnlock()
@@ -1061,11 +1062,12 @@ public class CelebrationPopup : UIScreen
 			if (IsTwoStepsCelebration(currentRewardIndex))
 			{
 				animation = _celebrationRewardContainer[currentRewardIndex].GetComponentInChildren<Animation>();
-				_mysteryBoxDebugText = "SHOW reward=" + currentRewardIndex + " container=" + IsTwoStepsCelebration(currentRewardIndex) + " anim=" + (animation != null) + " up=" + (animation != null && (bool)animation["up"]);
-				if (animation != null && (bool)animation["up"])
+				AnimationState upState = FindClipState(animation, "up");
+				_mysteryBoxDebugText = "SHOW reward=" + currentRewardIndex + " anim=" + (animation != null) + " up=" + (upState != null ? upState.clip.name : "NOT FOUND");
+				if (upState != null)
 				{
-					animation.Play("up");
-					while (animation["up"].normalizedTime < 0.5f)
+					animation.Play(upState.name);
+					while (upState.normalizedTime < 0.5f)
 					{
 						yield return null;
 					}
@@ -1870,6 +1872,22 @@ public class CelebrationPopup : UIScreen
 	}
 
 	private string _mysteryBoxDebugText = string.Empty;
+
+	private static AnimationState FindClipState(Animation anim, string clipPrefix)
+	{
+		if (anim == null)
+		{
+			return null;
+		}
+		foreach (AnimationState state in anim)
+		{
+			if (state.clip != null && state.clip.name.StartsWith(clipPrefix, StringComparison.OrdinalIgnoreCase))
+			{
+				return state;
+			}
+		}
+		return null;
+	}
 
 	private void OnGUI()
 	{
