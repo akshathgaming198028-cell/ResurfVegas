@@ -5,6 +5,8 @@ public class SettingsPopup : UIScreen
 {
 	private const int SCALE_INCREASE = 60;
 
+	private const int GRID_CELL_HEIGHT_WITH_GRAPHICS = 52;
+
 	[SerializeField]
 	private Transform fillParent;
 
@@ -151,11 +153,10 @@ public class SettingsPopup : UIScreen
 			button.onClick.Clear();
 			EventDelegate.Add(button.onClick, new EventDelegate(graphics, "Click"));
 		}
-		// The popup baseline is the all-rows layout, so one more row grows the panel and moves the footer down.
-		originalFillScale += SCALE_INCREASE;
-		originalOutlineScale += SCALE_INCREASE;
-		originalVersionNrHeight -= SCALE_INCREASE;
-		originalContactInfoHeight -= SCALE_INCREASE;
+		// The panel is already full screen height, so the extra row is fitted by tightening the grid spacing
+		// instead of growing the panel (growing it pushed the list off screen).
+		UIGrid uiGrid = grid.GetComponent<UIGrid>();
+		uiGrid.cellHeight = GRID_CELL_HEIGHT_WITH_GRAPHICS;
 	}
 
 	public override void Show()
