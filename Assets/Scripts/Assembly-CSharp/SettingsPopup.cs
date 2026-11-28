@@ -135,9 +135,9 @@ public class SettingsPopup : UIScreen
 		}
 		float rowTop = RowEdge(st, first, true);
 		float footerTop = st.InverseTransformPoint(versionNr.position).y + 6f;
-		float windowTop = rowTop + 4f;
+		float windowTop = rowTop + 10f;
 		// End above the version and architecture line, with a gap.
-		float windowBottom = footerTop + 10f;
+		float windowBottom = footerTop + 6f;
 		// Never let the window leave the dialog frame: rows must not draw past the border.
 		Vector3[] frame = fill.worldCorners;
 		float frameBottom = st.InverseTransformPoint(frame[0]).y;
@@ -147,7 +147,7 @@ public class SettingsPopup : UIScreen
 		windowBottom = Mathf.Max(windowBottom, frameBottom + 6f);
 		float windowHeight = windowTop - windowBottom;
 		float centerY = (windowTop + windowBottom) * 0.5f;
-		_listPanel.baseClipRegion = new Vector4(0f, centerY, 270f, windowHeight);
+		_listPanel.baseClipRegion = new Vector4(0f, centerY, 280f, windowHeight);
 		// Re-collect the rows into the clipped panel and recompute how far the list can move,
 		// so rows never escape the window and the list stays draggable after every re-layout.
 		_listPanel.Refresh();
@@ -157,7 +157,7 @@ public class SettingsPopup : UIScreen
 		if (_scrollBar != null)
 		{
 			// Just inside the dialog's right border, like the Awards and Shop bars.
-			_scrollBar.position = st.TransformPoint(new Vector3(frameRight - 12f, centerY, 0f));
+			_scrollBar.position = st.TransformPoint(new Vector3(frameRight - 8f, centerY, 0f));
 			UISprite bg = _scrollBar.Find("Background").GetComponent<UISprite>();
 			UISprite fg = _scrollBar.Find("Foreground").GetComponent<UISprite>();
 			bg.height = Mathf.RoundToInt(windowHeight - 8f);
