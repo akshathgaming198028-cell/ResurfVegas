@@ -204,6 +204,7 @@ public class Globals
 
 	public static bool DEBUG_USE_DEBUG_DAILYWORD;
 
+	public static readonly bool DEBUG_CELEBRATION_READOUT = true;
 	public static readonly bool DEBUG_IS_HOVERBOARD_ALWAYS_REWARDED_FOR_MYSERY_POWERUP;
 
 	public static string ONLINESETTINGS_SET;
