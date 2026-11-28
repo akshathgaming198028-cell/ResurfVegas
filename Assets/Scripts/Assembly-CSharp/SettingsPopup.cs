@@ -86,6 +86,10 @@ public class SettingsPopup : UIScreen
 
 	private float _fillParentBaseY;
 
+	private int _openCount;
+
+	private string _scrollReadout = "";
+
 	private void Awake()
 	{
 		titleLabel.text = Strings.Get(StringID.SETTINGS_POPUP_TITLE);
@@ -143,6 +147,7 @@ public class SettingsPopup : UIScreen
 		_listPanel.Refresh();
 		_listScroll.InvalidateBounds();
 		_listScroll.ResetPosition();
+		_scrollReadout = $"open#{_openCount} frame T{frameTop:0} B{frameBottom:0} R{frameRight:0} | window T{windowTop:0} B{windowBottom:0} centerY {centerY:0} | footerTop {footerTop:0} | fillParentY {fillParent.localPosition.y:0}" + (_scrollBar != null ? $" | barLocalY {_scrollBar.localPosition.y:0} barX {_scrollBar.localPosition.x:0}" : " | no bar");
 		if (_scrollBar != null)
 		{
 			// Just inside the dialog's right border, like the Awards and Shop bars.
@@ -272,6 +277,7 @@ public class SettingsPopup : UIScreen
 	public override void Show()
 	{
 		base.Show();
+		_openCount++;
 		numberOfDisabledButtons = 0;
 		float num = originalFillScale;
 		float num2 = originalOutlineScale;
@@ -418,5 +424,14 @@ public class SettingsPopup : UIScreen
 			logInFBButton.SetActive(false);
 		}
 		grid.GetComponent<UIGrid>().repositionNow = true;
+	}
+
+	private void OnGUI()
+	{
+		if (!Globals.DEBUG_SCROLL_READOUT || string.IsNullOrEmpty(_scrollReadout))
+		{
+			return;
+		}
+		GUI.Label(new Rect(10f, 40f, 1200f, 300f), _scrollReadout);
 	}
 }
