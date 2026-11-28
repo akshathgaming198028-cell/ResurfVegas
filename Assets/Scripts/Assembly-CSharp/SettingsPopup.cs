@@ -84,6 +84,8 @@ public class SettingsPopup : UIScreen
 
 	private Transform _scrollBar;
 
+	private float _fillParentBaseY;
+
 	private void Awake()
 	{
 		titleLabel.text = Strings.Get(StringID.SETTINGS_POPUP_TITLE);
@@ -172,6 +174,7 @@ public class SettingsPopup : UIScreen
 		originalOutlineScale = outline.height;
 		originalVersionNrHeight = (int)versionNr.localPosition.y;
 		originalContactInfoHeight = (int)contactInfo.localPosition.y;
+		_fillParentBaseY = fillParent.localPosition.y;
 		if (!Globals.DEBUG_POPUP || !Globals.DEBUG)
 		{
 			Object.Destroy(debugButton);
@@ -357,7 +360,8 @@ public class SettingsPopup : UIScreen
 		outline.height = Mathf.RoundToInt(num2);
 		versionNr.localPosition = new Vector3(versionNr.localPosition.x, num3, -1f);
 		contactInfo.localPosition = new Vector3(contactInfo.localPosition.x, num4, -1f);
-		fillParent.localPosition = new Vector3(fillParent.localPosition.x, fillParent.localPosition.y - (float)(numberOfDisabledButtons * 60 / 2), 1f);
+		// Always set from the authored position, so repeated opens cannot stack the offset.
+		fillParent.localPosition = new Vector3(fillParent.localPosition.x, _fillParentBaseY - (float)(numberOfDisabledButtons * 60 / 2), 1f);
 		grid.GetComponent<UIGrid>().repositionNow = true;
 		UpdateScrollWindow();
 	}
@@ -372,7 +376,7 @@ public class SettingsPopup : UIScreen
 	public override void Hide()
 	{
 		base.Hide();
-		fillParent.localPosition = new Vector3(fillParent.localPosition.x, fillParent.localPosition.y + (float)(numberOfDisabledButtons * 60 / 2), 1f);
+		fillParent.localPosition = new Vector3(fillParent.localPosition.x, _fillParentBaseY, 1f);
 	}
 
 	private bool IsMessagesButtonActive()
