@@ -82,6 +82,8 @@ public class SettingsPopup : UIScreen
 
 	private UIScrollView _listScroll;
 
+	private Transform _scrollBar;
+
 	private void Awake()
 	{
 		titleLabel.text = Strings.Get(StringID.SETTINGS_POPUP_TITLE);
@@ -124,8 +126,22 @@ public class SettingsPopup : UIScreen
 		float footerTop = st.InverseTransformPoint(versionNr.position).y + 6f;
 		float windowTop = rowTop + 4f;
 		float windowBottom = footerTop - 2f;
-		_listPanel.baseClipRegion = new Vector4(0f, (windowTop + windowBottom) * 0.5f, 270f, windowTop - windowBottom);
+		float windowHeight = windowTop - windowBottom;
+		float centerY = (windowTop + windowBottom) * 0.5f;
+		_listPanel.baseClipRegion = new Vector4(0f, centerY, 270f, windowHeight);
+		// Re-collect the rows into the clipped panel and recompute how far the list can move,
+		// so rows never escape the window and the list stays draggable after every re-layout.
+		_listPanel.Refresh();
+		_listScroll.InvalidateBounds();
 		_listScroll.ResetPosition();
+		if (_scrollBar != null)
+		{
+			_scrollBar.position = st.TransformPoint(new Vector3(131f, centerY, 0f));
+			UISprite bg = _scrollBar.Find("Background").GetComponent<UISprite>();
+			UISprite fg = _scrollBar.Find("Foreground").GetComponent<UISprite>();
+			bg.height = Mathf.RoundToInt(windowHeight - 8f);
+			fg.height = bg.height;
+		}
 	}
 
 	// Top or bottom edge of a row's background, in the scroll panel's local space.
@@ -228,6 +244,7 @@ public class SettingsPopup : UIScreen
 		{
 			_listPanel = listPanel;
 			_listScroll = listPanel.GetComponent<UIScrollView>();
+			_scrollBar = listPanel.transform.parent.Find("SettingsScrollBar");
 			// Drags that start on a row scroll the list, the same way the Awards and Shop lists do.
 			foreach (Collider col in grid.GetComponentsInChildren<Collider>(true))
 			{
