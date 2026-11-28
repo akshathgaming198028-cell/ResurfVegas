@@ -80,9 +80,7 @@ public class SettingsPopup : UIScreen
 
 	private UIPanel _listPanel;
 
-	private SettingsListScroll _listScroll;
-
-	private float _gridTopY;
+	private UIScrollView _listScroll;
 
 	private void Awake()
 	{
@@ -106,10 +104,8 @@ public class SettingsPopup : UIScreen
 		{
 			uiGrid.Reposition();
 		}
-		_listScroll.ResetOffset();
 		Transform st = _listPanel.transform;
 		Transform first = null;
-		Transform last = null;
 		foreach (Transform child in grid.transform)
 		{
 			if (child.gameObject.activeInHierarchy)
@@ -118,7 +114,6 @@ public class SettingsPopup : UIScreen
 				{
 					first = child;
 				}
-				last = child;
 			}
 		}
 		if (first == null)
@@ -126,12 +121,11 @@ public class SettingsPopup : UIScreen
 			return;
 		}
 		float rowTop = RowEdge(st, first, true);
-		float rowBottom = RowEdge(st, last, false);
 		float footerTop = st.InverseTransformPoint(versionNr.position).y + 6f;
 		float windowTop = rowTop + 4f;
 		float windowBottom = footerTop - 2f;
 		_listPanel.baseClipRegion = new Vector4(0f, (windowTop + windowBottom) * 0.5f, 270f, windowTop - windowBottom);
-		_listScroll.SetMaxScroll(Mathf.Max(0f, windowBottom - rowBottom));
+		_listScroll.ResetPosition();
 	}
 
 	// Top or bottom edge of a row's background, in the scroll panel's local space.
@@ -233,9 +227,17 @@ public class SettingsPopup : UIScreen
 		if (listPanel != null)
 		{
 			_listPanel = listPanel;
-			_gridTopY = grid.localPosition.y;
-			_listScroll = listPanel.gameObject.AddComponent<SettingsListScroll>();
-			_listScroll.Setup(grid.GetComponent<UIGrid>(), listPanel);
+			_listScroll = listPanel.GetComponent<UIScrollView>();
+			// Drags that start on a row scroll the list, the same way the Awards and Shop lists do.
+			foreach (Collider col in grid.GetComponentsInChildren<Collider>(true))
+			{
+				UIDragScrollView drag = col.GetComponent<UIDragScrollView>();
+				if (drag == null)
+				{
+					drag = col.gameObject.AddComponent<UIDragScrollView>();
+				}
+				drag.scrollView = _listScroll;
+			}
 		}
 	}
 
@@ -387,36 +389,5 @@ public class SettingsPopup : UIScreen
 			logInFBButton.SetActive(false);
 		}
 		grid.GetComponent<UIGrid>().repositionNow = true;
-	}
-
-	private void OnGUI()
-	{
-		if (!Globals.DEBUG_SCROLL_READOUT || grid == null)
-		{
-			return;
-		}
-		Transform scroll = grid.transform.parent;
-		UIPanel panel = scroll != null ? scroll.GetComponent<UIPanel>() : null;
-		UIScrollView sv = scroll != null ? scroll.GetComponent<UIScrollView>() : null;
-		string clip = panel != null ? panel.finalClipRegion.ToString() : "no panel";
-		string depth = panel != null ? panel.depth.ToString() : "-";
-		string gridLocal = grid.transform.localPosition.ToString();
-		string gridWorld = grid.transform.position.ToString();
-		string bounds = sv != null ? sv.bounds.ToString() : "-";
-		string first = "-";
-		UIWidget fill = null;
-		foreach (UIWidget w in grid.GetComponentsInChildren<UIWidget>(true))
-		{
-			if (w.name == "Fill")
-			{
-				fill = w;
-				break;
-			}
-		}
-		if (fill != null)
-		{
-			first = "fill screen y " + Mathf.RoundToInt(Camera.main.WorldToScreenPoint(fill.transform.position).y) + " alpha " + fill.alpha + " active " + fill.gameObject.activeInHierarchy;
-		}
-		GUI.Label(new Rect(10f, 40f, 1200f, 300f), "SCROLL clip=" + clip + " depth=" + depth + " gridLocal=" + gridLocal + " gridWorld=" + gridWorld + " bounds=" + bounds + " " + first + " screen=" + Screen.width + "x" + Screen.height);
 	}
 }
