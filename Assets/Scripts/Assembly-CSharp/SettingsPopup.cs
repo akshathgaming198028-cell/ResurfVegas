@@ -88,6 +88,8 @@ public class SettingsPopup : UIScreen
 
 	private int _openCount;
 
+	private Vector3 _listStartLocal;
+
 	private string _scrollReadout = "";
 
 	private void Awake()
@@ -107,6 +109,9 @@ public class SettingsPopup : UIScreen
 		{
 			return;
 		}
+		// Dragging moves the scroll view's own transform. Put it back to where it was authored, every open.
+		_listPanel.transform.localPosition = _listStartLocal;
+		_listPanel.clipOffset = Vector2.zero;
 		UIGrid uiGrid = grid.GetComponent<UIGrid>();
 		if (uiGrid != null)
 		{
@@ -131,7 +136,8 @@ public class SettingsPopup : UIScreen
 		float rowTop = RowEdge(st, first, true);
 		float footerTop = st.InverseTransformPoint(versionNr.position).y + 6f;
 		float windowTop = rowTop + 4f;
-		float windowBottom = footerTop - 2f;
+		// End above the version and architecture line, with a gap.
+		float windowBottom = footerTop + 10f;
 		// Never let the window leave the dialog frame: rows must not draw past the border.
 		Vector3[] frame = fill.worldCorners;
 		float frameBottom = st.InverseTransformPoint(frame[0]).y;
@@ -259,6 +265,7 @@ public class SettingsPopup : UIScreen
 		if (listPanel != null)
 		{
 			_listPanel = listPanel;
+			_listStartLocal = listPanel.transform.localPosition;
 			_listScroll = listPanel.GetComponent<UIScrollView>();
 			_scrollBar = listPanel.transform.parent.Find("SettingsScrollBar");
 			// Drags that start on a row scroll the list, the same way the Awards and Shop lists do.
